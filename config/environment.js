@@ -25,6 +25,11 @@ module.exports = function(environment) {
         api: {
             host: '<insert production host here>',
         },
+
+        'ember-local-storage': {
+            namespace: 'tortuga',
+            keyDelimiter: '/',
+        },
     };
 
     if (environment === 'development') {

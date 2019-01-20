@@ -1,0 +1,12 @@
+<span class="row">
+  <span class="col-md-8">{{ variation.title }}</span>
+  <span class="col-md-2 text-right">{{ variation.price }}</span>
+  <span class="col-md-2 text-center">
+    {{#if countInCart}}
+      <span class="badge badge-success">{{ countInCart }}</span>
+      <span class="btn btn-danger btn-sm" {{action 'removeFromCart' on='click' bubbles=false}}>&times;</span>
+    {{else}}
+      <span class="btn btn-primary btn-sm">Pridat</span>
+    {{/if}}
+  </span>
+</span>
