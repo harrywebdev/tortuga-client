@@ -16,28 +16,19 @@ You will need the following things properly installed on your computer.
 
 * `git clone <repository-url>` this repository
 * `cd tortuga-frontend`
-* `npm install`
+* `yarn install`
 
 ## Running / Development
 
 * `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
+* Visit your app at [http://tortuga.frontend.test:4200](http://tortuga.frontend.test:4200).
+* Visit your tests at [http://tortuga.frontend.test:4200/tests](http://tortuga.frontend.test:4200/tests).
+* add `127.0.0.1  tortuga.frontend.test` to your `/etc/hosts` or remove `host` from `.ember-cli` to use localhost
 
 ### Running Tests
 
 * `ember test`
 * `ember test --server`
-
-### Linting
-
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
 
 ### Building
 

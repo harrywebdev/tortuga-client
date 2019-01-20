@@ -1,0 +1,15 @@
+@import "ember-bootstrap/bootstrap";
+
+// bootstrap overrides
+.container {
+    @include media-breakpoint-up(lg) {
+        max-width: 720px;
+    }
+    @include media-breakpoint-up(xl) {
+        max-width: 720px;
+    }
+}
+
+body {
+    padding: 20px;
+}
