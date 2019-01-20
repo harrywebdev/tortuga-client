@@ -1,0 +1,22 @@
+<div class="card product-card">
+  <div class="card-body">
+    <h5 class="card-title">{{product.title}}</h5>
+    {{!-- <h6 class="card-subtitle mb-2 text-muted">Subtitle</h6> --}}
+    <p class="card-text">{{product.description}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    {{#each product.variations as |variation|}}
+      <li class="list-group-item {{if variation.count "list-group-item-success"}}" {{action 'addToCart' variation}}>
+        <span class="row">
+          <span class="col-md-8">{{ variation.title }}</span>
+          <span class="col-md-3 text-right">{{ variation.price }}</span>
+          <span class="col-md-1 text-center">
+            {{#if variation.count}}
+              <span class="badge">{{ variation.count }}</span>
+            {{/if}}
+          </span>
+        </span>
+      </li>
+    {{/each}}
+  </ul>
+</div>

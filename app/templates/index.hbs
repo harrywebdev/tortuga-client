@@ -1,9 +1,15 @@
-<div class='container'>
-    <div class='jumbotron text-center'>
-        <div class='text-center'>
-            <h1 class='display-4'>Tortuga Bay 🍔</h1>
-            <p class='lead'>Best burgerrrs in town, aye.</p>
-        </div>
-        <hr class='my-4'>
+<div class="container">
+  <div class="jumbotron">
+    <div class="text-center">
+      <h1 class="display-4">Tortuga Bay 🍔</h1>
+      <p class="lead">Best burgerrrs in town, aye.</p>
     </div>
+    <hr class="my-4">
+
+    {{#each model.categories as |category|}}
+      <h2 class="h4">{{ category.title }}</h2>
+      {{product-list category=category items=model.products}}
+      <hr class="my-4">
+    {{/each}}
+  </div>
 </div>
