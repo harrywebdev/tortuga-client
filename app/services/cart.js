@@ -13,7 +13,9 @@ export default Service.extend({
         let variation = this.findInCart(variationId);
 
         if (!variation) {
-            this.get('cart.items').push({ variation_id: variationId, quantity: 1 });
+            let newItems = this.get('cart.items');
+            newItems.push({ variation_id: variationId, quantity: 1 });
+            this.get('cart').set('items', newItems);
             this.notifyPropertyChange('items');
             return;
         }
@@ -29,7 +31,7 @@ export default Service.extend({
         this.notifyPropertyChange('items');
     },
 
-    removeFromCart(variationId, all = false) {
+    removeFromCart(variationId) {
         const variation = this.findInCart(variationId);
 
         if (!variation) {
