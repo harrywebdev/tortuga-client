@@ -11,8 +11,13 @@
 }
 
 body {
-    padding: 20px;
+    padding: 1rem 0;
     background: #fff;
+}
+
+.jumbotron {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .product-card {
@@ -30,7 +35,7 @@ body {
 }
 
 .content-tab {
-    padding: 20px;
+    padding: 1rem;
     border: 1px solid #dee2e6;
     border-top: 0;
     background: #fafafa;

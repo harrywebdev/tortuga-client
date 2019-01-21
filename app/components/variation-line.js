@@ -10,11 +10,21 @@ export default Component.extend({
     classNames: ['list-group-item', 'variation-line'],
     classNameBindings: ['countInCart:list-group-item-success'],
 
+    // for Order Item
+    readonly: false,
+
     click() {
+        if (this.get('readonly') === true) {
+            return;
+        }
         this.get('cart').addToCart(this.get('variation.id'));
     },
 
     countInCart: computed('cart.items.[]', function() {
+        if (this.get('readonly') === true) {
+            return false;
+        }
+
         return this.get('cart').howMuchOf(this.get('variation.id'));
     }),
 
