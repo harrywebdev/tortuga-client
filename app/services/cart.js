@@ -5,9 +5,16 @@ import { storageFor } from 'ember-local-storage';
 export default Service.extend({
     cart: storageFor('cart'),
 
-    items: computed('cart.[]', function() {
+    items: computed('cart.items.[]', function() {
         return this.get('cart.items');
     }).volatile(),
+
+    totalQuantity: computed('items.[]', function() {
+        return this.get('items').reduce((acc, item) => {
+            acc += item.quantity;
+            return acc;
+        }, 0);
+    }),
 
     addToCart(variationId) {
         let variation = this.findInCart(variationId);

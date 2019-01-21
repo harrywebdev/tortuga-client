@@ -1,4 +1,4 @@
-@import "ember-bootstrap/bootstrap";
+@import 'ember-bootstrap/bootstrap';
 
 // bootstrap overrides
 .container {
@@ -12,6 +12,7 @@
 
 body {
     padding: 20px;
+    background: #fff;
 }
 
 .product-card {
@@ -20,4 +21,24 @@ body {
 
 .variation-line {
     cursor: pointer;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    background: #fafafa;
+    border-bottom-color: #fafafa;
+}
+
+.content-tab {
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-top: 0;
+    background: #fafafa;
+    position: relative;
+}
+
+.content-tab__continue-btn {
+    position: absolute;
+    top: 14px;
+    right: 20px;
 }

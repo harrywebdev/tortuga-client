@@ -6,10 +6,68 @@
     </div>
     <hr class="my-4">
 
-    {{#each model.categories as |category|}}
-      <h2 class="h4">{{ category.title }}</h2>
-      {{product-list category=category items=model.products}}
-      <hr class="my-4">
-    {{/each}}
+    {{#bs-tab customTabs=true as |tab|}}
+      {{#bs-nav type="tabs" as |nav|}}
+        {{#nav.item active=(bs-eq tab.activeId "tabMenu")}}
+          <a class="nav-link {{if (bs-eq tab.activeId "tabMenu") "active"}}" href="#tabMenu" role="tab" {{action tab.select "tabMenu"}}>
+            Menu
+            {{#if cart.totalQuantity}}
+              <span class="badge badge-primary">{{cart.totalQuantity}}</span>
+            {{/if}}
+          </a>
+        {{/nav.item}}
+
+        {{#nav.item active=(bs-eq tab.activeId "tabOrder")}}
+          {{#if cart.totalQuantity}}
+            <a class="nav-link {{if (bs-eq tab.activeId "tabOrder") "active"}}" href="#tabOrder" role="tab" {{action tab.select "tabOrder"}}>
+              Objednavka
+            </a>
+          {{else}}
+            <span class="nav-link text-muted">Objednavka</span>
+          {{/if}}
+        {{/nav.item}}
+
+        {{#nav.item active=(bs-eq tab.activeId "tabConfirmation")}}
+          {{#if false}}
+            <a class="nav-link {{if (bs-eq tab.activeId "tabConfirmation") "active"}}" href="#tabConfirmation" role="tab" {{action tab.select "tabConfirmation"}}>
+              Potvrzeni
+            </a>
+          {{else}}
+            <span class="nav-link text-muted">Potvrzeni</span>
+          {{/if}}
+        {{/nav.item}}
+      {{/bs-nav}}
+
+      <div class="tab-content">
+        {{#tab.pane elementId="tabMenu" title="Menu" class="content-tab"}}
+          {{#each model.categories as |category|}}
+            <h2 class="h4">{{ category.title }}</h2>
+            <div class="content-tab__continue-btn">
+              {{#if cart.totalQuantity}}
+                <button class="btn-success btn-sm" href="#tabOrder" {{action tab.select "tabOrder"}}>
+                  Pokracovat
+                </button>
+              {{/if}}
+            </div>
+
+            {{product-list category=category items=model.products}}
+            <hr class="my-4">
+          {{/each}}
+
+          {{#if cart.totalQuantity}}
+            <div class="text-center">
+              <button class="btn-success btn-lg" href="#tabOrder" {{action tab.select "tabOrder"}}>
+                Pokracovat
+              </button>
+            </div>
+          {{/if}}
+        {{/tab.pane}}
+
+        {{#tab.pane elementId="tabOrder" title="Tab 2"}}
+          <p>b...</p>
+        {{/tab.pane}}
+      </div>
+    {{/bs-tab}}
+
   </div>
 </div>
