@@ -51,7 +51,7 @@ export default Controller.extend(Validations, {
         }, []);
 
         const summary = this.get('cart.items').map(item => {
-            const variation = variations.filter(variation => variation.id === item.variation_id)[0];
+            const variation = variations.filter(variation => variation.id === item.productVariationId)[0];
             let orderItem = OrderItem.create({
                 title: `${variation.title} × ${item.quantity}`,
                 price: variation.price * item.quantity,

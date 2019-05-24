@@ -1,13 +1,14 @@
 import Service from '@ember/service';
 import { computed } from '@ember/object';
 import { storageFor } from 'ember-local-storage';
+import CartItem from 'tortuga-frontend/cart-item';
 
 export default Service.extend({
-    cart: storageFor('cart'),
+    cartItems: storageFor('cart-items'),
 
-    items: computed('cart.items.[]', function() {
-        return this.get('cart.items');
-    }).volatile(),
+    items: computed('cartItems.[]', function() {
+        return this.get('cartItems');
+    }),
 
     totalQuantity: computed('items.[]', function() {
         return this.get('items').reduce((acc, item) => {
@@ -17,55 +18,42 @@ export default Service.extend({
     }),
 
     addToCart(variationId) {
-        let variation = this.findInCart(variationId);
+        const cartItem = this._findInCart(variationId);
 
-        if (!variation) {
-            let newItems = this.get('cart.items');
-            newItems.push({ variation_id: variationId, quantity: 1 });
-            this.get('cart').set('items', newItems);
-            this.notifyPropertyChange('items');
-            return;
+        // first of its kind
+        if (!cartItem) {
+            return this.get('cartItems').addObject(new CartItem(variationId, 1));
         }
 
-        const newItems = this.get('cart.items').map(item => {
-            if (item.variation_id === variationId) {
-                item.quantity += 1;
-            }
+        const newCartItem = new CartItem(cartItem.productVariationId, cartItem.quantity + 1);
 
-            return item;
-        });
-        this.get('cart').set('items', newItems);
-        this.notifyPropertyChange('items');
+        this.get('cartItems').removeObject(cartItem);
+        this.get('cartItems').addObject(newCartItem);
     },
 
     removeFromCart(variationId) {
-        const variation = this.findInCart(variationId);
+        const cartItem = this._findInCart(variationId);
 
-        if (!variation) {
+        if (!cartItem) {
             return;
         }
 
-        const newItems = this.get('cart.items')
-            .map(item => {
-                if (item.variation_id === variationId) {
-                    item.quantity -= 1;
-                }
+        const newCartItem = new CartItem(cartItem.productVariationId, cartItem.quantity - 1);
+        this.get('cartItems').removeObject(cartItem);
 
-                return item;
-            })
-            .filter(item => item.quantity > 0);
-        this.get('cart').set('items', newItems);
-        this.notifyPropertyChange('items');
+        if (newCartItem.quantity > 0) {
+            this.get('cartItems').addObject(newCartItem);
+        }
     },
 
     howMuchOf(variationId) {
-        const variation = this.findInCart(variationId);
+        const variation = this._findInCart(variationId);
 
         return variation ? variation.quantity : 0;
     },
 
-    findInCart(variationId) {
-        const found = this.get('cart.items').filter(item => item.variation_id === variationId);
+    _findInCart(variationId) {
+        const found = this.get('items').filter(item => item.productVariationId === variationId);
 
         if (!found.length) {
             return null;
