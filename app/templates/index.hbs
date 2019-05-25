@@ -11,14 +11,14 @@
         {{#nav.item active=(bs-eq tab.activeId "tabMenu")}}
           <a class="nav-link {{if (bs-eq tab.activeId "tabMenu") "active"}}" href="#tabMenu" role="tab" {{action tab.select "tabMenu"}}>
             Menu
-            {{#if cart.totalQuantity}}
+            {{#if orderState.hasCartItems}}
               <span class="badge badge-primary">{{cart.totalQuantity}}</span>
             {{/if}}
           </a>
         {{/nav.item}}
 
         {{#nav.item active=(bs-eq tab.activeId "tabOrder")}}
-          {{#if cart.totalQuantity}}
+          {{#if orderState.isReadyForCustomerDetails}}
             <a class="nav-link {{if (bs-eq tab.activeId "tabOrder") "active"}}" href="#tabOrder" role="tab" {{action tab.select "tabOrder"}}>
               Objednavka
             </a>
@@ -28,7 +28,7 @@
         {{/nav.item}}
 
         {{#nav.item active=(bs-eq tab.activeId "tabConfirmation")}}
-          {{#if false}}
+          {{#if orderState.orderHasBeenMade}}
             <a class="nav-link {{if (bs-eq tab.activeId "tabConfirmation") "active"}}" href="#tabConfirmation" role="tab" {{action tab.select "tabConfirmation"}}>
               Potvrzeni
             </a>
@@ -43,7 +43,7 @@
           {{#each model.categories as |category|}}
             <h2 class="h4">{{ category.title }}</h2>
             <div class="content-tab__continue-btn">
-              {{#if cart.totalQuantity}}
+              {{#if orderState.isReadyForCustomerDetails}}
                 <button class="btn-success btn-sm" href="#tabOrder" {{action tab.select "tabOrder"}}>
                   Pokracovat
                 </button>
@@ -54,7 +54,7 @@
             <hr class="my-4">
           {{/each}}
 
-          {{#if cart.totalQuantity}}
+          {{#if orderState.isReadyForCustomerDetails}}
             <div class="text-center">
               <button class="btn-success btn-lg" href="#tabOrder" {{action tab.select "tabOrder"}}>
                 Pokracovat

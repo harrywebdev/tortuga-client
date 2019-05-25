@@ -37,7 +37,8 @@ const Validations = buildValidations({
 });
 
 export default Controller.extend(Validations, {
-    cart: service('cart'),
+    cart: service(),
+    orderState: service(),
 
     name: null,
     email: null,
@@ -71,6 +72,8 @@ export default Controller.extend(Validations, {
 
     actions: {
         submitOrder() {
+            console.log("submitting order...");
+
             // TODO: get [name, email, mobile, pickup_time, order items]
             // and POST them to Order endpoint on the API
         },
