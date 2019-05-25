@@ -1,24 +1,26 @@
-<span class="row">
-  <span class="col-8 col-sm-6 col-md-8">
-    <strong class="d-block d-sm-none">{{ variation.title }}</strong>
-    <span class="d-none d-sm-block">{{ variation.title }}</span>
-    {{#unless readonly}}
-      <span class="d-block d-sm-none">
-        {{ variation.formattedPrice }}
-      </span>
-    {{/unless}}
-  </span>
-  {{#if readonly}}
-    <span class="col-4 col-sm-6 col-md-4 text-right">{{ variation.formattedPrice }}</span>
-  {{else}}
-    <span class="col-sm-3 col-md-2 text-right d-none d-sm-block">{{ variation.formattedPrice }}</span>
-    <span class="col-4 col-sm-3 col-md-2 text-right">
-      {{#if countInCart}}
-        <span class="badge badge-success">{{ countInCart }}</span>
-        <button class="btn btn-danger btn-sm" {{action "removeFromCart" on="click" bubbles=false}}>&times;</button>
-      {{else}}
-        <button class="btn btn-primary btn-sm" >Pridat</button>
-      {{/if}}
+{{#if variation}}
+  <span class="row">
+    <span class="col-8 col-sm-6 col-md-8">
+      <strong class="d-block d-sm-none">{{ variation.title }}</strong>
+      <span class="d-none d-sm-block">{{ variation.title }}</span>
+      {{#unless readonly}}
+        <span class="d-block d-sm-none">
+          {{ variation.formattedPrice }}
+        </span>
+      {{/unless}}
     </span>
-  {{/if}}
-</span>
+    {{#if readonly}}
+      <span class="col-4 col-sm-6 col-md-4 text-right">{{ variation.formattedPrice }}</span>
+    {{else}}
+      <span class="col-sm-3 col-md-2 text-right d-none d-sm-block">{{ variation.formattedPrice }}</span>
+      <span class="col-4 col-sm-3 col-md-2 text-right">
+        {{#if countInCart}}
+          <span class="badge badge-success">{{ countInCart }}</span>
+          <button class="btn btn-danger btn-sm" {{action "removeFromCart" on="click" bubbles=false}}>&times;</button>
+        {{else}}
+          <button class="btn btn-primary btn-sm" >Pridat</button>
+        {{/if}}
+      </span>
+    {{/if}}
+  </span>
+{{/if}}

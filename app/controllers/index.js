@@ -50,7 +50,7 @@ export default Controller.extend(Validations, {
 
     actions: {
         submitOrder() {
-            console.log('submitting order...');
+            // console.info('submitting order...');
 
             // TODO: get [name, email, mobile, pickup_time, order items]
             // and POST them to Order endpoint on the API
