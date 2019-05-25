@@ -1,0 +1,11 @@
+<span class="row">
+  <span class="col-8 col-sm-6 col-md-8">
+    <strong class="d-block d-sm-none">{{ orderItem.title }}</strong>
+    <span class="d-none d-sm-block">{{ orderItem.title }}</span>
+  </span>
+  <span class="col-sm-3 col-md-2 text-right d-none d-sm-block">{{ orderItem.formattedTotalPrice }}</span>
+  <span class="col-4 col-sm-3 col-md-2 text-right">
+    <span class="badge badge-success">{{ orderItem.quantity }}</span>
+    <button class="btn btn-danger btn-sm" {{action "removeFromCart" on="click" bubbles=false}}>&times;</button>
+  </span>
+</span>

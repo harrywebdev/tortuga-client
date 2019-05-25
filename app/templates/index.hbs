@@ -86,8 +86,8 @@
             <hr class="mb-4">
 
             <ul class="list-group">
-              {{#each orderSummary as |item|}}
-                {{variation-line variation=item readonly=true}}
+              {{#each orderItems as |item|}}
+                {{order-item-line orderItem=item}}
               {{/each}}
             </ul>
 
