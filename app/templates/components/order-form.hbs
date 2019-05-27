@@ -1,0 +1,36 @@
+{{#bs-form model=this onSubmit=(action onSubmit) novalidate=true submitOnEnter=true as |form|}}
+
+<div class="row">
+  <div class="col-6">
+    {{form.element controlType="text" label="Cas vyzvednuti" placeholder="napr. 19:15" property="pickup_time"}}
+  </div>
+  <div class="col-6">
+    {{form.element controlType="text" label="Jmeno" placeholder="Jmeno" property="name"}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    {{form.element controlType="email" label="Email" placeholder="Email" property="email"}}
+  </div>
+  <div class="col-6">
+    {{form.element controlType="tel" label="Telefon" placeholder="Telefon" property="mobile"}}
+  </div>
+</div>
+
+<hr class="mb-4">
+
+<ul class="list-group">
+  {{#each orderItems as |item|}}
+  {{order-item-line orderItem=item}}
+  {{/each}}
+</ul>
+
+<hr class="mb-4">
+
+<div class="text-center">
+  {{#bs-button type="primary" buttonType="submit" class="btn-lg" disabled=form.isSubmitting}}
+  Objednat!
+  {{/bs-button}}
+</div>
+
+{{/bs-form}}
