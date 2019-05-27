@@ -20,9 +20,9 @@ export default Service.extend({
     }),
 
     //
-    orderItems: computed('cart.items.[]', 'products.products.[]', function() {
+    orderItems: computed('cart.orderedItems.[]', 'products.products.[]', function() {
         const products = this.get('products.products');
-        return this.get('cart.items').map(item => {
+        return this.get('cart.orderedItems').map(item => {
             let productInCart = products.filter(product => {
                 return product.variations.filter(variation => variation.id === item.productVariationId).length;
             });

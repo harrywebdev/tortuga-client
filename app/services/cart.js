@@ -10,6 +10,10 @@ export default Service.extend({
         return this.get('cartItems');
     }),
 
+    orderedItems: computed('cartItems.[]', function() {
+        return this.get('cartItems').sortBy('sequence');
+    }),
+
     totalQuantity: computed('items.[]', function() {
         return this.get('items').reduce((acc, item) => {
             acc += item.quantity;
@@ -22,10 +26,10 @@ export default Service.extend({
 
         // first of its kind
         if (!cartItem) {
-            return this.get('cartItems').addObject(new CartItem(variationId, 1));
+            return this.get('cartItems').addObject(new CartItem(variationId, 1, this._getLastSequence() + 1));
         }
 
-        const newCartItem = new CartItem(cartItem.productVariationId, cartItem.quantity + 1);
+        const newCartItem = new CartItem(cartItem.productVariationId, cartItem.quantity + 1, cartItem.sequence);
 
         this.get('cartItems').removeObject(cartItem);
         this.get('cartItems').addObject(newCartItem);
@@ -38,7 +42,7 @@ export default Service.extend({
             return;
         }
 
-        const newCartItem = new CartItem(cartItem.productVariationId, cartItem.quantity - 1);
+        const newCartItem = new CartItem(cartItem.productVariationId, cartItem.quantity - 1, cartItem.sequence);
         this.get('cartItems').removeObject(cartItem);
 
         if (newCartItem.quantity > 0) {
@@ -60,5 +64,9 @@ export default Service.extend({
         }
 
         return found[0];
+    },
+
+    _getLastSequence() {
+        return this.get('orderedItems.length') ? this.get('orderedItems.lastObject.sequence') : 0;
     },
 });
