@@ -45,6 +45,7 @@ export default Controller.extend(Validations, {
 
     actions: {
         submitOrder(data) {
+            // es-lint-disable-next-line
             console.info('submitting order...', data);
 
             // TODO: get [name, email, mobile, pickup_time, order items]

@@ -13,6 +13,6 @@ module('Integration | Component | product-list', function(hooks) {
 
         await render(hbs`{{product-list items=items}}`);
 
-        assert.equal(this.element.textContent.trim(), '');
+        assert.dom(this.element).hasText('');
     });
 });

@@ -12,6 +12,6 @@ module('Integration | Component | variation-line', function(hooks) {
 
         await render(hbs`{{variation-line}}`);
 
-        assert.equal(this.element.textContent.trim(), '');
+        assert.dom(this.element).hasText('');
     });
 });

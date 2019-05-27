@@ -12,6 +12,6 @@ module('Integration | Component | product-card', function(hooks) {
 
         await render(hbs`{{product-card}}`);
 
-        assert.equal(this.element.textContent.trim(), '');
+        assert.dom(this.element).hasText('');
     });
 });

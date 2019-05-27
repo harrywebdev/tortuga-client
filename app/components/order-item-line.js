@@ -11,7 +11,7 @@ export default Component.extend({
 
     actions: {
         removeFromCart() {
-            this.get('cart').removeFromCart(this.get('orderItem.variationId'));
+            this.cart.removeFromCart(this.get('orderItem.variationId'));
         },
     },
 });

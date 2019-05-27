@@ -12,6 +12,6 @@ module('Integration | Component | order-item-line', function(hooks) {
 
         await render(hbs`{{order-item-line}}`);
 
-        assert.equal(this.element.textContent.trim(), '');
+        assert.dom(this.element).hasText('');
     });
 });

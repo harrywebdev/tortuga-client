@@ -14,23 +14,23 @@ export default Component.extend({
     readonly: false,
 
     click() {
-        if (this.get('readonly') === true) {
+        if (this.readonly === true) {
             return;
         }
-        this.get('cart').addToCart(this.get('variation.id'));
+        this.cart.addToCart(this.get('variation.id'));
     },
 
     countInCart: computed('cart.items.[]', function() {
-        if (this.get('readonly') === true) {
+        if (this.readonly === true) {
             return false;
         }
 
-        return this.get('cart').howMuchOf(this.get('variation.id'));
+        return this.cart.howMuchOf(this.get('variation.id'));
     }),
 
     actions: {
         removeFromCart() {
-            this.get('cart').removeFromCart(this.get('variation.id'));
+            this.cart.removeFromCart(this.get('variation.id'));
         },
     },
 });

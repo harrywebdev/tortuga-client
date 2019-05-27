@@ -7,15 +7,15 @@ export default Service.extend({
     cartItems: storageFor('cart-items'),
 
     items: computed('cartItems.[]', function() {
-        return this.get('cartItems');
+        return this.cartItems;
     }),
 
     orderedItems: computed('cartItems.[]', function() {
-        return this.get('cartItems').sortBy('sequence');
+        return this.cartItems.sortBy('sequence');
     }),
 
     totalQuantity: computed('items.[]', function() {
-        return this.get('items').reduce((acc, item) => {
+        return this.items.reduce((acc, item) => {
             acc += item.quantity;
             return acc;
         }, 0);
@@ -26,13 +26,13 @@ export default Service.extend({
 
         // first of its kind
         if (!cartItem) {
-            return this.get('cartItems').addObject(new CartItem(variationId, 1, this._getLastSequence() + 1));
+            return this.cartItems.addObject(new CartItem(variationId, 1, this._getLastSequence() + 1));
         }
 
         const newCartItem = new CartItem(cartItem.productVariationId, cartItem.quantity + 1, cartItem.sequence);
 
-        this.get('cartItems').removeObject(cartItem);
-        this.get('cartItems').addObject(newCartItem);
+        this.cartItems.removeObject(cartItem);
+        this.cartItems.addObject(newCartItem);
     },
 
     removeFromCart(variationId) {
@@ -43,10 +43,10 @@ export default Service.extend({
         }
 
         const newCartItem = new CartItem(cartItem.productVariationId, cartItem.quantity - 1, cartItem.sequence);
-        this.get('cartItems').removeObject(cartItem);
+        this.cartItems.removeObject(cartItem);
 
         if (newCartItem.quantity > 0) {
-            this.get('cartItems').addObject(newCartItem);
+            this.cartItems.addObject(newCartItem);
         }
     },
 
@@ -57,7 +57,7 @@ export default Service.extend({
     },
 
     _findInCart(variationId) {
-        const found = this.get('items').filter(item => item.productVariationId === variationId);
+        const found = this.items.filter(item => item.productVariationId === variationId);
 
         if (!found.length) {
             return null;
