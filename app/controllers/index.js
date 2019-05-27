@@ -39,18 +39,13 @@ export default Controller.extend(Validations, {
     cart: service(),
     orderState: service(),
 
-    name: null,
-    email: null,
-    mobile: '',
-    pickup_time: null,
-
     orderItems: computed('orderState.orderItems', function() {
         return this.orderState.get('orderItems');
     }),
 
     actions: {
-        submitOrder() {
-            // console.info('submitting order...');
+        submitOrder(data) {
+            console.info('submitting order...', data);
 
             // TODO: get [name, email, mobile, pickup_time, order items]
             // and POST them to Order endpoint on the API
