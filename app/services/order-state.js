@@ -39,13 +39,13 @@ export default Service.extend({
             productInCart = productInCart[0];
             const variation = productInCart.variations.filter(variation => variation.id === item.productVariationId)[0];
 
-            let orderItem = OrderItem.create({
-                variationId: variation.get('id'),
-                variationTitle: variation.get('title'),
-                variationPrice: variation.get('price'),
-                productTitle: productInCart.get('title'),
-                quantity: item.quantity,
-            });
+            let orderItem = new OrderItem(
+                variation.get('id'),
+                variation.get('title'),
+                productInCart.get('title'),
+                variation.get('price'),
+                item.quantity
+            );
 
             return orderItem;
         });

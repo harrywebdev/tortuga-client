@@ -4,23 +4,14 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | order-form', function(hooks) {
-  setupRenderingTest(hooks);
+    setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    test('it renders', async function(assert) {
+        // Set any properties with this.set('myProperty', 'value');
+        // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{order-form}}`);
+        await render(hbs`{{order-form}}`);
 
-    assert.dom(this.element).hasText('');
-
-    // Template block usage:
-    await render(hbs`
-      {{#order-form}}
-        template block text
-      {{/order-form}}
-    `);
-
-    assert.dom(this.element).hasText('template block text');
-  });
+        assert.equal(this.element.querySelectorAll('.order-form').length, 1);
+    });
 });

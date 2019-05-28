@@ -1,26 +1,32 @@
-import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
 
-export default EmberObject.extend({
-    variationId: null,
-    variationTitle: null,
-    productTitle: null,
-    variationPrice: null,
-    quantity: null,
+class OrderItem {
+    constructor(variationId, variationTitle, productTitle, variationPrice, quantity) {
+        this.variationId = variationId;
+        this.variationTitle = variationTitle;
+        this.productTitle = productTitle;
+        this.variationPrice = parseInt(variationPrice, 10);
+        this.quantity = parseInt(quantity, 10);
+    }
 
-    title: computed('productTitle', 'variationTitle', 'quantity', function() {
+    @computed('productTitle', 'variationTitle', 'quantity')
+    get title() {
         return `${this.productTitle} - ${this.variationTitle} x ${this.quantity}`;
-    }),
+    }
 
-    totalPrice: computed('variationPrice', 'quantity', function() {
+    @computed('variationPrice', 'quantity')
+    get totalPrice() {
         return this.variationPrice * this.quantity;
-    }),
+    }
 
-    formattedTotalPrice: computed('totalPrice', function() {
+    @computed('totalPrice')
+    get formattedTotalPrice() {
         return (this.totalPrice / 100).toLocaleString('cs-CZ', {
             style: 'currency',
             currency: 'CZK',
             minimumFractionDigits: 0,
         });
-    }),
-});
+    }
+}
+
+export default OrderItem;

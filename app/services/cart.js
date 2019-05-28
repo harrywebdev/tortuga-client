@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import { computed } from '@ember/object';
 import { storageFor } from 'ember-local-storage';
-import CartItem from 'tortuga-frontend/cart-item';
+import CartItem from 'tortuga-frontend/models/cart-item';
 
 export default Service.extend({
     cartItems: storageFor('cart-items'),

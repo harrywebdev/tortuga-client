@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
@@ -39,13 +38,9 @@ export default Controller.extend(Validations, {
     cart: service(),
     orderState: service(),
 
-    orderItems: computed('orderState.orderItems', function() {
-        return this.orderState.get('orderItems');
-    }),
-
     actions: {
         submitOrder(data) {
-            // es-lint-disable-next-line
+            // eslint-disable-next-line no-console
             console.info('submitting order...', data);
 
             // TODO: get [name, email, mobile, pickup_time, order items]
