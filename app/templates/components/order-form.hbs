@@ -21,16 +21,16 @@
 
   <ul class="list-group">
     {{#each orderItems as |item|}}
-      {{order-item-line orderItem=item}}
+      <OrderItemLine @orderItem={{item}} />
     {{/each}}
   </ul>
 
   <hr class="mb-4">
 
   <div class="text-center">
-    {{#bs-button type="primary" buttonType="submit" class="btn-lg" disabled=form.isSubmitting}}
+    <BsButton @type="primary" @buttonType="submit" class="btn-lg" @disabled={{form.isSubmitting}}>
       Objednat!
-    {{/bs-button}}
+    </BsButton>
   </div>
 
 {{/bs-form}}

@@ -5,7 +5,7 @@
   </div>
   <ul class="list-group list-group-flush">
     {{#each product.variations as |variation|}}
-      {{variation-line variation=variation}}
+      <VariationLine @variation={{variation}} />
     {{/each}}
   </ul>
 </div>
