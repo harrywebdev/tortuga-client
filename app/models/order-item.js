@@ -7,6 +7,8 @@ class OrderItem {
         this.productTitle = productTitle;
         this.variationPrice = parseInt(variationPrice, 10);
         this.quantity = parseInt(quantity, 10);
+
+        Object.freeze(this);
     }
 
     @computed('productTitle', 'variationTitle', 'quantity')

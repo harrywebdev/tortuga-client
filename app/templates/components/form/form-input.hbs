@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label for="input-{{name}}-{{element.id}}">{{label}}</label>
+  <input
+    type={{inputType}}
+    class="form-control {{if hasError "is-invalid"}} {{if isValid "is-valid"}}"
+    id="input-{{name}}-{{element.id}}"
+    name={{name}}
+    placeholder={{placeholder}}
+    value={{changeset-get changeset name}}
+    onchange={{action (changeset-set changeset name) value="target.value"}}
+  >
+
+  {{#if hasError}}
+    <div class="invalid-feedback">{{errorMessage}}</div>
+  {{/if}}
+</div>

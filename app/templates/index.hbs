@@ -64,7 +64,7 @@
         </tab.pane>
 
         <tab.pane @elementId="tabOrder" @title="Tab 2" class="content-tab">
-          <OrderForm @onSubmit={{action "submitOrder"}} />
+          <OrderForm @submit={{action "submitOrder"}} @rollback={{action "rollbackOrder"}} @changeset={{changeset order OrderValidation}} />
         </tab.pane>
       </div>
     </BsTab>

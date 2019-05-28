@@ -1,19 +1,32 @@
-{{#bs-form model=this onSubmit=(action onSubmit) novalidate=true submitOnEnter=true as |form|}}
-
+<form class="needs-validation">
   <div class="row">
     <div class="col-6">
-      {{form.element controlType="text" label="Cas vyzvednuti" placeholder="napr. 19:15" property="pickup_time"}}
+      <Form::FormInput @placeholder="napr. 19:15" @name="pickupTime" @label="Cas vyzvednuti" @changeset={{inputChangeset}} />
     </div>
     <div class="col-6">
-      {{form.element controlType="text" label="Jmeno" placeholder="Jmeno" property="name"}}
+      <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} />
     </div>
   </div>
   <div class="row">
     <div class="col-6">
-      {{form.element controlType="email" label="Email" placeholder="Email" property="email"}}
+      <Form::FormInput @type="email" @placeholder="Email" @name="email" @label="Email" @changeset={{inputChangeset}} />
     </div>
     <div class="col-6">
-      {{form.element controlType="tel" label="Telefon" placeholder="Telefon" property="mobile"}}
+      <div class="form-group">
+        <label for="orderMobile">Telefon</label>
+        <input
+          type="tel"
+          class="form-control {{if changeset.error.mobile.value "is-invalid"}} {{if changeset.change.mobile "is-valid"}}"
+          id="orderMobile"
+          placeholder="Telefon"
+          value={{changeset-get changeset "mobile"}}
+          onchange={{action (changeset-set changeset "mobile") value="target.value"}}
+        >
+
+        {{#if changeset.error.mobile.value}}
+          <div class="invalid-feedback">{{changeset.error.mobile.validation}}</div>
+        {{/if}}
+      </div>
     </div>
   </div>
 
@@ -28,9 +41,8 @@
   <hr class="mb-4">
 
   <div class="text-center">
-    <BsButton @type="primary" @buttonType="submit" class="btn-lg" @disabled={{form.isSubmitting}}>
-      Objednat!
-    </BsButton>
+    <button type="submit" class="btn btn-lg btn-primary" {{action submit changeset}} disabled={{isSubmitDisabled}}>Objednat</button>
+    <button class="btn btn-sm btn-warning" {{action rollback changeset}}>Zrusit</button>
   </div>
 
-{{/bs-form}}
+</form>

@@ -1,50 +1,28 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { validator, buildValidations } from 'ember-cp-validations';
+import Order from 'tortuga-frontend/models/order';
+import OrderValidation from 'tortuga-frontend/validations/order';
 
-const Validations = buildValidations({
-    name: [
-        validator('presence', {
-            presence: true,
-            message: 'Vyplnte jmeno.',
-        }),
-    ],
-    email: [
-        validator('presence', {
-            presence: true,
-            message: 'Vyplnte email.',
-        }),
-        validator('format', { type: 'email', message: 'Neplatny format emailu.' }),
-    ],
-    mobile: [
-        validator('format', {
-            type: 'number',
-            message: 'Muze obsahovat pouze cisla.',
-        }),
-    ],
-    pickup_time: [
-        validator('presence', {
-            presence: true,
-            message: 'Vyplnte cas vyzvednuti.',
-        }),
-        validator('format', {
-            regex: /^([01][0-9]|2[0-3]):([0-5][0-9])$/,
-            message: 'Cas v nespravnem formatu (format hh:mm, napr. 21:35)',
-        }),
-    ],
-});
-
-export default Controller.extend(Validations, {
+export default Controller.extend(OrderValidation, {
     cart: service(),
     orderState: service(),
 
-    actions: {
-        submitOrder(data) {
-            // eslint-disable-next-line no-console
-            console.info('submitting order...', data);
+    order: null,
+    OrderValidation: OrderValidation,
 
-            // TODO: get [name, email, mobile, pickup_time, order items]
-            // and POST them to Order endpoint on the API
+    init() {
+        this._super(...arguments);
+        this.order = new Order();
+    },
+
+    actions: {
+        submitOrder(changeset) {
+            changeset.save();
+            return changeset.get('data');
+        },
+
+        rollbackOrder(changeset) {
+            return changeset.rollback();
         },
     },
 });
