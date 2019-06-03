@@ -41,6 +41,11 @@ export default Component.extend({
 
     actions: {
         resetCustomer() {
+            // log in out of facebook login
+            if (this.orderState.get('customer.facebook_id')) {
+                this.facebookLogin.logout();
+            }
+
             this.orderState.resetCustomer();
             this.changeset.set('name', '');
         },

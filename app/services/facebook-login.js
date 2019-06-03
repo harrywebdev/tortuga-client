@@ -42,8 +42,12 @@ export default class FacebookLoginService extends Service {
 
                     resolve(response.authResponse.accessToken);
                 },
-                { scope: 'email' }
+                { scope: 'email', auth_type: 'rerequest' }
             );
         });
+    }
+
+    logout() {
+        FB.logout();
     }
 }
