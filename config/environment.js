@@ -22,6 +22,13 @@ module.exports = function(environment) {
             // when it is created
         },
 
+        accountKit: {
+            appId: '343032269734440',
+            debug: true,
+            redirectUrl: 'http://tortuga.frontend.test:4200/',
+            version: 'v1.0',
+        },
+
         api: {
             host: '<insert production host here>',
         },

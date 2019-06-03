@@ -1,48 +1,36 @@
+<ul class="list-group">
+  {{#each orderItems as |item|}}
+    <OrderItemLine @orderItem={{item}} />
+  {{/each}}
+</ul>
+
+<hr class="mb-4">
+
+
 <form class="needs-validation">
   <div class="row">
     <div class="col-6">
+      <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} @disabled={{identityVerified}} />
+      {{#if identityVerified}}
+        <a href="#reset" {{action 'resetCustomer'}}>Zmenit prijemce?</a>
+      {{/if}}
+    </div>
+    <div class="col-6">
       <Form::FormInput @placeholder="napr. 19:15" @name="pickupTime" @label="Cas vyzvednuti" @changeset={{inputChangeset}} />
     </div>
-    <div class="col-6">
-      <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-6">
-      <Form::FormInput @type="email" @placeholder="Email" @name="email" @label="Email" @changeset={{inputChangeset}} />
-    </div>
-    <div class="col-6">
-      <div class="form-group">
-        <label for="orderMobile">Telefon</label>
-        <input
-          type="tel"
-          class="form-control {{if changeset.error.mobile.value "is-invalid"}} {{if changeset.change.mobile "is-valid"}}"
-          id="orderMobile"
-          placeholder="Telefon"
-          value={{changeset-get changeset "mobile"}}
-          onchange={{action (changeset-set changeset "mobile") value="target.value"}}
-        >
-
-        {{#if changeset.error.mobile.value}}
-          <div class="invalid-feedback">{{changeset.error.mobile.validation}}</div>
-        {{/if}}
-      </div>
-    </div>
   </div>
 
   <hr class="mb-4">
 
-  <ul class="list-group">
-    {{#each orderItems as |item|}}
-      <OrderItemLine @orderItem={{item}} />
-    {{/each}}
-  </ul>
+  {{#unless identityVerified}}
+    <AccountKitLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action 'verifyCustomer'}} />
+  {{/unless}}
 
-  <hr class="mb-4">
-
-  <div class="text-center">
-    <button type="submit" class="btn btn-lg btn-primary" {{action submit changeset}} disabled={{isSubmitDisabled}}>Objednat</button>
-    <button class="btn btn-sm btn-warning" {{action rollback changeset}}>Zrusit</button>
-  </div>
-
+  {{#if identityVerified}}
+    <div class="text-center">
+      <button type="submit" class="btn btn-lg btn-primary" {{action submit changeset}} disabled={{isSubmitDisabled}}>Objednat</button>
+      <button class="btn btn-sm btn-warning" {{action rollback changeset}}>Zrusit</button>
+    </div>
+  {{/if}}
 </form>
+

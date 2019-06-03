@@ -8,12 +8,18 @@ export default Service.extend({
     cart: service(),
     products: service(),
 
+    customer: null,
+
     // flags
     hasCartItems: computed('cart.items.[]', function() {
         return this.get('cart.items.length');
     }),
 
     isReadyForCustomerDetails: alias('hasCartItems'),
+
+    hasIdentityVerified: computed('customer', function() {
+        return this.get('customer') !== null;
+    }),
 
     orderHasBeenMade: computed(function() {
         return false;
@@ -50,4 +56,12 @@ export default Service.extend({
             return orderItem;
         });
     }),
+
+    updateCustomer(customer) {
+        this.set('customer', customer);
+    },
+
+    resetCustomer() {
+        this.set('customer', null);
+    },
 });

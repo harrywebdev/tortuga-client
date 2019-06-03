@@ -9,6 +9,7 @@ export default Component.extend({
     label: '',
     type: 'text',
     inputType: alias('type'),
+    disabled: false,
 
     isValid: computed('name', 'changeset.change', function() {
         return this.get(`changeset.change.${this.get('name')}`);

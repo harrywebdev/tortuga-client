@@ -10,7 +10,9 @@ module.exports = {
     env: {
         browser: true,
     },
-    rules: {},
+    rules: {
+        'no-console': 1,
+    },
     overrides: [
         // node files
         {
