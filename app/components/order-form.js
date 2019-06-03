@@ -72,6 +72,7 @@ export default Component.extend({
             customer.save().then(
                 customer => {
                     this.orderState.updateCustomer(customer);
+                    this.changeset.set('name', customer.get('name'));
                 },
                 reason => {
                     // TODO: error reporting
