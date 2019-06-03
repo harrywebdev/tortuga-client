@@ -1,6 +1,5 @@
 /* global FB */
 import Service from '@ember/service';
-import { inject as service } from '@ember/service';
 import { Promise as EmberPromise } from 'rsvp';
 import config from 'tortuga-frontend/config/environment';
 
@@ -21,7 +20,7 @@ export default class FacebookLoginService extends Service {
     }
 
     checkStatus() {
-        return new EmberPromise((resolve, reject) => {
+        return new EmberPromise(resolve => {
             FB.getLoginStatus(response => {
                 if (response.status !== 'connected') {
                     return;

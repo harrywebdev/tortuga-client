@@ -12,7 +12,7 @@
     <div class="col-6">
       <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} @disabled={{identityVerified}} />
       {{#if identityVerified}}
-        <a href="#reset" {{action 'resetCustomer'}}>Zmenit prijemce?</a>
+        <a href="#reset" {{action "resetCustomer"}}>Zmenit prijemce?</a>
       {{/if}}
     </div>
     <div class="col-6">
@@ -23,8 +23,8 @@
   <hr class="mb-4">
 
   {{#unless identityVerified}}
-    <AccountKitLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action 'verifyAccountKitCustomer'}} />
-    <FacebookLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action 'verifyFacebookLoginCustomer'}} />
+    <AccountKitLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action "verifyAccountKitCustomer"}} />
+    <FacebookLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action "verifyFacebookLoginCustomer"}} />
   {{/unless}}
 
   {{#if identityVerified}}

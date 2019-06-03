@@ -4,23 +4,11 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | account-kit-login', function(hooks) {
-  setupRenderingTest(hooks);
+    setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    test('it renders', async function(assert) {
+        await render(hbs`<AccountKitLogin />`);
 
-    await render(hbs`<AccountKitLogin />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <AccountKitLogin>
-        template block text
-      </AccountKitLogin>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
-  });
+        assert.equal(this.element.querySelectorAll('.account-kit-login').length, 1);
+    });
 });
