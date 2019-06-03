@@ -1,0 +1,7 @@
+# TODO: add to README
+# add `server.key` and `server.crt` in this folder, see how https://devcenter.heroku.com/articles/ssl-certificate-self
+# make sure to put `localhost` for `Subject Alternate Name (SAN)` on the generated cert to be valid on localhost
+
+device.key
+tortuga.frontend.test.*
+rootCA.*
