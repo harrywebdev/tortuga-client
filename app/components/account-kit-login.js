@@ -4,6 +4,8 @@ import { inject as service } from '@ember/service';
 export default Component.extend({
     accountKit: service(),
 
+    classNames: ['account-kit-login'],
+
     disabled: false,
 
     onFinish() {

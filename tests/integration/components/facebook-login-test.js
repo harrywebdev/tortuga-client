@@ -3,12 +3,12 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | account-kit-login', function(hooks) {
+module('Integration | Component | facebook-login', function(hooks) {
     setupRenderingTest(hooks);
 
     test('it renders', async function(assert) {
-        await render(hbs`<AccountKitLogin />`);
+        await render(hbs`<FacebookLogin />`);
 
-        assert.equal(this.element.querySelectorAll('.account-kit-login').length, 1);
+        assert.equal(this.element.querySelectorAll('.facebook-login').length, 1);
     });
 });

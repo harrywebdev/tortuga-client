@@ -3,8 +3,12 @@ const { Model } = DS;
 
 export default Model.extend({
     reg_type: DS.attr('string'),
-    code: DS.attr('string'),
+
     account_kit_id: DS.attr('string'),
+    code: DS.attr('string'),
+
+    facebook_id: DS.attr('string'),
+    access_token: DS.attr('string'),
 
     name: DS.attr('string'),
     email: DS.attr('string'),

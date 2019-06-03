@@ -4,6 +4,7 @@ import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
+    facebookLogin: service(),
     orderState: service(),
     store: service(),
 
@@ -29,6 +30,9 @@ export default Component.extend({
     didInsertElement() {
         this._super(...arguments);
         this.changeset.validate();
+        this.facebookLogin.checkStatus().then(accessToken => {
+            this.send('verifyFacebookLoginCustomer', accessToken);
+        });
     },
 
     onSubmit() {
@@ -37,11 +41,16 @@ export default Component.extend({
 
     actions: {
         resetCustomer() {
+            // log in out of facebook login
+            if (this.orderState.get('customer.facebook_id')) {
+                this.facebookLogin.logout();
+            }
+
             this.orderState.resetCustomer();
             this.changeset.set('name', '');
         },
 
-        verifyCustomer(registrationType, accountKitCode) {
+        verifyAccountKitCustomer(registrationType, accountKitCode) {
             const customer = this.store.createRecord('customer', {
                 reg_type: registrationType,
                 name: this.changeset.get('name'),
@@ -51,6 +60,24 @@ export default Component.extend({
             customer.save().then(
                 customer => {
                     this.orderState.updateCustomer(customer);
+                },
+                reason => {
+                    // TODO: error reporting
+                    console.error('Could not save customer', reason);
+                }
+            );
+        },
+
+        verifyFacebookLoginCustomer(accessToken) {
+            const customer = this.store.createRecord('customer', {
+                reg_type: 'facebook',
+                access_token: accessToken,
+            });
+
+            customer.save().then(
+                customer => {
+                    this.orderState.updateCustomer(customer);
+                    this.changeset.set('name', customer.get('name'));
                 },
                 reason => {
                     // TODO: error reporting

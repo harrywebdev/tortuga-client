@@ -47,3 +47,13 @@ body {
     top: 14px;
     right: 20px;
 }
+
+.facebook-login,
+.account-kit-login {
+    display: inline-block;
+    margin-right: 20px;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
