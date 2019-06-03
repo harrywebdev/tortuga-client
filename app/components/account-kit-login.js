@@ -13,7 +13,7 @@ export default Component.extend({
     // TODO: load this from localStorage if there has been previous order
     // TODO: this should get set by locale
     countryCode: '+420',
-    mobileNumber: '732676850',
+    mobileNumber: '',
     email: '',
 
     actions: {
