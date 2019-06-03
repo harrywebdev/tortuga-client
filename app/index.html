@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bob's Burgers</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Bob's Burgers</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    {{content-for "head"}}
+        {{content-for "head"}}
 
-    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
-    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/tortuga-frontend.css">
+        <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css" />
+        <link integrity="" rel="stylesheet" href="{{rootURL}}assets/tortuga-frontend.css" />
 
-    {{content-for "head-footer"}}
-  </head>
-  <body>
-    {{content-for "body"}}
+        <!-- TODO: this should be lazy loaded in script and used correct locale -->
+        <script src="https://sdk.accountkit.com/cs_CZ/sdk.js"></script>
 
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script src="{{rootURL}}assets/tortuga-frontend.js"></script>
+        {{content-for "head-footer"}}
+    </head>
+    <body>
+        {{content-for "body"}}
 
-    {{content-for "body-footer"}}
-  </body>
+        <script src="{{rootURL}}assets/vendor.js"></script>
+        <script src="{{rootURL}}assets/tortuga-frontend.js"></script>
+
+        {{content-for "body-footer"}}
+    </body>
 </html>
