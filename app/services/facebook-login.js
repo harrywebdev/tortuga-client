@@ -27,9 +27,7 @@ export default class FacebookLoginService extends Service {
                     return;
                 }
 
-                FB.api('/me?fields=id,name,email', function(response) {
-                    resolve(response);
-                });
+                resolve(response.authResponse.accessToken);
             });
         });
     }
@@ -42,9 +40,7 @@ export default class FacebookLoginService extends Service {
                         return reject('User cancelled login or did not fully authorize.');
                     }
 
-                    FB.api('/me?fields=id,name,email', function(response) {
-                        resolve(response);
-                    });
+                    resolve(response.authResponse.accessToken);
                 },
                 { scope: 'email' }
             );

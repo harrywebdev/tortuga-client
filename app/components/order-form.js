@@ -30,8 +30,8 @@ export default Component.extend({
     didInsertElement() {
         this._super(...arguments);
         this.changeset.validate();
-        this.facebookLogin.checkStatus().then(data => {
-            this.send('linkCustomer', data.name, data.email, data.id);
+        this.facebookLogin.checkStatus().then(accessToken => {
+            this.send('verifyFacebookLoginCustomer', accessToken);
         });
     },
 
@@ -45,7 +45,7 @@ export default Component.extend({
             this.changeset.set('name', '');
         },
 
-        verifyCustomer(registrationType, accountKitCode) {
+        verifyAccountKitCustomer(registrationType, accountKitCode) {
             const customer = this.store.createRecord('customer', {
                 reg_type: registrationType,
                 name: this.changeset.get('name'),
@@ -63,12 +63,10 @@ export default Component.extend({
             );
         },
 
-        linkCustomer(name, email, facebookId) {
+        verifyFacebookLoginCustomer(accessToken) {
             const customer = this.store.createRecord('customer', {
                 reg_type: 'facebook',
-                name: name,
-                email: email,
-                facebook_id: facebookId,
+                access_token: accessToken,
             });
 
             customer.save().then(

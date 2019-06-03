@@ -15,8 +15,8 @@ export default Component.extend({
     actions: {
         facebookLogin() {
             this.facebookLogin.login().then(
-                data => {
-                    this.onFinish(data.name, data.email, data.id);
+                accessToken => {
+                    this.onFinish(accessToken);
                 },
                 () => {
                     // we don't probably care here for now
