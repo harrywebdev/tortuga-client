@@ -4,6 +4,7 @@ import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
+    facebookLogin: service(),
     orderState: service(),
     store: service(),
 
@@ -29,6 +30,9 @@ export default Component.extend({
     didInsertElement() {
         this._super(...arguments);
         this.changeset.validate();
+        this.facebookLogin.checkStatus().then(data => {
+            this.send('linkCustomer', data.name, data.email, data.id);
+        });
     },
 
     onSubmit() {
@@ -46,6 +50,25 @@ export default Component.extend({
                 reg_type: registrationType,
                 name: this.changeset.get('name'),
                 code: accountKitCode,
+            });
+
+            customer.save().then(
+                customer => {
+                    this.orderState.updateCustomer(customer);
+                },
+                reason => {
+                    // TODO: error reporting
+                    console.error('Could not save customer', reason);
+                }
+            );
+        },
+
+        linkCustomer(name, email, facebookId) {
+            const customer = this.store.createRecord('customer', {
+                reg_type: 'facebook',
+                name: name,
+                email: email,
+                facebook_id: facebookId,
             });
 
             customer.save().then(

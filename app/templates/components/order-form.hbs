@@ -24,6 +24,7 @@
 
   {{#unless identityVerified}}
     <AccountKitLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action 'verifyCustomer'}} />
+    <FacebookLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action 'linkCustomer'}} />
   {{/unless}}
 
   {{#if identityVerified}}

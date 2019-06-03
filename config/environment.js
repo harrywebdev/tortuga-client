@@ -37,6 +37,11 @@ module.exports = function(environment) {
             namespace: 'tortuga',
             keyDelimiter: '/',
         },
+
+        facebookLogin: {
+            appId: '343032269734440',
+            version: 'v1.0',
+        },
     };
 
     if (environment === 'development') {
