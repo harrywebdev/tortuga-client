@@ -3815,6 +3815,13 @@ ember-copy@^1.0.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
+ember-data-save-relationships@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/ember-data-save-relationships/-/ember-data-save-relationships-0.0.10.tgz#bd78a0c3ea7627c2a31ee9a5033229fa366df127"
+  integrity sha1-vXigw+p2J8KjHumlAzIp+jZt8Sc=
+  dependencies:
+    ember-cli-babel "^6.12.0"
+
 ember-data@~3.10.0:
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-3.10.0.tgz#b5f53a445ba1ee37890ec672b3dc3f869d8b3992"

@@ -43,9 +43,9 @@
           {{#each model.categories as |category|}}
             <h2 class="h4">{{ category.title }}</h2>
             <div class="content-tab__continue-btn">
-              Celkem: {{orderState.formattedTotalPrice}}
+              Celkem: {{orderState.formattedTotalPrice}}&nbsp;&nbsp;
               {{#if orderState.isReadyForCustomerDetails}}
-                <button class="btn-success btn-sm" href="#tabOrder" {{action tab.select "tabOrder"}} style="margin-left: 4px;">
+                <button class="btn-success btn-sm" href="#tabOrder" {{action tab.select "tabOrder"}}>
                   Pokracovat
                 </button>
               {{/if}}
@@ -65,7 +65,7 @@
           {{/if}}
         </tab.pane>
 
-        <tab.pane @elementId="tabOrder" @title="Tab 2" class="content-tab">
+        <tab.pane @elementId="tabOrder" @title="Objednavka" class="content-tab">
           <OrderForm @submit={{action "submitOrder"}} @rollback={{action "rollbackOrder"}} @changeset={{changeset order OrderValidation}} />
         </tab.pane>
       </div>

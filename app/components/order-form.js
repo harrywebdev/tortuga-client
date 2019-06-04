@@ -11,9 +11,20 @@ export default Component.extend({
     classNames: ['order-form'],
 
     isSubmitting: false,
-    isSubmitDisabled: computed('identityVerified', 'isSubmitting', 'changeset.isInvalid', function() {
-        return this.isSubmitting || !this.get('identityVerified') || this.get('changeset.isInvalid');
-    }),
+    isSubmitDisabled: computed(
+        'identityVerified',
+        'isSubmitting',
+        'changeset.isInvalid',
+        'orderState.hasCartItems',
+        function() {
+            return (
+                this.isSubmitting ||
+                !this.get('identityVerified') ||
+                this.get('changeset.isInvalid') ||
+                !this.get('orderState.hasCartItems')
+            );
+        }
+    ),
 
     hasNameAndPickupTimeMissing: computed('changeset.isInvalid', function() {
         return this.changeset.get('isInvalid');
