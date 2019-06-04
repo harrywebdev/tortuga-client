@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import { computed } from '@ember/object';
 const { Model } = DS;
 
 export default Model.extend({
@@ -18,4 +19,15 @@ export default Model.extend({
 
     created_at: DS.attr('date'),
     updated_at: DS.attr('date'),
+
+    displayRegistrationType: computed('reg_type', function() {
+        switch (this.get('reg_type')) {
+            case 'facebook':
+                return 'Facebook';
+            case 'mobile':
+                return 'telefon';
+            case 'email':
+                return 'email';
+        }
+    }),
 });

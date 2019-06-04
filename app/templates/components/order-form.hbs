@@ -1,3 +1,5 @@
+<h2 class="h4">Prehled objednavky</h2>
+
 <ul class="list-group">
   {{#each orderItems as |item|}}
     <OrderItemLine @orderItem={{item}} />
@@ -10,10 +12,14 @@
 <form class="needs-validation">
   <div class="row">
     <div class="col-6">
-      <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} @disabled={{identityVerified}} />
-      {{#if identityVerified}}
-        <a href="#reset" {{action "resetCustomer"}}>Zmenit prijemce?</a>
-      {{/if}}
+      <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} @disabled={{identityVerified}}>
+        {{#if identityVerified}}
+          <small class="text-muted">
+            Prihlasen/a pres {{orderState.customer.displayRegistrationType}}.
+            <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
+          </small>
+        {{/if}}
+      </Form::FormInput>
     </div>
     <div class="col-6">
       <Form::FormInput @placeholder="napr. 19:15" @name="pickupTime" @label="Cas vyzvednuti" @changeset={{inputChangeset}} />
@@ -30,7 +36,6 @@
   {{#if identityVerified}}
     <div class="text-center">
       <button type="submit" class="btn btn-lg btn-primary" {{action submit changeset}} disabled={{isSubmitDisabled}}>Objednat</button>
-      <button class="btn btn-sm btn-warning" {{action rollback changeset}}>Zrusit</button>
     </div>
   {{/if}}
 </form>

@@ -11,8 +11,8 @@ export default Component.extend({
     classNames: ['order-form'],
 
     isSubmitting: false,
-    isSubmitDisabled: computed('identityVerified', 'isSubmitting', function() {
-        return this.isSubmitting || !this.get('identityVerified');
+    isSubmitDisabled: computed('identityVerified', 'isSubmitting', 'changeset.isInvalid', function() {
+        return this.isSubmitting || !this.get('identityVerified') || this.get('changeset.isInvalid');
     }),
 
     hasNameAndPickupTimeMissing: computed('changeset.isInvalid', function() {
