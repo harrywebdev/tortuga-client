@@ -4,31 +4,51 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import OrderItem from 'tortuga-frontend/models/order-item';
 
-export default Service.extend({
-    cart: service(),
-    products: service(),
+export default class OrderState extends Service {
+    @service cart;
+    @service products;
 
-    customer: null,
+    customer = null;
 
     // flags
-    hasCartItems: computed('cart.items.[]', function() {
-        return this.get('cart.items.length');
-    }),
+    @computed('cart.items.[]')
+    get hasCartItems() {
+        return this.cart.get('items.length');
+    }
 
-    isReadyForCustomerDetails: alias('hasCartItems'),
+    @alias('hasCartItems') isReadyForCustomerDetails;
 
-    hasIdentityVerified: computed('customer', function() {
-        return this.get('customer') !== null;
-    }),
+    @computed('customer')
+    get hasIdentityVerified() {
+        return this.customer !== null;
+    }
 
-    orderHasBeenMade: computed(function() {
+    @computed()
+    get orderHasBeenMade() {
         return false;
-    }),
+    }
 
-    //
-    orderItems: computed('cart.orderedItems.[]', 'products.products.[]', function() {
-        const products = this.get('products.products');
-        return this.get('cart.orderedItems').map(item => {
+    @computed('orderItems.[]')
+    get totalPrice() {
+        return this.orderItems.reduce((acc, orderItem) => {
+            acc += orderItem.totalPrice;
+            return acc;
+        }, 0);
+    }
+
+    @computed('totalPrice')
+    get formattedTotalPrice() {
+        return (this.totalPrice / 100).toLocaleString('cs-CZ', {
+            style: 'currency',
+            currency: 'CZK',
+            minimumFractionDigits: 0,
+        });
+    }
+
+    @computed('cart.orderedItems.[]', 'products.products.[]')
+    get orderItems() {
+        const products = this.products.get('products');
+        return this.cart.get('orderedItems').map(item => {
             let productInCart = products.filter(product => {
                 return product.variations.filter(variation => variation.id === item.productVariationId).length;
             });
@@ -55,13 +75,13 @@ export default Service.extend({
 
             return orderItem;
         });
-    }),
+    }
 
     updateCustomer(customer) {
         this.set('customer', customer);
-    },
+    }
 
     resetCustomer() {
         this.set('customer', null);
-    },
-});
+    }
+}
