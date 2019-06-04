@@ -1,6 +1,6 @@
 import { computed } from '@ember/object';
 
-class OrderItem {
+class OrderLineItem {
     constructor(variationId, variationTitle, productTitle, variationPrice, quantity) {
         this.variationId = variationId;
         this.variationTitle = variationTitle;
@@ -31,4 +31,4 @@ class OrderItem {
     }
 }
 
-export default OrderItem;
+export default OrderLineItem;

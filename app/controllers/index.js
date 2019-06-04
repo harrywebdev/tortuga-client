@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import Order from 'tortuga-frontend/models/order';
 import OrderValidation from 'tortuga-frontend/validations/order';
 
 export default Controller.extend(OrderValidation, {
@@ -12,7 +11,10 @@ export default Controller.extend(OrderValidation, {
 
     init() {
         this._super(...arguments);
-        this.order = new Order();
+        this.order = {
+            name: null,
+            pickupTime: null,
+        };
     },
 
     actions: {

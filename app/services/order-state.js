@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
-import OrderItem from 'tortuga-frontend/models/order-item';
+import OrderLineItem from 'tortuga-frontend/models/order-line-item';
 
 export default class OrderState extends Service {
     @service cart;
@@ -65,7 +65,7 @@ export default class OrderState extends Service {
             productInCart = productInCart[0];
             const variation = productInCart.variations.filter(variation => variation.id === item.productVariationId)[0];
 
-            let orderItem = new OrderItem(
+            let orderItem = new OrderLineItem(
                 variation.get('id'),
                 variation.get('title'),
                 productInCart.get('title'),
