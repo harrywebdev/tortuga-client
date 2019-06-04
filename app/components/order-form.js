@@ -46,6 +46,10 @@ export default Component.extend({
                 this.facebookLogin.logout();
             }
 
+            // unload record from store to prevent error when creating new record
+            // returns existing record
+            this.store.unloadRecord(this.orderState.get('customer'));
+
             this.orderState.resetCustomer();
             this.changeset.set('name', '');
         },
