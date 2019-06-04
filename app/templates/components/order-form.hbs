@@ -12,14 +12,18 @@
 <form class="needs-validation">
   <div class="row">
     <div class="col-6">
-      <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} @disabled={{identityVerified}}>
-        {{#if identityVerified}}
+      {{#if identityVerified}}
+        <div class="form-group">
+          <label for="identityName">Jmeno</label>
+          <input type="text" class="form-control" disabled value="{{orderState.customer.name}}">
           <small class="text-muted">
             Prihlasen/a pres {{orderState.customer.displayRegistrationType}}.
             <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
           </small>
-        {{/if}}
-      </Form::FormInput>
+        </div>
+      {{else}}
+        <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} @disabled={{identityVerified}} />
+      {{/if}}
     </div>
     <div class="col-6">
       <Form::FormInput @placeholder="napr. 19:15" @name="pickupTime" @label="Cas vyzvednuti" @changeset={{inputChangeset}} />

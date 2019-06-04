@@ -30,4 +30,8 @@ export default Model.extend({
                 return 'email';
         }
     }),
+
+    isFacebookLoginCustomer: computed('reg_type', function() {
+        return this.get('reg_type') === 'facebook';
+    }),
 });

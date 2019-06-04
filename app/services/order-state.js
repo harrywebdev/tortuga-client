@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import OrderLineItem from 'tortuga-frontend/models/order-line-item';
 
-export default class OrderState extends Service {
+export default class OrderStateService extends Service {
     @service cart;
     @service products;
 

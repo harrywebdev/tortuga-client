@@ -1,13 +1,16 @@
 /* global FB */
 import Service from '@ember/service';
+import { inject as service } from '@ember/service';
 import { Promise as EmberPromise } from 'rsvp';
 import config from 'tortuga-frontend/config/environment';
 
 export default class FacebookLoginService extends Service {
+    @service customerManager;
+
     constructor() {
         super(...arguments);
 
-        window.fbAsyncInit = function() {
+        window.fbAsyncInit = () => {
             FB.init({
                 appId: config.facebookLogin.appId,
                 version: config.facebookLogin.version,
@@ -16,9 +19,18 @@ export default class FacebookLoginService extends Service {
             });
 
             FB.AppEvents.logPageView();
+
+            // instantly load customer if it exists
+            this.checkStatus().then(accessToken => {
+                this.customerManager.verifyCustomerViaFacebookLogin(accessToken);
+            });
         };
     }
 
+    /**
+     * Check whether user is logged in and resolve with accessToken if they are "connected"
+     * @returns {Promise}
+     */
     checkStatus() {
         return new EmberPromise(resolve => {
             FB.getLoginStatus(response => {
@@ -31,6 +43,10 @@ export default class FacebookLoginService extends Service {
         });
     }
 
+    /**
+     * Log user in and resolve with accessToken or reject with a reason
+     * @returns {Promise}
+     */
     login() {
         return new EmberPromise((resolve, reject) => {
             FB.login(
@@ -46,6 +62,10 @@ export default class FacebookLoginService extends Service {
         });
     }
 
+    /**
+     * Log user out
+     * @returns {void}
+     */
     logout() {
         FB.logout();
     }

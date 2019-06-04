@@ -4,6 +4,7 @@ import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
+    customerManager: service(),
     facebookLogin: service(),
     orderState: service(),
     store: service(),
@@ -41,9 +42,6 @@ export default Component.extend({
     didInsertElement() {
         this._super(...arguments);
         this.changeset.validate();
-        this.facebookLogin.checkStatus().then(accessToken => {
-            this.send('verifyFacebookLoginCustomer', accessToken);
-        });
     },
 
     onSubmit() {
@@ -52,53 +50,23 @@ export default Component.extend({
 
     actions: {
         resetCustomer() {
-            // log in out of facebook login
-            if (this.orderState.get('customer.facebook_id')) {
-                this.facebookLogin.logout();
-            }
-
-            // unload record from store to prevent error when creating new record
-            // returns existing record
-            this.store.unloadRecord(this.orderState.get('customer'));
-
-            this.orderState.resetCustomer();
-            this.changeset.set('name', '');
+            this.customerManager.resetCustomer().then(() => {
+                this.changeset.set('name', '');
+            });
         },
 
         verifyAccountKitCustomer(registrationType, accountKitCode) {
-            const customer = this.store.createRecord('customer', {
-                reg_type: registrationType,
-                name: this.changeset.get('name'),
-                code: accountKitCode,
+            this.customerManager.verifyCustomerViaAccountKit(registrationType, accountKitCode).catch(reason => {
+                // TODO: error reporting
+                console.error('Could not save customer', reason);
             });
-
-            customer.save().then(
-                customer => {
-                    this.orderState.updateCustomer(customer);
-                },
-                reason => {
-                    // TODO: error reporting
-                    console.error('Could not save customer', reason);
-                }
-            );
         },
 
         verifyFacebookLoginCustomer(accessToken) {
-            const customer = this.store.createRecord('customer', {
-                reg_type: 'facebook',
-                access_token: accessToken,
+            this.customerManager.verifyCustomerViaFacebookLogin(accessToken).catch(reason => {
+                // TODO: error reporting
+                console.error('Could not save customer', reason);
             });
-
-            customer.save().then(
-                customer => {
-                    this.orderState.updateCustomer(customer);
-                    this.changeset.set('name', customer.get('name'));
-                },
-                reason => {
-                    // TODO: error reporting
-                    console.error('Could not save customer', reason);
-                }
-            );
         },
     },
 });
