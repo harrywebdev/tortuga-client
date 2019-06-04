@@ -1,24 +1,24 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
-const { Model } = DS;
+const { Model, attr } = DS;
 
 export default Model.extend({
-    reg_type: DS.attr('string'),
+    reg_type: attr('string'),
 
-    account_kit_id: DS.attr('string'),
-    code: DS.attr('string'),
+    account_kit_id: attr('string'),
+    code: attr('string'),
 
-    facebook_id: DS.attr('string'),
-    access_token: DS.attr('string'),
+    facebook_id: attr('string'),
+    access_token: attr('string'),
 
-    name: DS.attr('string'),
-    email: DS.attr('string'),
-    mobile_country_prefix: DS.attr('string'),
-    mobile_national_number: DS.attr('string'),
-    mobile_number: DS.attr('string'),
+    name: attr('string'),
+    email: attr('string'),
+    mobile_country_prefix: attr('string'),
+    mobile_national_number: attr('string'),
+    mobile_number: attr('string'),
 
-    created_at: DS.attr('date'),
-    updated_at: DS.attr('date'),
+    created_at: attr('date'),
+    updated_at: attr('date'),
 
     displayRegistrationType: computed('reg_type', function() {
         switch (this.get('reg_type')) {
