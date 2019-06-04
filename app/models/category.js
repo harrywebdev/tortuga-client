@@ -1,7 +1,11 @@
 import DS from 'ember-data';
+const { Model, attr } = DS;
 
-export default DS.Model.extend({
-    sequence: DS.attr('number'),
-    title: DS.attr('string'),
-    slug: DS.attr('string'),
+export default Model.extend({
+    sequence: attr('number'),
+    title: attr('string'),
+    slug: attr('string'),
+
+    created_at: attr('date'),
+    updated_at: attr('date'),
 });

@@ -2,13 +2,14 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
-import OrderItem from 'tortuga-frontend/models/order-item';
+import OrderLineItem from 'tortuga-frontend/models/order-line-item';
 
 export default class OrderState extends Service {
     @service cart;
     @service products;
 
     customer = null;
+    order = null;
 
     // flags
     @computed('cart.items.[]')
@@ -23,9 +24,9 @@ export default class OrderState extends Service {
         return this.customer !== null;
     }
 
-    @computed()
+    @computed('order')
     get orderHasBeenMade() {
-        return false;
+        return this.order !== null;
     }
 
     @computed('orderItems.[]')
@@ -38,6 +39,7 @@ export default class OrderState extends Service {
 
     @computed('totalPrice')
     get formattedTotalPrice() {
+        // TODO: currency etc based on locale
         return (this.totalPrice / 100).toLocaleString('cs-CZ', {
             style: 'currency',
             currency: 'CZK',
@@ -65,7 +67,7 @@ export default class OrderState extends Service {
             productInCart = productInCart[0];
             const variation = productInCart.variations.filter(variation => variation.id === item.productVariationId)[0];
 
-            let orderItem = new OrderItem(
+            let orderItem = new OrderLineItem(
                 variation.get('id'),
                 variation.get('title'),
                 productInCart.get('title'),
@@ -83,5 +85,9 @@ export default class OrderState extends Service {
 
     resetCustomer() {
         this.set('customer', null);
+    }
+
+    updateOrder(order) {
+        this.set('order', order);
     }
 }

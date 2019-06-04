@@ -1,34 +1,15 @@
-import { computed } from '@ember/object';
+import DS from 'ember-data';
+const { Model, attr, belongsTo } = DS;
 
-class OrderItem {
-    constructor(variationId, variationTitle, productTitle, variationPrice, quantity) {
-        this.variationId = variationId;
-        this.variationTitle = variationTitle;
-        this.productTitle = productTitle;
-        this.variationPrice = parseInt(variationPrice, 10);
-        this.quantity = parseInt(quantity, 10);
+export default Model.extend({
+    order: belongsTo('order'),
 
-        Object.freeze(this);
-    }
+    title: attr('string'),
+    price: attr('number'),
+    quantity: attr('number'),
+    total_price: attr('number'),
+    currency: attr('string'),
 
-    @computed('productTitle', 'variationTitle', 'quantity')
-    get title() {
-        return `${this.productTitle} - ${this.variationTitle} x ${this.quantity}`;
-    }
-
-    @computed('variationPrice', 'quantity')
-    get totalPrice() {
-        return this.variationPrice * this.quantity;
-    }
-
-    @computed('totalPrice')
-    get formattedTotalPrice() {
-        return (this.totalPrice / 100).toLocaleString('cs-CZ', {
-            style: 'currency',
-            currency: 'CZK',
-            minimumFractionDigits: 0,
-        });
-    }
-}
-
-export default OrderItem;
+    created_at: attr('date'),
+    updated_at: attr('date'),
+});

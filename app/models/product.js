@@ -1,10 +1,14 @@
 import DS from 'ember-data';
+const { Model, attr, hasMany } = DS;
 
-export default DS.Model.extend({
-    variations: DS.hasMany('variation'),
+export default Model.extend({
+    variations: hasMany('variation'),
 
-    'category-id': DS.attr('string'),
-    title: DS.attr('string'),
-    slug: DS.attr('string'),
-    description: DS.attr('string'),
+    category_id: attr('string'),
+    title: attr('string'),
+    slug: attr('string'),
+    description: attr('string'),
+
+    created_at: attr('date'),
+    updated_at: attr('date'),
 });

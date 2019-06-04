@@ -1,14 +1,15 @@
 import DS from 'ember-data';
+const { Model, attr, belongsTo } = DS;
 import { alias } from '@ember/object/computed';
 
-export default DS.Model.extend({
-    product: DS.belongsTo('product'),
+export default Model.extend({
+    product: belongsTo('product'),
 
-    title: DS.attr('string'),
-    slug: DS.attr('string'),
-    description: DS.attr('string'),
-    price: DS.attr('number'),
-    'formatted-price': DS.attr('string'),
+    title: attr('string'),
+    slug: attr('string'),
+    description: attr('string'),
+    price: attr('number'),
+    formatted_price: attr('string'),
 
-    formattedPrice: alias('formatted-price'),
+    formattedPrice: alias('formatted_price'),
 });
