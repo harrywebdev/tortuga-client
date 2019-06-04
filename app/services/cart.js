@@ -3,23 +3,26 @@ import { computed } from '@ember/object';
 import { storageFor } from 'ember-local-storage';
 import CartItem from 'tortuga-frontend/models/cart-item';
 
-export default Service.extend({
-    cartItems: storageFor('cart-items'),
+export default class CartService extends Service {
+    @storageFor('cart-items') cartItems;
 
-    items: computed('cartItems.[]', function() {
+    @computed('cartItems.[]')
+    get items() {
         return this.cartItems;
-    }),
+    }
 
-    orderedItems: computed('cartItems.[]', function() {
+    @computed('cartItems.[]')
+    get orderedItems() {
         return this.cartItems.sortBy('sequence');
-    }),
+    }
 
-    totalQuantity: computed('items.[]', function() {
+    @computed('items.[]')
+    get totalQuantity() {
         return this.items.reduce((acc, item) => {
             acc += item.quantity;
             return acc;
         }, 0);
-    }),
+    }
 
     addToCart(variationId) {
         const cartItem = this._findInCart(variationId);
@@ -33,7 +36,7 @@ export default Service.extend({
 
         this.cartItems.removeObject(cartItem);
         this.cartItems.addObject(newCartItem);
-    },
+    }
 
     removeFromCart(variationId) {
         const cartItem = this._findInCart(variationId);
@@ -48,13 +51,13 @@ export default Service.extend({
         if (newCartItem.quantity > 0) {
             this.cartItems.addObject(newCartItem);
         }
-    },
+    }
 
     howMuchOf(variationId) {
         const variation = this._findInCart(variationId);
 
         return variation ? variation.quantity : 0;
-    },
+    }
 
     _findInCart(variationId) {
         const found = this.items.filter(item => item.productVariationId === variationId);
@@ -64,9 +67,9 @@ export default Service.extend({
         }
 
         return found[0];
-    },
+    }
 
     _getLastSequence() {
         return this.get('orderedItems.length') ? this.get('orderedItems.lastObject.sequence') : 0;
-    },
-});
+    }
+}
