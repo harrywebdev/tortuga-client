@@ -1,0 +1,20 @@
+.facebook-login {
+    position: relative;
+}
+
+.facebook-login__button {
+    @extend .btn;
+
+    background-color: #3b5998;
+    color: #fff;
+
+    &:hover,
+    &:focus {
+        color: #fff;
+        outline: none;
+    }
+
+    &:disabled {
+        opacity: 0.45;
+    }
+}

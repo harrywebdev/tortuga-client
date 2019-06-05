@@ -1,5 +1,5 @@
-<div class="form-group">
-  <label for="input-{{name}}-{{element.id}}">{{label}}</label>
+<label class="col-sm-3 col-form-label" for="input-{{name}}-{{element.id}}">{{label}}</label>
+<div class="col-sm-9">
   <input
     type={{inputType}}
     class="form-control {{if hasError "is-invalid"}} {{if isValid "is-valid"}}"
@@ -13,6 +13,10 @@
 
   {{#if hasError}}
     <div class="invalid-feedback">{{errorMessage}}</div>
+  {{/if}}
+
+  {{#if isValid}}
+    <div class="valid-feedback">V poradku!</div>
   {{/if}}
 
   {{yield}}

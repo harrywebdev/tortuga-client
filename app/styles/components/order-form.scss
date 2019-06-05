@@ -1,0 +1,45 @@
+.order-form__verification-buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    @include media-breakpoint-up(md) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.order-form__verification-divider {
+    text-align: center;
+
+    @include media-breakpoint-down(md) {
+        padding: 10px 0;
+    }
+}
+
+.order-form__identity-attribute {
+    @extend .col-form-label;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.order-form__pickup-time-input {
+    input.form-control {
+        width: 110px;
+    }
+}
+
+.order-form__name-input {
+    input.form-control {
+        max-width: 240px;
+    }
+}
+
+.order-form__submit-box {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.order-form__form {
+    margin-top: 16px;
+}

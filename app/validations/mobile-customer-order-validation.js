@@ -1,7 +1,7 @@
 import { validatePresence, validateFormat } from 'ember-changeset-validations/validators';
 
 export default {
-    name: [validatePresence({ presence: true, message: 'Vyplnte jmeno.' })],
+    name: [validatePresence({ presence: true, message: 'Vyplnte Vase jmeno.' })],
     pickupTime: [
         validatePresence({ presence: true, message: 'Vyplnte cas vyzvednuti.' }),
         validateFormat({

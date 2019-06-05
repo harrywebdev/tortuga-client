@@ -1,44 +1,67 @@
-<h2 class="h4">Prehled objednavky</h2>
+<div class="card">
+  <h2 class="h5 card-header">Prehled</h2>
+  <ul class="list-group list-group-flush">
+    {{#each orderItems as |item|}}
+      <OrderItemLine @orderItem={{item}} />
+    {{/each}}
+  </ul>
+</div>
 
-<ul class="list-group">
-  {{#each orderItems as |item|}}
-    <OrderItemLine @orderItem={{item}} />
-  {{/each}}
-</ul>
+<form class="needs-validation order-form__form">
+  <div class="card">
+    <h5 class="card-header">Objednavka</h5>
+    <div class="card-body">
 
-<hr class="mb-4">
-
-
-<form class="needs-validation">
-  <div class="row">
-    <div class="col-6">
       {{#if identityVerified}}
-        <div class="form-group">
-          <label for="identityName">Jmeno</label>
-          <input type="text" class="form-control" disabled value="{{orderState.customer.name}}">
-          <small class="text-muted">
-            Prihlasen/a pres {{orderState.customer.displayRegistrationType}}.
-            <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
-          </small>
-        </div>
+
+        {{#if hasCustomerMobile}}
+          <div class="form-group row">
+            <label for="identityMobile" class="col-sm-3 col-form-label">Vas telefon:</label>
+            <div class="col-sm-9">
+              <span class="order-form__identity-attribute">
+                {{orderState.customer.mobile_number}}
+              </span>
+              <small class="text-muted">
+                Prihlasen/a pres {{orderState.customer.displayRegistrationType}}.
+                <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
+              </small>
+            </div>
+          </div>
+        {{/if}}
+
+        {{#if hasCustomerName}}
+          <div class="form-group row">
+            <label for="identityName" class="col-sm-3 col-form-label">Vase jmeno:</label>
+            <div class="col-sm-9">
+              <span class="order-form__identity-attribute">
+                {{orderState.customer.name}}
+              </span>
+              <small class="text-muted">
+                Prihlasen/a pres {{orderState.customer.displayRegistrationType}}.
+                <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
+              </small>
+            </div>
+          </div>
+        {{else}}
+            <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vase jmeno:" @changeset={{inputChangeset}} class="order-form__name-input" />
+        {{/if}}
+
+        <Form::FormInput @placeholder="napr. 19:15" @name="pickupTime" @label="Cas vyzvednuti:" @changeset={{inputChangeset}} class="order-form__pickup-time-input" />
+
       {{else}}
-        <Form::FormInput @placeholder="Jmeno" @name="name" @label="Jmeno" @changeset={{inputChangeset}} @disabled={{identityVerified}} />
+
+        <div class="order-form__verification-buttons">
+          <FacebookLogin @onFinish={{action "verifyFacebookLoginCustomer"}} />
+          <div class="order-form__verification-divider">nebo</div>
+          <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} />
+        </div>
+
       {{/if}}
-    </div>
-    <div class="col-6">
-      <Form::FormInput @placeholder="napr. 19:15" @name="pickupTime" @label="Cas vyzvednuti" @changeset={{inputChangeset}} />
     </div>
   </div>
 
-  <hr class="mb-4">
-
-  {{#unless identityVerified}}
-    <AccountKitLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action "verifyAccountKitCustomer"}} />
-    <FacebookLogin @disabled={{hasNameAndPickupTimeMissing}} @onFinish={{action "verifyFacebookLoginCustomer"}} />
-  {{/unless}}
-
   {{#if identityVerified}}
-    <div class="text-center">
+    <div class="order-form__submit-box">
       <button type="submit" class="btn btn-lg btn-primary" {{action submit changeset}} disabled={{isSubmitDisabled}}>Objednat</button>
     </div>
   {{/if}}

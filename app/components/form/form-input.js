@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 export default Component.extend({
-    classNames: ['form-group'],
+    classNames: ['form-group', 'row'],
 
     placeholder: '',
     label: '',

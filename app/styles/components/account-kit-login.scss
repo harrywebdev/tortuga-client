@@ -1,0 +1,20 @@
+.account-kit-login {
+    position: relative;
+}
+
+.account-kit-login__button {
+    @extend .btn;
+
+    background-color: #128c7e;
+    color: #fff;
+
+    &:hover,
+    &:focus {
+        color: #fff;
+        outline: none;
+    }
+
+    &:disabled {
+        opacity: 0.45;
+    }
+}
