@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { alias, equal, not } from '@ember/object/computed';
+import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import OrderValidation from 'tortuga-frontend/validations/order-validation';
 import MobileCustomerOrderValidation from 'tortuga-frontend/validations/mobile-customer-order-validation';
@@ -52,27 +52,15 @@ export default Component.extend({
         return this.orderState.get('orderItems');
     }),
 
-    verificationType: null,
     identityVerified: alias('orderState.hasIdentityVerified'),
-    hasCustomerName: alias('orderState.customer.name'),
-    hasCustomerMobile: alias('orderState.customer.mobile_number'),
+    isVerifiedViaFacebook: alias('orderState.customer.isFacebookLoginCustomer'),
+    isVerifiedViaMobile: alias('orderState.customer.isMobileCustomer'),
 
-    isPickupTimeSelected: computed('changeset.{pickupTime,isValid}', 'showVerificationSelect', function() {
-        return this.changeset.get('pickupTime') && this.changeset.get('isValid') && !this.get('showVerificationSelect');
-    }),
-
-    hasPickupTimeMissing: not('isPickupTimeSelected'),
-
-    showVerificationSelect: equal('verificationType', null),
-    showMobileVerification: equal('verificationType', 'mobile'),
-
-    onSubmit() {
-        //
+    submit() {
+        // pass thru
     },
 
     _setVerificationType(verificationType) {
-        this.set('verificationType', verificationType);
-
         // mobile - requires pickup time and name
         if (verificationType === 'mobile') {
             this.set(
@@ -88,11 +76,7 @@ export default Component.extend({
             // facebook - requires only pickup time
             this.set(
                 'changeset',
-                new Changeset(
-                    { pickupTime: null },
-                    lookupValidator(OrderValidation),
-                    OrderValidation
-                )
+                new Changeset({ pickupTime: null }, lookupValidator(OrderValidation), OrderValidation)
             );
             this.get('changeset').validate();
         }
@@ -125,6 +109,12 @@ export default Component.extend({
                     console.error('Could not save customer', reason);
                 }
             );
+        },
+
+        submit(changeset) {
+            this.set('isSubmitting', true);
+            this.submit(changeset);
+            this.set('isSubmitting', false);
         },
     },
 });

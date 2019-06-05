@@ -4,6 +4,7 @@ const { Model, attr, belongsTo } = DS;
 export default Model.extend({
     order: belongsTo('order'),
 
+    product_variation_id: attr('number'),
     title: attr('string'),
     price: attr('number'),
     quantity: attr('number'),

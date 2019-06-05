@@ -34,4 +34,8 @@ export default Model.extend({
     isFacebookLoginCustomer: computed('reg_type', function() {
         return this.get('reg_type') === 'facebook';
     }),
+
+    isMobileCustomer: computed('reg_type', function() {
+        return this.get('reg_type') === 'mobile';
+    }),
 });

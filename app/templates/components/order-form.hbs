@@ -14,7 +14,7 @@
 
       {{#if identityVerified}}
 
-        {{#if hasCustomerMobile}}
+        {{#if isVerifiedViaMobile}}
           <div class="form-group row">
             <label for="identityMobile" class="col-sm-3 col-form-label">Vas telefon:</label>
             <div class="col-sm-9">
@@ -29,7 +29,7 @@
           </div>
         {{/if}}
 
-        {{#if hasCustomerName}}
+        {{#if isVerifiedViaFacebook}}
           <div class="form-group row">
             <label for="identityName" class="col-sm-3 col-form-label">Vase jmeno:</label>
             <div class="col-sm-9">
@@ -43,7 +43,7 @@
             </div>
           </div>
         {{else}}
-            <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vase jmeno:" @changeset={{inputChangeset}} class="order-form__name-input" />
+          <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vase jmeno:" @changeset={{inputChangeset}} class="order-form__name-input" />
         {{/if}}
 
         <Form::FormInput @placeholder="napr. 19:15" @name="pickupTime" @label="Cas vyzvednuti:" @changeset={{inputChangeset}} class="order-form__pickup-time-input" />
@@ -62,7 +62,7 @@
 
   {{#if identityVerified}}
     <div class="order-form__submit-box">
-      <button type="submit" class="btn btn-lg btn-primary" {{action submit changeset}} disabled={{isSubmitDisabled}}>Objednat</button>
+      <button type="submit" class="btn btn-lg btn-primary" {{action "submit" changeset}} disabled={{isSubmitDisabled}}>Objednat</button>
     </div>
   {{/if}}
 </form>

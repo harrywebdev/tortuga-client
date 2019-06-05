@@ -11,28 +11,23 @@ export default Controller.extend({
             changeset.save();
 
             const customer = this.orderState.get('customer');
+            if (!customer.get('name') && changeset.get('name')) {
+                customer.set('name', changeset.get('name'));
+            }
 
             // TODO: currency based on locale
             const order = this.store.createRecord('order', {
                 customer,
                 delivery_type: 'pickup',
                 payment_type: 'cash',
-                pickup_time: this.get('order.pickupTime'),
-                subtotal_amount: this.orderState.totalPrice,
-                delivery_amount: 0,
-                extra_amount: 0,
-                total_amount: this.orderState.totalPrice,
-                currency: 'CZK',
+                pickup_time: changeset.get('pickupTime'),
             });
 
             const orderItems = this.orderState.get('orderItems').map(orderLineItem => {
                 const orderItem = this.store.createRecord('order-item', {
                     order,
-                    title: orderLineItem.title,
-                    price: orderLineItem.variationPrice,
+                    product_variation_id: orderLineItem.variationId,
                     quantity: orderLineItem.quantity,
-                    total_price: orderLineItem.totalPrice,
-                    currency: 'CZK',
                 });
 
                 return orderItem;
