@@ -1,0 +1,7 @@
+.order-item-line__action-button {
+    @extend .variation-line__action-button;
+}
+
+.order-item-line__quantity {
+    @extend .variation-line__quantity;
+}

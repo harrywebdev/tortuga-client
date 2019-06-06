@@ -14,9 +14,6 @@
           {{else}}
             <a class="nav-link {{if (bs-eq tab.activeId "tabMenu") "active"}}" href="#tabMenu" role="tab" {{action tab.select "tabMenu"}}>
               Menu
-              {{#if orderState.hasCartItems}}
-                <span class="badge badge-primary">{{cart.totalQuantity}}</span>
-              {{/if}}
             </a>
           {{/if}}
         </nav.item>
@@ -28,6 +25,7 @@
             {{#if orderState.isReadyForCustomerDetails}}
               <a class="nav-link {{if (bs-eq tab.activeId "tabOrder") "active"}}" href="#tabOrder" role="tab" {{action tab.select "tabOrder"}}>
                 Objednavka
+                <span class="badge badge-primary">{{cart.totalQuantity}}</span>
               </a>
             {{else}}
               <span class="nav-link text-muted">Objednavka</span>

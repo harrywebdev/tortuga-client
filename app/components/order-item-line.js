@@ -13,5 +13,9 @@ export default Component.extend({
         removeFromCart() {
             this.cart.removeFromCart(this.get('orderItem.variationId'));
         },
+
+        addToCart() {
+            this.cart.addToCart(this.get('orderItem.variationId'));
+        },
     },
 });

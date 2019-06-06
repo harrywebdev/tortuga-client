@@ -1,13 +1,20 @@
 {{#if orderItem}}
-  <span class="row">
-    <span class="col-8 col-sm-6 col-md-8">
-      <strong class="d-block d-sm-none">{{ orderItem.title }}</strong>
-      <span class="d-none d-sm-block">{{ orderItem.title }}</span>
+  <span class="row align-items-center">
+    <span class="col-12 col-md-8">
+      <strong class="d-block d-md-none">{{ orderItem.quantity }} &times; {{ orderItem.title }}</strong>
+      <span class="d-none d-md-block">{{ orderItem.quantity }} &times; {{ orderItem.title }}</span>
     </span>
-    <span class="col-sm-3 col-md-2 text-right d-none d-sm-block">{{ orderItem.formattedTotalPrice }}</span>
-    <span class="col-4 col-sm-3 col-md-2 text-right">
-      <span class="badge badge-success">{{ orderItem.quantity }}</span>
-      <button class="btn btn-danger btn-sm" {{action "removeFromCart" on="click" bubbles=false}}>&times;</button>
+    <span class="col-md-2 text-right d-none d-md-block">{{ orderItem.formattedTotalPrice }}</span>
+    <span class="col-12 col-md-2 text-right clearfix">
+      <span class="d-block d-md-none float-left">Cena: {{ orderItem.formattedTotalPrice }}</span>
+
+      <button class="order-item-line__action-button" {{action "addToCart" on="click"}}>
+        <i class="far fa-plus-circle"></i>
+      </button>
+
+      <button class="order-item-line__action-button" {{action "removeFromCart" on="click" bubbles=false}}>
+        <i class="far fa-minus-circle"></i>
+      </button>
     </span>
   </span>
 {{/if}}

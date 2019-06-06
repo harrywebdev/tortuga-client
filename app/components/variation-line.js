@@ -8,7 +8,7 @@ export default Component.extend({
     tagName: 'li',
 
     classNames: ['list-group-item', 'variation-line'],
-    classNameBindings: ['countInCart:list-group-item-success'],
+    classNameBindings: ['countInCart:list-group-item-primary'],
 
     // for Order Item
     readonly: false,

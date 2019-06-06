@@ -1,0 +1,29 @@
+.variation-line {
+    transition: background-color 250ms ease-in-out;
+}
+
+.variation-line__action-button {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    background: transparent;
+    border: 0;
+    color: #454545;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        outline: none;
+    }
+    &:hover {
+        color: #000;
+    }
+}
+
+.variation-line__quantity {
+    font-size: 14px;
+    position: relative;
+    top: 5px;
+    vertical-align: top;
+}
