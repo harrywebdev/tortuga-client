@@ -9,21 +9,29 @@
     <BsTab @customTabs={{true}} as |tab|>
       <BsNav @type="tabs" as |nav|>
         <nav.item @active={{bs-eq tab.activeId "tabMenu"}}>
-          <a class="nav-link {{if (bs-eq tab.activeId "tabMenu") "active"}}" href="#tabMenu" role="tab" {{action tab.select "tabMenu"}}>
-            Menu
-            {{#if orderState.hasCartItems}}
-              <span class="badge badge-primary">{{cart.totalQuantity}}</span>
-            {{/if}}
-          </a>
+          {{#if orderState.orderHasBeenMade}}
+            <span class="nav-link text-muted">Menu</span>
+          {{else}}
+            <a class="nav-link {{if (bs-eq tab.activeId "tabMenu") "active"}}" href="#tabMenu" role="tab" {{action tab.select "tabMenu"}}>
+              Menu
+              {{#if orderState.hasCartItems}}
+                <span class="badge badge-primary">{{cart.totalQuantity}}</span>
+              {{/if}}
+            </a>
+          {{/if}}
         </nav.item>
 
         <nav.item @active={{bs-eq tab.activeId "tabOrder"}}>
-          {{#if orderState.isReadyForCustomerDetails}}
-            <a class="nav-link {{if (bs-eq tab.activeId "tabOrder") "active"}}" href="#tabOrder" role="tab" {{action tab.select "tabOrder"}}>
-              Objednavka
-            </a>
-          {{else}}
+          {{#if orderState.orderHasBeenMade}}
             <span class="nav-link text-muted">Objednavka</span>
+          {{else}}
+            {{#if orderState.isReadyForCustomerDetails}}
+              <a class="nav-link {{if (bs-eq tab.activeId "tabOrder") "active"}}" href="#tabOrder" role="tab" {{action tab.select "tabOrder"}}>
+                Objednavka
+              </a>
+            {{else}}
+              <span class="nav-link text-muted">Objednavka</span>
+            {{/if}}
           {{/if}}
         </nav.item>
 
@@ -67,6 +75,14 @@
 
         <tab.pane @elementId="tabOrder" @title="Objednavka" class="content-tab">
           <OrderForm @submit={{action "submitOrder"}} />
+        </tab.pane>
+
+        <tab.pane @elementId="tabConfirmation" @title="Potvrzeni" class="content-tab">
+          <h2 class="h4">Ta-da! 🎉</h2>
+          <p class="lead">Objednavku jsme prijali a bude pro Vas nachystana v {{orderState.order.pickup_time}}. Diky!</p>
+          <p>
+            <button type="button" class="btn btn-primary" {{action 'reset'}}>Objednat znovu 👀</button>
+          </p>
         </tab.pane>
       </div>
     </BsTab>

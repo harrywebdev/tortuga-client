@@ -90,4 +90,8 @@ export default class OrderStateService extends Service {
     updateOrder(order) {
         this.set('order', order);
     }
+
+    resetOrder() {
+        this.set('order', null);
+    }
 }

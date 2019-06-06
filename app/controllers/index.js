@@ -44,8 +44,9 @@ export default Controller.extend({
             );
         },
 
-        rollbackOrder(changeset) {
-            return changeset.rollback();
+        reset() {
+            this.customerManager.resetCustomer();
+            this.orderState.resetOrder();
         },
     },
 });
