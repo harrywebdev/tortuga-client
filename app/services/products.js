@@ -7,6 +7,6 @@ export default class ProductsService extends Service {
     }
 
     setProducts(products) {
-        this.products = products;
+        this.set('products', products);
     }
 }

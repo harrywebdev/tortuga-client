@@ -22,7 +22,10 @@ export default class FacebookLoginService extends Service {
 
             // instantly load customer if it exists
             this.checkStatus().then(accessToken => {
-                this.customerManager.verifyCustomerViaFacebookLogin(accessToken);
+                this.customerManager.verifyCustomerViaFacebookLogin(accessToken).catch(reason => {
+                    // TODO: error reporting
+                    console.error('verifyCustomerViaFacebookLogin error', reason);
+                });
             });
         };
     }
