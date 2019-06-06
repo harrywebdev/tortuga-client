@@ -41,7 +41,7 @@ export default class CustomerManagerService extends Service {
         return new EmberPromise((resolve, reject) => {
             const customer = this.store.createRecord('customer', {
                 reg_type: 'facebook',
-                access_token: accessToken,
+                code: accessToken,
             });
 
             customer.save().then(
@@ -60,7 +60,7 @@ export default class CustomerManagerService extends Service {
      * @returns {Promise}
      */
     resetCustomer() {
-        return new EmberPromise((resolve) => {
+        return new EmberPromise(resolve => {
             const customer = this.orderState.get('customer');
 
             // log in out of facebook login
