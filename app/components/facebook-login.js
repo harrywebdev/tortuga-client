@@ -1,28 +1,28 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
-export default Component.extend({
-    facebookLogin: service(),
+export default class FacebookLoginComponent extends Component {
+    @service facebookLogin;
 
-    classNames: ['facebook-login'],
+    classNames = ['facebook-login'];
 
-    disabled: false,
+    disabled = false;
 
     onFinish() {
         //
-    },
+    }
 
-    actions: {
-        facebookLogin() {
-            this.facebookLogin.login().then(
-                accessToken => {
-                    this.onFinish(accessToken);
-                },
-                () => {
-                    // we don't probably care here for now
-                    // TODO: show error message if it's not "user cancelled"
-                }
-            );
-        },
-    },
-});
+    @action
+    login() {
+        this.facebookLogin.login().then(
+            accessToken => {
+                this.onFinish(accessToken);
+            },
+            () => {
+                // we don't probably care here for now
+                // TODO: show error message if it's not "user cancelled"
+            }
+        );
+    }
+}

@@ -1,54 +1,55 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
-export default Component.extend({
-    accountKit: service(),
+export default class AccountKitLoginComponent extends Component {
+    @service accountKit;
 
-    classNames: ['account-kit-login'],
+    classNames = ['account-kit-login'];
 
-    disabled: false,
+    disabled = false;
 
     onFinish() {
         //
-    },
+    }
 
     // TODO: load this from localStorage if there has been previous order
     // TODO: this should get set by locale
-    countryCode: '+420',
-    mobileNumber: '',
-    email: '',
+    countryCode = '+420';
+    mobileNumber = '';
+    email = '';
 
-    actions: {
-        smsLogin() {
-            this.accountKit.loginViaMobile(this.get('countryCode'), this.get('mobileNumber')).then(
-                code => {
-                    this.onFinish('mobile', code);
-                },
-                reason => {
-                    if (reason === 'BAD_PARAMS') {
-                        // TODO: error reporting
-                        return console.error('AccountKit SMS login error.');
-                    }
-
-                    // nothing to do here
+    @action
+    smsLogin() {
+        this.accountKit.loginViaMobile(this.get('countryCode'), this.get('mobileNumber')).then(
+            code => {
+                this.onFinish('mobile', code);
+            },
+            reason => {
+                if (reason === 'BAD_PARAMS') {
+                    // TODO: error reporting
+                    return console.error('AccountKit SMS login error.');
                 }
-            );
-        },
 
-        emailLogin() {
-            this.accountKit.loginViaEmail(this.get('email')).then(
-                code => {
-                    this.onFinish('email', code);
-                },
-                reason => {
-                    if (reason === 'BAD_PARAMS') {
-                        // TODO: error reporting
-                        return console.error('AccountKit email login error.');
-                    }
+                // nothing to do here
+            }
+        );
+    }
 
-                    // nothing to do here
+    @action
+    emailLogin() {
+        this.accountKit.loginViaEmail(this.get('email')).then(
+            code => {
+                this.onFinish('email', code);
+            },
+            reason => {
+                if (reason === 'BAD_PARAMS') {
+                    // TODO: error reporting
+                    return console.error('AccountKit email login error.');
                 }
-            );
-        },
-    },
-});
+
+                // nothing to do here
+            }
+        );
+    }
+}

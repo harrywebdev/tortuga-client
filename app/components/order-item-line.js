@@ -1,21 +1,22 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
-export default Component.extend({
-    cart: service('cart'),
+export default class OrderItemLineComponent extends Component {
+    @service cart;
 
-    tagName: 'li',
+    tagName = 'li';
 
-    classNames: ['list-group-item', 'variation-line'],
-    classNameBindings: ['countInCart:list-group-item-success'],
+    classNames = ['list-group-item', 'variation-line'];
+    classNameBindings = ['countInCart:list-group-item-success'];
 
-    actions: {
-        removeFromCart() {
-            this.cart.removeFromCart(this.get('orderItem.variationId'));
-        },
+    @action
+    removeFromCart() {
+        this.cart.removeFromCart(this.get('orderItem.variationId'));
+    }
 
-        addToCart() {
-            this.cart.addToCart(this.get('orderItem.variationId'));
-        },
-    },
-});
+    @action
+    addToCart() {
+        this.cart.addToCart(this.get('orderItem.variationId'));
+    }
+}
