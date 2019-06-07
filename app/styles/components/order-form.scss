@@ -43,3 +43,9 @@
 .order-form__form {
     margin-top: 16px;
 }
+
+.order-form__identity-note {
+    @include media-breakpoint-down(sm) {
+        display: block;
+    }
+}
