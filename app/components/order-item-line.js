@@ -10,6 +10,8 @@ export default class OrderItemLineComponent extends Component {
     classNames = ['list-group-item', 'variation-line'];
     classNameBindings = ['countInCart:list-group-item-success'];
 
+    countInCart = false;
+
     @action
     removeFromCart() {
         this.cart.removeFromCart(this.get('orderItem.variationId'));
