@@ -6,24 +6,24 @@
     </div>
     <hr class="my-4">
 
-    <BsTab @customTabs={{true}} as |tab|>
+    <BsTab @activeId={{currentTab}} @customTabs={{true}} as |tab|>
       <BsNav @type="tabs" as |nav|>
-        <nav.item @active={{bs-eq tab.activeId "tabMenu"}}>
+        <nav.item @active={{bs-eq currentTab "tabMenu"}}>
           {{#if orderState.orderHasBeenMade}}
             <span class="nav-link text-muted">Menu</span>
           {{else}}
-            <a class="nav-link {{if (bs-eq tab.activeId "tabMenu") "active"}}" href="#tabMenu" role="tab" {{action tab.select "tabMenu"}}>
+            <a class="nav-link {{if (bs-eq currentTab "tabMenu") "active"}}" href="#tabMenu" role="tab" {{action "selectTab" "tabMenu"}}>
               Menu
             </a>
           {{/if}}
         </nav.item>
 
-        <nav.item @active={{bs-eq tab.activeId "tabOrder"}}>
+        <nav.item @active={{bs-eq currentTab "tabOrder"}}>
           {{#if orderState.orderHasBeenMade}}
             <span class="nav-link text-muted">Objednavka</span>
           {{else}}
             {{#if orderState.isReadyForCustomerDetails}}
-              <a class="nav-link {{if (bs-eq tab.activeId "tabOrder") "active"}}" href="#tabOrder" role="tab" {{action tab.select "tabOrder"}}>
+              <a class="nav-link {{if (bs-eq currentTab "tabOrder") "active"}}" href="#tabOrder" role="tab" {{action "selectTab" "tabOrder"}}>
                 Objednavka
                 <span class="badge badge-primary">{{cart.totalQuantity}}</span>
               </a>
@@ -33,9 +33,9 @@
           {{/if}}
         </nav.item>
 
-        <nav.item @active={{bs-eq tab.activeId "tabConfirmation"}}>
+        <nav.item @active={{bs-eq currentTab "tabConfirmation"}}>
           {{#if orderState.orderHasBeenMade}}
-            <a class="nav-link {{if (bs-eq tab.activeId "tabConfirmation") "active"}}" href="#tabConfirmation" role="tab" {{action tab.select "tabConfirmation"}}>
+            <a class="nav-link {{if (bs-eq currentTab "tabConfirmation") "active"}}" href="#tabConfirmation" role="tab" {{action "selectTab" "tabConfirmation"}}>
               Potvrzeni
             </a>
           {{else}}
@@ -51,7 +51,7 @@
             <div class="content-tab__continue-btn">
               Celkem: {{orderState.formattedTotalPrice}}&nbsp;&nbsp;
               {{#if orderState.isReadyForCustomerDetails}}
-                <button class="btn-success btn-sm" href="#tabOrder" {{action tab.select "tabOrder"}}>
+                <button class="btn-success btn-sm" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
                   Pokracovat
                 </button>
               {{/if}}
@@ -64,7 +64,7 @@
           {{#if orderState.isReadyForCustomerDetails}}
             <div class="text-center">
               <p>Celkem: {{orderState.formattedTotalPrice}}</p>
-              <button class="btn-success btn-lg" href="#tabOrder" {{action tab.select "tabOrder"}}>
+              <button class="btn-success btn-lg" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
                 Pokracovat
               </button>
             </div>
@@ -78,7 +78,7 @@
         <tab.pane @elementId="tabConfirmation" @title="Potvrzeni" class="content-tab">
           <h2 class="h4">Ta-da! 🎉</h2>
           <p class="lead">Objednavku jsme prijali a bude pro Vas nachystana v {{orderState.order.pickup_time}}. Diky!</p>
-          <p>
+          <p class="text-center">
             <button type="button" class="btn btn-primary" {{action 'reset'}}>Objednat znovu 👀</button>
           </p>
         </tab.pane>

@@ -3,10 +3,17 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
     cart: service(),
+    customerManager: service(),
     orderState: service(),
     store: service(),
 
+    currentTab: 'tabMenu',
+
     actions: {
+        selectTab(tab) {
+            this.set('currentTab', tab);
+        },
+
         submitOrder(changeset) {
             changeset.save();
 
@@ -37,6 +44,8 @@ export default Controller.extend({
             order.save().then(
                 order => {
                     this.orderState.updateOrder(order);
+                    this.set('currentTab', 'tabConfirmation');
+                    this.cart.resetCart();
                 },
                 reason => {
                     console.error('Order save failed', reason);
@@ -47,6 +56,7 @@ export default Controller.extend({
         reset() {
             this.customerManager.resetCustomer();
             this.orderState.resetOrder();
+            this.set('currentTab', 'tabMenu');
         },
     },
 });

@@ -53,6 +53,10 @@ export default class CartService extends Service {
         }
     }
 
+    resetCart() {
+        this.cartItems.clear();
+    }
+
     howMuchOf(variationId) {
         const variation = this._findInCart(variationId);
 

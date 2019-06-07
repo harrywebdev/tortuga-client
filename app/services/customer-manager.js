@@ -63,14 +63,17 @@ export default class CustomerManagerService extends Service {
         return new EmberPromise(resolve => {
             const customer = this.orderState.get('customer');
 
-            // log in out of facebook login
-            if (customer.get('isFacebookLoginCustomer')) {
-                this.facebookLogin.logout();
+            if (customer) {
+                if (customer.get('isFacebookLoginCustomer')) {
+                    // log in out of facebook login
+                    this.facebookLogin.logout();
+                }
+
+                // unload record from store to prevent store error when creating
+                // new record (while returning existing record) has the same id
+                this.store.unloadRecord(customer);
             }
 
-            // unload record from store to prevent store error when creating
-            // new record (while returning existing record) has the same id
-            this.store.unloadRecord(customer);
             this.orderState.resetCustomer();
 
             resolve();
