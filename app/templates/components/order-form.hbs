@@ -4,6 +4,11 @@
     {{#each orderItems as |item|}}
       <OrderItemLine @orderItem={{item}} />
     {{/each}}
+
+    <div class="list-group-item order-item-line clearfix">
+      <strong class="d-block float-left">Celkova cena</strong>
+      <strong class="float-right">{{ orderState.formattedTotalPrice }}</strong>
+    </div>
   </ul>
 </div>
 
