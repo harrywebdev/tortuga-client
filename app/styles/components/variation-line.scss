@@ -1,5 +1,9 @@
 .variation-line {
     transition: background-color 250ms ease-in-out;
+
+    &.variation-line--selected {
+        @extend .list-group-item-primary;
+    }
 }
 
 .variation-line__action-button {

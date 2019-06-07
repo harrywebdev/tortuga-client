@@ -8,11 +8,11 @@
     <span class="col-12 col-md-2 text-right clearfix">
       <span class="d-block d-md-none float-left">Cena: {{ orderItem.formattedTotalPrice }}</span>
 
-      <button class="order-item-line__action-button" {{action "addToCart" on="click"}}>
+      <button class="order-item-line__action-button js-add-to-cart-button" {{action "addToCart" on="click"}}>
         <i class="far fa-plus-circle"></i>
       </button>
 
-      <button class="order-item-line__action-button" {{action "removeFromCart" on="click" bubbles=false}}>
+      <button class="order-item-line__action-button js-remove-from-cart-button" {{action "removeFromCart" on="click" bubbles=false}}>
         <i class="far fa-minus-circle"></i>
       </button>
     </span>

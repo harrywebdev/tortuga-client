@@ -8,7 +8,7 @@ export default class VariationLineComponent extends Component {
     tagName = 'li';
 
     classNames = ['list-group-item', 'variation-line'];
-    classNameBindings = ['countInCart:list-group-item-primary'];
+    classNameBindings = ['countInCart:variation-line--selected'];
 
     @computed('cart.items.[]', 'variation.id')
     get countInCart() {

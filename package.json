@@ -14,9 +14,12 @@
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
-    "start": "ember serve",
-    "dev": "ember serve --ssl=true --ssl-key=dev_ssl_certs/device.key --ssl-cert=dev_ssl_certs/tortuga.frontend.test.crt --live-reload=true",
-    "test": "ember test"
+    "prestart": "ember test",
+    "start": "ember serve --ssl=true --ssl-key=dev_ssl_certs/device.key --ssl-cert=dev_ssl_certs/tortuga.frontend.test.crt --live-reload=true",
+    "test": "ember test",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:test": "export START_SERVER_AND_TEST_INSECURE=true; start-server-and-test https://tortuga.frontend.test:4200 cy:run"
   },
   "devDependencies": {
     "@ember/jquery": "^0.6.0",
@@ -24,6 +27,7 @@
     "babel-eslint": "^10.0.1",
     "bootstrap": "^4.0.0",
     "broccoli-asset-rev": "^3.0.0",
+    "cypress": "^3.3.1",
     "ember-ajax": "^5.0.0",
     "ember-bootstrap": "^2.4.0",
     "ember-changeset": "^2.1.1",
@@ -54,7 +58,8 @@
     "eslint-plugin-node": "^9.0.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.4",
-    "sass": "^1.16.1"
+    "sass": "^1.16.1",
+    "start-server-and-test": "^1.9.1"
   },
   "engines": {
     "node": "8.* || >= 10.*"

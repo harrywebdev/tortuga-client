@@ -49,9 +49,9 @@
           {{#each model.categories as |category|}}
             <h2 class="h4">{{ category.title }}</h2>
             <div class="content-tab__continue-btn">
-              Celkem: {{orderState.formattedTotalPrice}}&nbsp;&nbsp;
+              <span class="js-subtotal-amount">Celkem: {{orderState.formattedTotalPrice}}</span>&nbsp;&nbsp;
               {{#if orderState.isReadyForCustomerDetails}}
-                <button class="btn-success btn-sm" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                <button class="btn-success btn-sm js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
                   Pokracovat
                 </button>
               {{/if}}
@@ -63,8 +63,8 @@
 
           {{#if orderState.isReadyForCustomerDetails}}
             <div class="text-center">
-              <p>Celkem: {{orderState.formattedTotalPrice}}</p>
-              <button class="btn-success btn-lg" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+              <p class="js-subtotal-amount">Celkem: {{orderState.formattedTotalPrice}}</p>
+              <button class="btn-success btn-lg js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
                 Pokracovat
               </button>
             </div>

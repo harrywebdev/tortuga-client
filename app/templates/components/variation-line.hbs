@@ -11,12 +11,12 @@
         <span class="variation-line__quantity badge badge-pill badge-primary">{{ countInCart }}</span>
       {{/if}}
 
-      <button class="variation-line__action-button" {{action "addToCart" on="click"}}>
+      <button class="variation-line__action-button js-add-to-cart-button" {{action "addToCart" on="click"}}>
         <i class="far fa-plus-circle"></i>
       </button>
 
       {{#if countInCart}}
-        <button class="variation-line__action-button" {{action "removeFromCart" on="click"}}>
+        <button class="variation-line__action-button js-remove-from-cart-button" {{action "removeFromCart" on="click"}}>
           <i class="far fa-minus-circle"></i>
         </button>
       {{/if}}

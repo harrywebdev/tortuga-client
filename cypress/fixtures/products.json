@@ -1,0 +1,275 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "type": "products",
+      "attributes": {
+        "category_id": 1,
+        "sequence": 100,
+        "title": "Admiral",
+        "slug": "admiral",
+        "description": "Tortuga signature burger",
+        "created_at": "2019-01-20 13:49:55",
+        "updated_at": "2019-01-20 13:49:55",
+        "deleted_at": null
+      },
+      "relationships": {
+        "variations": {
+          "data": [
+            { "id": 1, "type": "variations" },
+            { "id": 2, "type": "variations" },
+            { "id": 3, "type": "variations" },
+            { "id": 4, "type": "variations" }
+          ]
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "products",
+      "attributes": {
+        "category_id": 2,
+        "sequence": 100,
+        "title": "Grilovane bramburky",
+        "slug": "grilovane-bramburky",
+        "description": "Bramburky ve slupce s cesnekovym dipem",
+        "created_at": "2019-01-20 14:08:28",
+        "updated_at": "2019-01-20 14:08:28",
+        "deleted_at": null
+      },
+      "relationships": { "variations": { "data": [{ "id": 10, "type": "variations" }] } }
+    },
+    {
+      "id": 2,
+      "type": "products",
+      "attributes": {
+        "category_id": 1,
+        "sequence": 200,
+        "title": "Bucaneer",
+        "slug": "bucaneer",
+        "description": "Tortuga VIP burger",
+        "created_at": "2019-01-20 13:55:28",
+        "updated_at": "2019-01-20 13:55:28",
+        "deleted_at": null
+      },
+      "relationships": {
+        "variations": {
+          "data": [
+            { "id": 5, "type": "variations" },
+            { "id": 6, "type": "variations" },
+            { "id": 7, "type": "variations" },
+            { "id": 8, "type": "variations" }
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "products",
+      "attributes": {
+        "category_id": 1,
+        "sequence": 300,
+        "title": "Havana",
+        "slug": "havana",
+        "description": "Tortuga masakr sendvic",
+        "created_at": "2019-01-20 13:55:28",
+        "updated_at": "2019-01-20 13:55:28",
+        "deleted_at": null
+      },
+      "relationships": { "variations": { "data": [{ "id": 9, "type": "variations" }] } }
+    }
+  ],
+  "included": [
+    {
+      "id": 1,
+      "type": "variations",
+      "attributes": {
+        "parent_id": null,
+        "product_id": 1,
+        "active": true,
+        "sequence": 100,
+        "title": "Jednopatrovy {KLASIK}",
+        "slug": "jednopatrovy-klasik",
+        "description": null,
+        "price": 15000,
+        "created_at": "2019-01-20 13:49:55",
+        "updated_at": "2019-01-20 13:49:55",
+        "deleted_at": null,
+        "formatted_price": "150 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 2,
+      "type": "variations",
+      "attributes": {
+        "parent_id": 1,
+        "product_id": 1,
+        "active": true,
+        "sequence": 200,
+        "title": "Jednopatrovy {HOT}",
+        "slug": "jednopatrovy-hot",
+        "description": null,
+        "price": 16000,
+        "created_at": "2019-01-20 13:49:55",
+        "updated_at": "2019-01-20 13:49:55",
+        "deleted_at": null,
+        "formatted_price": "160 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 3,
+      "type": "variations",
+      "attributes": {
+        "parent_id": null,
+        "product_id": 1,
+        "active": true,
+        "sequence": 300,
+        "title": "Dvoupatrovy {KLASIK}",
+        "slug": "dvoupatrovy-klasik",
+        "description": null,
+        "price": 19000,
+        "created_at": "2019-01-20 13:49:55",
+        "updated_at": "2019-01-20 13:49:55",
+        "deleted_at": null,
+        "formatted_price": "190 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 4,
+      "type": "variations",
+      "attributes": {
+        "parent_id": 3,
+        "product_id": 1,
+        "active": true,
+        "sequence": 400,
+        "title": "Dvoupatrovy {HOT}",
+        "slug": "dvoupatrovy-hot",
+        "description": null,
+        "price": 20000,
+        "created_at": "2019-01-20 13:49:55",
+        "updated_at": "2019-01-20 13:49:55",
+        "deleted_at": null,
+        "formatted_price": "200 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 10,
+      "type": "variations",
+      "attributes": {
+        "parent_id": null,
+        "product_id": 4,
+        "active": true,
+        "sequence": 100,
+        "title": "Jenom jedna varianta",
+        "slug": "jenom-jedna-varianta",
+        "description": null,
+        "price": 4500,
+        "created_at": "2019-01-20 14:08:29",
+        "updated_at": "2019-01-20 14:08:29",
+        "deleted_at": null,
+        "formatted_price": "45 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 5,
+      "type": "variations",
+      "attributes": {
+        "parent_id": null,
+        "product_id": 2,
+        "active": true,
+        "sequence": 100,
+        "title": "Klasicka naloz {KLASIK}",
+        "slug": "klasicka-naloz-klasik",
+        "description": null,
+        "price": 14500,
+        "created_at": "2019-01-20 13:55:28",
+        "updated_at": "2019-01-20 13:55:28",
+        "deleted_at": null,
+        "formatted_price": "145 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 6,
+      "type": "variations",
+      "attributes": {
+        "parent_id": 5,
+        "product_id": 2,
+        "active": true,
+        "sequence": 200,
+        "title": "Klasicka naloz {HOT}",
+        "slug": "klasicka-naloz-hot",
+        "description": null,
+        "price": 15500,
+        "created_at": "2019-01-20 13:55:28",
+        "updated_at": "2019-01-20 13:55:28",
+        "deleted_at": null,
+        "formatted_price": "155 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 7,
+      "type": "variations",
+      "attributes": {
+        "parent_id": null,
+        "product_id": 2,
+        "active": true,
+        "sequence": 300,
+        "title": "S vejcem {KLASIK}",
+        "slug": "s-vejcem-klasik",
+        "description": null,
+        "price": 16500,
+        "created_at": "2019-01-20 13:55:28",
+        "updated_at": "2019-01-20 13:55:28",
+        "deleted_at": null,
+        "formatted_price": "165 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 8,
+      "type": "variations",
+      "attributes": {
+        "parent_id": 7,
+        "product_id": 2,
+        "active": true,
+        "sequence": 400,
+        "title": "S vejcem {HOT}",
+        "slug": "s-vejcem-hot",
+        "description": null,
+        "price": 27500,
+        "created_at": "2019-01-20 13:55:28",
+        "updated_at": "2019-01-20 13:55:28",
+        "deleted_at": null,
+        "formatted_price": "275 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    },
+    {
+      "id": 9,
+      "type": "variations",
+      "attributes": {
+        "parent_id": null,
+        "product_id": 3,
+        "active": true,
+        "sequence": 100,
+        "title": "Jednom jedna varianta",
+        "slug": "jednom-jedna-varianta",
+        "description": null,
+        "price": 20000,
+        "created_at": "2019-01-20 13:55:28",
+        "updated_at": "2019-01-20 13:55:28",
+        "deleted_at": null,
+        "formatted_price": "200 K\u010d",
+        "formatted_currency": "K\u010d"
+      }
+    }
+  ],
+  "links": { "self": "http://tortuga.backend.test/api/products" }
+}
