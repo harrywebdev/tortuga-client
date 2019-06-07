@@ -11,8 +11,8 @@ export default Component.extend({
     inputType: alias('type'),
     disabled: false,
 
-    isValid: computed('name', 'changeset.change', function() {
-        return this.get(`changeset.change.${this.get('name')}`);
+    isValid: computed('name', 'changeset.change', 'hasError', function() {
+        return this.get(`changeset.change.${this.get('name')}`) && !this.get('hasError');
     }),
 
     hasError: computed('name', 'changeset.error', function() {
