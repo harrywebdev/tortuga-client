@@ -60,7 +60,7 @@ export default class FacebookLoginService extends Service {
 
                     resolve(response.authResponse.accessToken);
                 },
-                { scope: 'email', auth_type: 'rerequest' }
+                { scope: 'email,user_link', auth_type: 'rerequest' }
             );
         });
     }
