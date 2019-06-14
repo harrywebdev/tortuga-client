@@ -1,7 +1,7 @@
 import { validatePresence, validateFormat } from 'ember-changeset-validations/validators';
 
 export default {
-    pickupTime: [
+    orderTime: [
         validatePresence({ presence: true, message: 'Vyplnte cas vyzvednuti.' }),
         validateFormat({
             regex: /^([01][0-9]|2[0-3]):([0-5][0-9])$/,

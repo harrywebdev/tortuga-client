@@ -17,7 +17,7 @@ export default class OrderFormComponent extends Component {
 
     constructor() {
         super(...arguments);
-        this.changeset = new Changeset({ pickupTime: null }, lookupValidator(OrderValidation), OrderValidation);
+        this.changeset = new Changeset({ orderTime: null }, lookupValidator(OrderValidation), OrderValidation);
     }
 
     didInsertElement() {
@@ -63,7 +63,7 @@ export default class OrderFormComponent extends Component {
             this.set(
                 'changeset',
                 new Changeset(
-                    { pickupTime: null, name: null },
+                    { orderTime: null, name: null },
                     lookupValidator(MobileCustomerOrderValidation),
                     MobileCustomerOrderValidation
                 )
@@ -73,7 +73,7 @@ export default class OrderFormComponent extends Component {
             // facebook - requires only pickup time
             this.set(
                 'changeset',
-                new Changeset({ pickupTime: null }, lookupValidator(OrderValidation), OrderValidation)
+                new Changeset({ orderTime: null }, lookupValidator(OrderValidation), OrderValidation)
             );
             this.get('changeset').validate();
         }

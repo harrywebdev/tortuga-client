@@ -27,7 +27,7 @@ export default Controller.extend({
                 customer,
                 delivery_type: 'pickup',
                 payment_type: 'cash',
-                pickup_time: changeset.get('pickupTime'),
+                order_time: changeset.get('orderTime'),
             });
 
             const orderItems = this.orderState.get('orderItems').map(orderLineItem => {

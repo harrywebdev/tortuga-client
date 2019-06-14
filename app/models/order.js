@@ -7,7 +7,7 @@ export default Model.extend({
 
     delivery_type: attr('string'),
     payment_type: attr('string'),
-    pickup_time: attr('string'),
+    order_time: attr('string'),
 
     status: attr('string'),
     subtotal_amount: attr('number'),
