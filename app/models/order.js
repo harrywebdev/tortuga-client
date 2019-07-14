@@ -1,4 +1,6 @@
 import DS from 'ember-data';
+import { computed } from '@ember/object';
+import moment from 'moment';
 const { Model, attr, hasMany, belongsTo } = DS;
 
 export default Model.extend({
@@ -18,4 +20,8 @@ export default Model.extend({
 
     created_at: attr('date'),
     updated_at: attr('date'),
+
+    orderTimeFormatted: computed('order_time', function() {
+        return moment(this.get('order_time')).format('HH:mm');
+    }),
 });

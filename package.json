@@ -16,6 +16,7 @@
     "lint:js": "eslint .",
     "prestart": "ember test",
     "start": "ember serve --ssl=true --ssl-key=dev_ssl_certs/device.key --ssl-cert=dev_ssl_certs/tortuga.frontend.test.crt --live-reload=true",
+    "dev": "ember serve --ssl=true --ssl-key=dev_ssl_certs/device.key --ssl-cert=dev_ssl_certs/tortuga.frontend.test.crt --live-reload=true",
     "test": "ember test",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -63,5 +64,9 @@
   },
   "engines": {
     "node": "8.* || >= 10.*"
+  },
+  "dependencies": {
+    "ember-cli-moment-shim": "^3.7.1",
+    "moment": "^2.24.0"
   }
 }

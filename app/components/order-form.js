@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import OrderValidation from 'tortuga-frontend/validations/order-validation';
 import MobileCustomerOrderValidation from 'tortuga-frontend/validations/mobile-customer-order-validation';
 import lookupValidator from 'ember-changeset-validations';
 import Changeset from 'ember-changeset';

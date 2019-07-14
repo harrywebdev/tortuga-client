@@ -77,7 +77,7 @@
 
         <tab.pane @elementId="tabConfirmation" @title="Potvrzeni" class="content-tab">
           <h2 class="h4">Ta-da! 🎉</h2>
-          <p class="lead">Objednavku jsme prijali a bude pro Vas nachystana v {{orderState.order.order_time}}. Diky!</p>
+          <p class="lead">Objednavku jsme prijali a bude pro Vas nachystana v {{orderState.order.orderTimeFormatted}}. Diky!</p>
           <p class="text-center">
             <button type="button" class="btn btn-primary" {{action "reset"}}>Objednat znovu 👀</button>
           </p>
