@@ -18,22 +18,43 @@
     <div class="card-body">
 
       {{#if identityVerified}}
+        <div class="row">
+          <label for="identityName" class="d-none d-sm-block col-sm-4 col-md-3 col-form-label">Cas vyzvednuti:</label>
+          <div class="col-sm-8 col-md-9">
+            <span class="order-form__identity-attribute">
+              {{changeset.orderTime}}
+            </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="identityName" class="d-none d-sm-block col-sm-4 col-md-3 col-form-label">Vase jmeno:</label>
+          <div class="col-sm-8 col-md-9">
+            <span class="order-form__identity-attribute">
+              {{orderState.customer.name}}
+            </span>
+          </div>
+        </div>
 
         {{#if isVerifiedViaMobile}}
-          <div class="form-group row">
+          <div class="row">
             <label for="identityMobile" class="col-5 col-sm-4 col-md-3 col-form-label">Vas telefon:</label>
             <div class="col-7 col-sm-8 col-md-9">
               <span class="order-form__identity-attribute">
                 {{orderState.customer.mobile_number}}
               </span>
-              <small class="text-muted order-form__identity-note">
-                Prihlasen/a pres {{orderState.customer.displayRegistrationType}}.
-                <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
-              </small>
             </div>
           </div>
         {{/if}}
 
+        <p>
+          <small class="text-muted">
+            Zkontrolujte prosim zadane udaje.
+            <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
+          </small>
+        </p>
+
+        {{!-- TODO: perhaps in the future, enable if trusted customer
         {{#if isVerifiedViaFacebook}}
           <div class="form-group row">
             <label for="identityName" class="d-none d-sm-block col-sm-4 col-md-3 col-form-label">Vase jmeno:</label>
@@ -50,15 +71,19 @@
         {{else}}
           <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vase jmeno:" @changeset={{inputChangeset}} class="order-form__name-input" />
         {{/if}}
+        --}}
 
-        <Form::FormInput @placeholder="napr. 19:15" @name="orderTime" @label="Cas vyzvednuti:" @changeset={{inputChangeset}} class="order-form__pickup-time-input" />
 
       {{else}}
+        <Form::FormInput @placeholder="napr. 19:15" @name="orderTime" @label="Cas vyzvednuti:" @changeset={{inputChangeset}} class="order-form__pickup-time-input" />
+        <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vase jmeno:" @changeset={{inputChangeset}} class="order-form__name-input" />
 
         <div class="order-form__verification-buttons">
-          <FacebookLogin @onFinish={{action "verifyFacebookLoginCustomer"}} />
-          <div class="order-form__verification-divider">nebo</div>
-          <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} />
+          {{!-- TODO: perhaps in the future, enable if trusted customer
+            <FacebookLogin @onFinish={{action "verifyFacebookLoginCustomer"}} />
+            <div class="order-form__verification-divider">nebo</div>
+           --}}
+          <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} @disabled={{isIdentityVerificationDisabled}} />
         </div>
 
       {{/if}}

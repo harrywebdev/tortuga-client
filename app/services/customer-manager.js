@@ -11,13 +11,15 @@ export default class CustomerManagerService extends Service {
      *
      * @param {string} registrationType email|mobile
      * @param {string} accountKitCode Facebook Account Kit code
+     * @param {string} customerName
      * @returns {Promise}
      */
-    verifyCustomerViaAccountKit(registrationType, accountKitCode) {
+    verifyCustomerViaAccountKit(registrationType, accountKitCode, customerName) {
         return new EmberPromise((resolve, reject) => {
             const customer = this.store.createRecord('customer', {
                 reg_type: registrationType,
                 code: accountKitCode,
+                name: customerName,
             });
 
             customer.save().then(

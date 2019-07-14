@@ -17,7 +17,9 @@ export default class OrderFormComponent extends Component {
 
     constructor() {
         super(...arguments);
-        this.changeset = new Changeset({ orderTime: null }, lookupValidator(OrderValidation), OrderValidation);
+
+        // default validation is against mobile customer
+        this._setVerificationType('mobile');
     }
 
     didInsertElement() {
@@ -40,6 +42,11 @@ export default class OrderFormComponent extends Component {
 
         // fallback
         return true;
+    }
+
+    @computed('changeset.isValid', 'orderState.hasCartItems')
+    get isIdentityVerificationDisabled() {
+        return !this.get('orderState.hasCartItems') || !this.get('changeset.isValid');
     }
 
     @alias('changeset') inputChangeset;
@@ -69,13 +76,14 @@ export default class OrderFormComponent extends Component {
                 )
             );
             this.get('changeset').validate();
-        } else {
-            // facebook - requires only pickup time
-            this.set(
-                'changeset',
-                new Changeset({ orderTime: null }, lookupValidator(OrderValidation), OrderValidation)
-            );
-            this.get('changeset').validate();
+        // NOT IN USE
+        // } else {
+        //     // facebook - requires only pickup time
+        //     this.set(
+        //         'changeset',
+        //         new Changeset({ orderTime: null }, lookupValidator(OrderValidation), OrderValidation)
+        //     );
+        //     this.get('changeset').validate();
         }
     }
 
@@ -86,29 +94,32 @@ export default class OrderFormComponent extends Component {
 
     @action
     verifyAccountKitCustomer(registrationType, accountKitCode) {
-        this.customerManager.verifyCustomerViaAccountKit(registrationType, accountKitCode).then(
-            () => {
-                this._setVerificationType('mobile');
-            },
-            reason => {
-                // TODO: error reporting
-                console.error('Could not save customer', reason);
-            }
-        );
+        this.customerManager
+            .verifyCustomerViaAccountKit(registrationType, accountKitCode, this.changeset.get('name'))
+            .then(
+                () => {
+                    // nothing to do here
+                },
+                reason => {
+                    // TODO: error reporting
+                    console.error('Could not save customer', reason);
+                }
+            );
     }
 
-    @action
-    verifyFacebookLoginCustomer(accessToken) {
-        this.customerManager.verifyCustomerViaFacebookLogin(accessToken).then(
-            () => {
-                this._setVerificationType('facebook');
-            },
-            reason => {
-                // TODO: error reporting
-                console.error('Could not save customer', reason);
-            }
-        );
-    }
+    // TODO: perhaps in the future with trusted customer
+    // @action
+    // verifyFacebookLoginCustomer(accessToken) {
+    //     this.customerManager.verifyCustomerViaFacebookLogin(accessToken).then(
+    //         () => {
+    //             this._setVerificationType('facebook');
+    //         },
+    //         reason => {
+    //             // TODO: error reporting
+    //             console.error('Could not save customer', reason);
+    //         }
+    //     );
+    // }
 
     @action
     submit(changeset) {
