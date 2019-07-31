@@ -49,6 +49,7 @@ export default Controller.extend({
                 },
                 reason => {
                     console.error('Order save failed', reason);
+                    this.flashMessages.danger(`Ajaj, nepodarilo se dokoncit objednavku :( Zkuste prosim znovu.`);
                 }
             );
         },

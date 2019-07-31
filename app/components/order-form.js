@@ -9,6 +9,7 @@ import Changeset from 'ember-changeset';
 export default class OrderFormComponent extends Component {
     @service customerManager;
     @service facebookLogin;
+    @service flashMessages;
     @service orderState;
     @service store;
 
@@ -102,6 +103,7 @@ export default class OrderFormComponent extends Component {
                 reason => {
                     // TODO: error reporting
                     console.error('Could not save customer', reason);
+                    this.flashMessages.danger(`Ajaj, nepodarilo se overeni :( Zkuste prosim znovu.`);
                 }
             );
     }

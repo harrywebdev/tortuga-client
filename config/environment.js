@@ -42,6 +42,11 @@ module.exports = function(environment) {
             appId: '343032269734440',
             version: 'v1.0',
         },
+
+        flashMessageDefaults: {
+            destroyOnClick: true,
+            timeout: 5000,
+        },
     };
 
     if (environment === 'development') {

@@ -16,6 +16,12 @@
   <div class="card">
     <h5 class="card-header">Objednavka</h5>
     <div class="card-body">
+      
+      {{#if flashMessages.queue.firstObject}}
+        <div class="alert alert-danger" role="alert">
+          {{flashMessages.queue.firstObject.message}}
+        </div>
+      {{/if}}
 
       {{#if identityVerified}}
         <div class="row">
@@ -96,4 +102,3 @@
     </div>
   {{/if}}
 </form>
-
