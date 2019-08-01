@@ -44,10 +44,13 @@
       {{else}}
         <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vaše jméno:" @changeset={{changesetName}} class="order-form__name-input" />
 
-        <div class="field is-grouped is-grouped-centered">
-          <p class="control">
-            <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} @disabled={{isIdentityVerificationDisabled}} />
-          </p>
+        <div class="field is-horizontal">
+          <div class="field-label"></div>
+          <div class="field-body">
+            <p class="control">
+              <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} @disabled={{isIdentityVerificationDisabled}} />
+            </p>
+          </div>
         </div>
       {{/if}}
 
