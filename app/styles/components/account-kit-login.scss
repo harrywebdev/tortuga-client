@@ -1,10 +1,12 @@
 .account-kit-login {
     position: relative;
+
+    @include tablet {
+        left: 7px;
+    }
 }
 
 .account-kit-login__button {
-    @extend .btn;
-
     background-color: #128c7e;
     color: #fff;
 

@@ -1,6 +1,8 @@
-<button class="account-kit-login__button" {{action "smsLogin" on="click"}} disabled={{disabled}}>
-  <i class="fab fa-whatsapp"></i>
-  Prihlasit se pres SMS/Whatsapp
+<button class="button is-primary" {{action "smsLogin" on="click"}} disabled={{disabled}}>
+  <span class="icon">
+    <i class="fab fa-whatsapp"></i>
+  </span>
+  <span>Přihlásit se pres SMS/Whatsapp</span>
 </button>
 
 {{!-- <button class="btn btn-primary" {{action "emailLogin" on="click"}} disabled={{disabled}}>

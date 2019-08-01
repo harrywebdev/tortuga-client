@@ -1,0 +1,82 @@
+<ul class="steps is-narrow {{if size (concat "is-" size)}} is-centered has-content-centered is-horizontal">
+  <li class="steps-segment {{if (eq currentTab "tabMenu") "is-active has-gaps"}}">
+    {{#if orderState.orderHasBeenMade}}
+      <span class="steps-marker">
+        <span class="icon">
+          <i class="fal fa-check"></i>
+        </span>
+      </span>
+      <div class="steps-content">
+        <p class="heading">Menu</p>
+      </div>
+    {{else}}
+      <a href="#tabMenu" role="tab" {{action selectTab "tabMenu"}} class="has-text-dark">
+        <span class="steps-marker">
+          <span class="icon">
+            <i class="fal fa-hamburger"></i>
+          </span>
+        </span>
+        <div class="steps-content">
+          <p class="heading">Menu</p>
+        </div>
+      </a>
+    {{/if}}
+  </li>
+  <li class={{concat "steps-segment " (if (eq currentTab "tabOrder") "is-active") (if (eq currentTab "tabConfirmation") "" " has-gaps")}}>
+    {{#if orderState.orderHasBeenMade}}
+      <span class="steps-marker">
+        <span class="icon">
+          <i class="fal fa-check"></i>
+        </span>
+      </span>
+      <div class="steps-content">
+        <p class="heading">Objednat</p>
+      </div>
+    {{else}}
+      {{#if orderState.isReadyForCustomerDetails}}
+        <a href="#tabOrder" role="tab" {{action selectTab "tabOrder"}} class="has-text-dark">
+          <span class="steps-marker">
+            <span class="icon">
+              {{cartTotalQuantity}}
+            </span>
+          </span>
+          <div class="steps-content">
+            <p class="heading">Objednat</p>
+          </div>
+        </a>
+      {{else}}
+        <span class="steps-marker {{unless cartTotalQuantity "is-hollow"}}">
+          <span class="icon">
+            {{cartTotalQuantity}}
+          </span>
+        </span>
+        <div class="steps-content">
+          <p class="heading">Objednat</p>
+        </div>
+      {{/if}}
+    {{/if}}
+  </li>
+  <li class="steps-segment {{if orderState.orderHasBeenMade "is-active"}}">
+    {{#if orderState.orderHasBeenMade}}
+      <a href="#tabConfirmation" role="tab" {{action selectTab "tabConfirmation"}} class="has-text-dark">
+        <span class="steps-marker {{unless orderState.orderHasBeenMade "is-hollow"}}">
+          <span class="icon">
+            <i class="fal fa-check"></i>
+          </span>
+        </span>
+        <div class="steps-content">
+          <p class="heading">Ta-da!</p>
+        </div>
+      </a>
+    {{else}}
+      <span class="steps-marker is-hollow">
+        <span class="icon">
+          <i class="fal fa-check"></i>
+        </span>
+      </span>
+      <div class="steps-content">
+        <p class="heading">Ta-da!</p>
+      </div>
+    {{/if}}
+  </li>
+</ul>

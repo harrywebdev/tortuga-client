@@ -10,6 +10,7 @@ export default Model.extend({
     delivery_type: attr('string'),
     payment_type: attr('string'),
     order_time: attr('string'),
+    is_takeaway: attr('boolean'),
 
     status: attr('string'),
     subtotal_amount: attr('number'),

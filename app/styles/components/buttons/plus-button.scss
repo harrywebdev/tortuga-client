@@ -1,0 +1,23 @@
+.plus-button {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    background: transparent;
+    border: 0;
+    color: #454545;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        outline: none;
+    }
+    &:hover {
+        color: #000;
+    }
+
+    &[disabled] {
+        color: $border;
+        cursor: default;
+    }
+}

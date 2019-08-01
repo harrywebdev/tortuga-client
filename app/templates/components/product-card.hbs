@@ -1,11 +1,23 @@
-<div class="card product-card">
-  <div class="card-body">
-    <h5 class="card-title">{{ product.title }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{ product.description }}</h6>
-  </div>
-  <ul class="list-group list-group-flush">
+<div class="card">
+  <div class="card-content">
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="https://bulma.io/images/placeholders/128x128.png" alt="">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <h4 class="product-card__title">{{ product.title }}</h4>
+          <p class="has-text-grey-lighter is-size-6">
+            {{ product.description }}
+          </p>
+        </div>
+      </div>
+    </article>
+
     {{#each product.variations as |variation|}}
       <VariationLine @variation={{variation}} />
     {{/each}}
-  </ul>
+  </div>
 </div>

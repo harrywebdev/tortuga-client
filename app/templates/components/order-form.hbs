@@ -1,104 +1,73 @@
+<h3 class="is-size-3 tab-heading">Přehled</h3>
+
 <div class="card">
-  <h2 class="h5 card-header">Prehled</h2>
-  <ul class="list-group list-group-flush">
+  <div class="card-content">
     {{#each orderItems as |item|}}
       <OrderItemLine @orderItem={{item}} />
     {{/each}}
 
-    <div class="list-group-item order-item-line clearfix">
-      <strong class="d-block float-left">Celkova cena</strong>
-      <strong class="float-right">{{ orderState.formattedTotalPrice }}</strong>
+    <div class="level is-mobile">
+      <div class="level-left">Celková cena</div>
+      <div class="level-right"><strong>{{ orderState.formattedTotalPrice }}</strong></div>
     </div>
-  </ul>
+  </div>
 </div>
 
+
 <form class="needs-validation order-form__form">
+  <h3 class="is-size-3 tab-heading">Objednávka</h3>
+
   <div class="card">
-    <h5 class="card-header">Objednavka</h5>
-    <div class="card-body">
-      
-      {{#if flashMessages.queue.firstObject}}
-        <div class="alert alert-danger" role="alert">
-          {{flashMessages.queue.firstObject.message}}
-        </div>
-      {{/if}}
-
+    <div class="card-content">
       {{#if identityVerified}}
-        <div class="row">
-          <label for="identityName" class="d-none d-sm-block col-sm-4 col-md-3 col-form-label">Cas vyzvednuti:</label>
-          <div class="col-sm-8 col-md-9">
-            <span class="order-form__identity-attribute">
-              {{changeset.orderTime}}
+        <article class="media order-form__identity">
+          <figure class="media-left">
+            <span class="icon is-large">
+              <i class="fad fa-user-circle fa-3x"></i>
             </span>
-          </div>
-        </div>
-
-        <div class="row">
-          <label for="identityName" class="d-none d-sm-block col-sm-4 col-md-3 col-form-label">Vase jmeno:</label>
-          <div class="col-sm-8 col-md-9">
-            <span class="order-form__identity-attribute">
-              {{orderState.customer.name}}
-            </span>
-          </div>
-        </div>
-
-        {{#if isVerifiedViaMobile}}
-          <div class="row">
-            <label for="identityMobile" class="col-5 col-sm-4 col-md-3 col-form-label">Vas telefon:</label>
-            <div class="col-7 col-sm-8 col-md-9">
-              <span class="order-form__identity-attribute">
-                {{orderState.customer.mobile_number}}
-              </span>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{orderState.customer.name}}</strong><br>
+                {{#if isVerifiedViaMobile}}
+                  Telefon: {{orderState.customer.mobile_number}}<br>
+                {{/if}}
+                <small class="has-text-info">
+                  Zkontrolujte prosím zadané údaje.
+                  <a class="button is-small is-light" href="#reset" {{action "resetCustomer"}}>Změnit?</a>
+                </small>
+              </p>
             </div>
           </div>
-        {{/if}}
-
-        <p>
-          <small class="text-muted">
-            Zkontrolujte prosim zadane udaje.
-            <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
-          </small>
-        </p>
-
-        {{!-- TODO: perhaps in the future, enable if trusted customer
-        {{#if isVerifiedViaFacebook}}
-          <div class="form-group row">
-            <label for="identityName" class="d-none d-sm-block col-sm-4 col-md-3 col-form-label">Vase jmeno:</label>
-            <div class="col-sm-8 col-md-9">
-              <span class="order-form__identity-attribute">
-                {{orderState.customer.name}}
-              </span>
-              <small class="text-muted order-form__identity-note">
-                Prihlasen/a pres {{orderState.customer.displayRegistrationType}}.
-                <a href="#reset" {{action "resetCustomer"}}>Zmenit?</a>
-              </small>
-            </div>
-          </div>
-        {{else}}
-          <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vase jmeno:" @changeset={{inputChangeset}} class="order-form__name-input" />
-        {{/if}}
-        --}}
-
-
+        </article>
       {{else}}
-        <Form::FormInput @placeholder="napr. 19:15" @name="orderTime" @label="Cas vyzvednuti:" @changeset={{inputChangeset}} class="order-form__pickup-time-input" />
-        <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vase jmeno:" @changeset={{inputChangeset}} class="order-form__name-input" />
+        <Form::FormInput @placeholder="Jmeno" @name="name" @label="Vaše jméno:" @changeset={{changesetName}} class="order-form__name-input" />
 
-        <div class="order-form__verification-buttons">
-          {{!-- TODO: perhaps in the future, enable if trusted customer
-            <FacebookLogin @onFinish={{action "verifyFacebookLoginCustomer"}} />
-            <div class="order-form__verification-divider">nebo</div>
-           --}}
-          <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} @disabled={{isIdentityVerificationDisabled}} />
+        <div class="field is-grouped is-grouped-centered">
+          <p class="control">
+            <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} @disabled={{isIdentityVerificationDisabled}} />
+          </p>
         </div>
-
       {{/if}}
+
+      <Form::FormSelect @name="orderTime" @label="Čas vyzvednutí:" @changeset={{changesetOptions}} class="order-form__pickup-time-select" @options={{timeSlots}} />
+      <Form::FormSelect @name="orderTakeaway" @label="Chcete to s sebou?" @changeset={{changesetOptions}} class="order-form__pickup-time-select" @options={{yesNoOptions}} />
     </div>
   </div>
 
-  {{#if identityVerified}}
-    <div class="order-form__submit-box">
-      <button type="submit" class="btn btn-lg btn-primary" {{action "submit" changeset}} disabled={{isSubmitDisabled}}>Objednat</button>
-    </div>
+  {{#if flashMessages.queue.firstObject}}
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>Ajajaj...</p>
+      </div>
+      <div class="message-body">
+        {{flashMessages.queue.firstObject.message}}
+      </div>
+    </article>
   {{/if}}
+
+  <div class="order-form__submit-box">
+    <button type="submit" class="button is-large is-primary" {{action "submit"}} disabled={{isSubmitDisabled}}>Objednat</button>
+  </div>
 </form>

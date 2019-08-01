@@ -5,9 +5,7 @@ import { inject as service } from '@ember/service';
 export default class OrderItemLineComponent extends Component {
     @service cart;
 
-    tagName = 'li';
-
-    classNames = ['list-group-item', 'variation-line'];
+    classNames = ['variation-line'];
     classNameBindings = ['countInCart:list-group-item-success'];
 
     countInCart = false;

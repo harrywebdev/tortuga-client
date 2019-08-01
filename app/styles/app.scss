@@ -1,51 +1,32 @@
-@import 'ember-bootstrap/bootstrap';
+@charset "utf-8";
 
-// bootstrap overrides
-.container {
-    @include media-breakpoint-up(lg) {
-        max-width: 720px;
-    }
-    @include media-breakpoint-up(xl) {
-        max-width: 720px;
-    }
-}
+@import 'config';
 
-body {
-    padding: 1rem 0;
-    background: #fff;
-}
+@import '../bulma-o-steps/bulma-steps.sass';
+@import '../bulma/bulma.sass';
 
-.jumbotron {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-}
+$switch-background: $danger;
+@import '../bulma-checkradio/dist/css/bulma-checkradio.sass';
 
-.product-card {
-    margin-bottom: 1rem;
-}
+@import 'bulma-overrides';
 
-.nav-tabs .nav-link.active,
-.nav-tabs .nav-item.show .nav-link {
-    background: #fafafa;
-    border-bottom-color: #fafafa;
-}
+@import 'layouts/index';
 
-.content-tab {
-    padding: 1rem;
-    border: 1px solid #dee2e6;
-    border-top: 0;
-    background: #fafafa;
-    position: relative;
-}
-
-.content-tab__continue-btn {
-    position: absolute;
-    top: 14px;
-    right: 20px;
-}
-
+// logins
 @import 'components/account-kit-login';
 @import 'components/facebook-login';
+
+// buttons
+@import 'components/buttons/plus-button';
+@import 'components/buttons/minus-button';
+
+// order
 @import 'components/order-form';
 @import 'components/order-line-item';
+@import 'components/order-steps';
+
+// product
+@import 'components/product-card';
+
+// cart
 @import 'components/variation-line';

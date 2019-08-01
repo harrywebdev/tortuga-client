@@ -1,8 +1,11 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { Promise as EmberPromise } from 'rsvp';
+import { storageFor } from 'ember-local-storage';
 
 export default class CustomerManagerService extends Service {
+    @storageFor('current-customer') currentCustomer;
+
     @service facebookLogin;
     @service orderState;
     @service store;
@@ -25,6 +28,15 @@ export default class CustomerManagerService extends Service {
             customer.save().then(
                 customer => {
                     this.orderState.updateCustomer(customer);
+
+                    // save to localStorage for next time
+                    // TODO: based on RememberMe flag
+                    this.currentCustomer.set('data', {
+                        account_id: customer.get('account_kit_id'),
+                        reg_type: customer.get('reg_type'),
+                        name: customer.get('name'),
+                    });
+
                     resolve(customer);
                 },
                 reason => {

@@ -1,0 +1,15 @@
+.field-label {
+    @include tablet {
+        flex-grow: 3;
+    }
+}
+
+.card {
+    margin-bottom: $spacing-double;
+}
+
+.card-content {
+    @include until($tablet) {
+        padding: $spacing-regular;
+    }
+}

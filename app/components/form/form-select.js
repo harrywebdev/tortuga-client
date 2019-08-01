@@ -2,10 +2,10 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
-export default class FormInputComponent extends Component {
+export default class FormSelectComponent extends Component {
     classNames = ['field', 'is-horizontal'];
 
-    placeholder = '';
+    placeholder = 'Vyberte...';
     label = '';
     type = 'text';
     @alias('type') inputType;

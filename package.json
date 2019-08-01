@@ -28,6 +28,7 @@
     "babel-eslint": "^10.0.1",
     "bootstrap": "^4.0.0",
     "broccoli-asset-rev": "^3.0.0",
+    "bulma": "^0.7.5",
     "cypress": "^3.3.1",
     "ember-ajax": "^5.0.0",
     "ember-bootstrap": "^2.4.0",
@@ -35,6 +36,7 @@
     "ember-changeset-validations": "^2.1.0",
     "ember-cli": "~3.10.1",
     "ember-cli-app-version": "^3.2.0",
+    "ember-cli-autoprefixer": "^0.8.1",
     "ember-cli-babel": "^7.7.3",
     "ember-cli-dependency-checker": "^3.1.0",
     "ember-cli-eslint": "^5.1.0",
@@ -42,7 +44,7 @@
     "ember-cli-htmlbars": "^3.0.1",
     "ember-cli-htmlbars-inline-precompile": "^2.1.0",
     "ember-cli-inject-live-reload": "^1.8.2",
-    "ember-cli-sass": "^9.0.1",
+    "ember-cli-sass": "^10.0.1",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-template-lint": "^1.0.0-beta.1",
     "ember-cli-uglify": "^2.1.0",
@@ -55,18 +57,21 @@
     "ember-qunit": "^4.4.1",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.10.0",
+    "ember-truth-helpers": "^2.1.0",
     "ember-welcome-page": "^4.0.0",
     "eslint-plugin-ember": "^6.2.0",
     "eslint-plugin-node": "^9.0.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.4",
-    "sass": "^1.16.1",
+    "sass": "^1.22.9",
     "start-server-and-test": "^1.9.1"
   },
   "engines": {
     "node": "8.* || >= 10.*"
   },
   "dependencies": {
+    "bulma-checkradio": "^1.1.1",
+    "bulma-o-steps": "^1.0.9",
     "ember-cli-moment-shim": "^3.7.1",
     "moment": "^2.24.0"
   }

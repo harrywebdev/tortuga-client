@@ -1,20 +1,29 @@
 {{#if orderItem}}
-  <span class="row align-items-center">
-    <span class="col-12 col-md-8">
-      <strong class="d-block d-md-none">{{ orderItem.quantity }} &times; {{ orderItem.title }}</strong>
-      <span class="d-none d-md-block">{{ orderItem.quantity }} &times; {{ orderItem.title }}</span>
-    </span>
-    <span class="col-md-2 text-right d-none d-md-block">{{ orderItem.formattedTotalPrice }}</span>
-    <span class="col-12 col-md-2 text-right clearfix">
-      <span class="d-block d-md-none float-left">Cena: {{ orderItem.formattedTotalPrice }}</span>
+  <div class="variation-line__level level is-mobile is-hidden-tablet">
+    <div class="level-left variation-line__title">
+      <h5 class="has-text-weight-semibold">{{ orderItem.quantity }} &times; {{ orderItem.title }}</h5>
+    </div>
+  </div>
+  <div class="variation-line__level level is-mobile is-hidden-tablet">
+    <div class="level-left">
+      <span class="variation-line__price">{{ orderItem.formattedTotalPrice }}</span>
+    </div>
+    <div class="level-right">
+      <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
+      <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} disabled={{missingInCart}} />
+    </div>
+  </div>
 
-      <button class="order-item-line__action-button js-add-to-cart-button" {{action "addToCart" on="click"}}>
-        <i class="far fa-plus-circle"></i>
-      </button>
+  <div class="variation-line__level level is-mobile is-hidden-mobile">
+    <div class="level-left">
+      <h5 class="has-text-weight-semibold">{{ orderItem.quantity }} &times; {{ orderItem.title }}</h5>
+    </div>
 
-      <button class="order-item-line__action-button js-remove-from-cart-button" {{action "removeFromCart" on="click"}}>
-        <i class="far fa-minus-circle"></i>
-      </button>
-    </span>
-  </span>
+    <div class="level-right">
+      <span class="variation-line__price">{{ orderItem.formattedTotalPrice }}</span>
+
+      <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
+      <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} />
+    </div>
+  </div>
 {{/if}}

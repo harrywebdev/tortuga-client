@@ -2,11 +2,15 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
+import { storageFor } from 'ember-local-storage';
 import OrderLineItem from 'tortuga-frontend/models/order-line-item';
 
 export default class OrderStateService extends Service {
+    @storageFor('current-customer') currentCustomer;
+
     @service cart;
     @service products;
+    @service store;
 
     customer = null;
     order = null;
@@ -93,5 +97,24 @@ export default class OrderStateService extends Service {
 
     resetOrder() {
         this.set('order', null);
+    }
+
+    initCustomerFromLocalStorage() {
+        const customerData = this.currentCustomer.get('data');
+        if (!customerData) {
+            return;
+        }
+
+        this.store.query('customer', customerData).then(
+            customer => {
+                if (customer.length == 1) {
+                    this.updateCustomer(customer.get('firstObject'));
+                }
+            },
+            () => {
+                // clear incorrect data
+                this.currentCustomer.clear();
+            }
+        );
     }
 }

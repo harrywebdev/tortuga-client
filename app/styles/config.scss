@@ -1,0 +1,21 @@
+$spacing-regular: 16px;
+$spacing-half: $spacing-regular / 2;
+$spacing-double: $spacing-regular * 2;
+$spacing-more: $spacing-regular / 1.5;
+
+// bulma overrides
+$gap: 8px; // from default 32px
+
+$background: hsl(0, 0%, 94%);
+$primary: #ff3838;
+$info: #17c0eb;
+$success: #3ae374;
+$danger: #ff4d4d;
+
+// $text: hsl(0, 0%, 98%);
+// $text-strong: hsl(0, 0%, 100%);
+
+// $card-background-color: #222f3e;
+// $card-shadow: 0 2px 3px rgba(#fff, 0.1), 0 0 0 1px rgba(#fff, 0.1);
+
+$footer-background-color: #000;

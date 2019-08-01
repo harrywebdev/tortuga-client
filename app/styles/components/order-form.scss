@@ -1,26 +1,12 @@
-.order-form__verification-buttons {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.order-form__identity {
+    max-width: 370px;
+    margin-left: auto;
+    margin-right: auto;
 
-    @include media-breakpoint-up(md) {
-        flex-direction: row;
-        justify-content: space-between;
+    .icon {
+        position: relative;
+        top: 4px;
     }
-}
-
-.order-form__verification-divider {
-    text-align: center;
-
-    @include media-breakpoint-down(md) {
-        padding: 10px 0;
-    }
-}
-
-.order-form__identity-attribute {
-    @extend .col-form-label;
-    display: inline-block;
-    margin-right: 8px;
 }
 
 .order-form__pickup-time-input {
@@ -36,8 +22,9 @@
 }
 
 .order-form__submit-box {
-    margin-top: 16px;
+    margin-top: $spacing-regular;
     text-align: center;
+    padding-bottom: $spacing-regular;
 }
 
 .order-form__form {
@@ -45,7 +32,7 @@
 }
 
 .order-form__identity-note {
-    @include media-breakpoint-down(sm) {
+    // @include media-breakpoint-down(sm) {
         display: block;
-    }
+    // }
 }

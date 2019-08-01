@@ -2,7 +2,8 @@ import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import MobileCustomerOrderValidation from 'tortuga-frontend/validations/mobile-customer-order-validation';
+import OrderOptionsValidation from 'tortuga-frontend/validations/order-options-validation';
+import NameValidation from 'tortuga-frontend/validations/name-validation';
 import lookupValidator from 'ember-changeset-validations';
 import Changeset from 'ember-changeset';
 
@@ -24,11 +25,26 @@ export default class OrderFormComponent extends Component {
 
     didInsertElement() {
         super.didInsertElement(...arguments);
-        this.get('changeset').validate();
+
+        this.get('changesetOptions').validate();
+        this.get('changesetName').validate();
     }
 
+    availableSlots = [];
+    yesNoOptions = [{ value: '1', label: 'Ano' }, { value: '0', label: 'Ne' }];
     isSubmitting = false;
-    @computed('identityVerified', 'isSubmitting', 'changeset.isValid', 'orderState.hasCartItems')
+
+    @computed('availableSlots.[]')
+    get timeSlots() {
+        return this.availableSlots.map(slot => {
+            return {
+                value: slot.get('slot'),
+                label: slot.get('slot'),
+            };
+        });
+    }
+
+    @computed('identityVerified', 'isSubmitting', 'changesetOptions.isValid', 'orderState.hasCartItems')
     get isSubmitDisabled() {
         // submitting or no cart items
         if (this.get('isSubmitting') || !this.get('orderState.hasCartItems')) {
@@ -36,7 +52,7 @@ export default class OrderFormComponent extends Component {
         }
 
         // customer verified and pickup time filled - green light
-        if (this.get('identityVerified') && this.get('changeset.isValid')) {
+        if (this.get('identityVerified') && this.get('changesetOptions.isValid')) {
             return false;
         }
 
@@ -44,12 +60,10 @@ export default class OrderFormComponent extends Component {
         return true;
     }
 
-    @computed('changeset.isValid', 'orderState.hasCartItems')
+    @computed('changesetName.isValid', 'orderState.hasCartItems')
     get isIdentityVerificationDisabled() {
-        return !this.get('orderState.hasCartItems') || !this.get('changeset.isValid');
+        return !this.get('orderState.hasCartItems') || !this.get('changesetName.isValid');
     }
-
-    @alias('changeset') inputChangeset;
 
     @computed('orderState.orderItems')
     get orderItems() {
@@ -60,6 +74,9 @@ export default class OrderFormComponent extends Component {
     @alias('orderState.customer.isFacebookLoginCustomer') isVerifiedViaFacebook;
     @alias('orderState.customer.isMobileCustomer') isVerifiedViaMobile;
 
+    @alias('changesetOptions.orderTime') isOrderTimePicked;
+    @alias('changesetName.name') isNameFilled;
+
     onSubmit() {
         // pass thru
     }
@@ -68,22 +85,27 @@ export default class OrderFormComponent extends Component {
         // mobile - requires pickup time and name
         if (verificationType === 'mobile') {
             this.set(
-                'changeset',
+                'changesetOptions',
                 new Changeset(
-                    { orderTime: null, name: null },
-                    lookupValidator(MobileCustomerOrderValidation),
-                    MobileCustomerOrderValidation
+                    { orderTime: '', orderTakeaway: null },
+                    lookupValidator(OrderOptionsValidation),
+                    OrderOptionsValidation
                 )
             );
-            this.get('changeset').validate();
-        // NOT IN USE
-        // } else {
-        //     // facebook - requires only pickup time
-        //     this.set(
-        //         'changeset',
-        //         new Changeset({ orderTime: null }, lookupValidator(OrderValidation), OrderValidation)
-        //     );
-        //     this.get('changeset').validate();
+
+            this.set(
+                'changesetName',
+                new Changeset(
+                    {
+                        name: this.identityVerified ? this.orderState.customer.get('name') : null,
+                    },
+                    lookupValidator(NameValidation),
+                    NameValidation
+                )
+            );
+
+            this.get('changesetOptions').validate();
+            this.get('changesetName').validate();
         }
     }
 
@@ -95,7 +117,7 @@ export default class OrderFormComponent extends Component {
     @action
     verifyAccountKitCustomer(registrationType, accountKitCode) {
         this.customerManager
-            .verifyCustomerViaAccountKit(registrationType, accountKitCode, this.changeset.get('name'))
+            .verifyCustomerViaAccountKit(registrationType, accountKitCode, this.changesetName.get('name'))
             .then(
                 () => {
                     // nothing to do here
@@ -103,29 +125,16 @@ export default class OrderFormComponent extends Component {
                 reason => {
                     // TODO: error reporting
                     console.error('Could not save customer', reason);
-                    this.flashMessages.danger(`Ajaj, nepodarilo se overeni :( Zkuste prosim znovu.`);
+                    this.flashMessages.danger(`Nepodařilo se ověření :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte ;)`);
                 }
             );
     }
 
-    // TODO: perhaps in the future with trusted customer
-    // @action
-    // verifyFacebookLoginCustomer(accessToken) {
-    //     this.customerManager.verifyCustomerViaFacebookLogin(accessToken).then(
-    //         () => {
-    //             this._setVerificationType('facebook');
-    //         },
-    //         reason => {
-    //             // TODO: error reporting
-    //             console.error('Could not save customer', reason);
-    //         }
-    //     );
-    // }
-
     @action
-    submit(changeset) {
+    submit() {
         this.set('isSubmitting', true);
-        this.onSubmit(changeset);
+        this.changesetOptions.save();
+        this.onSubmit(this.changesetOptions.get('orderTime'), this.changesetOptions.get('orderTakeaway'));
         this.set('isSubmitting', false);
     }
 }

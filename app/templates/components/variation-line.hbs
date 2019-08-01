@@ -1,25 +1,31 @@
 {{#if variation}}
-  <span class="row align-items-center">
-    <span class="col-8 col-sm-8 col-md-7">
-      <strong class="d-block d-md-none">{{ variation.title }}</strong>
-      <span class="d-none d-md-block">{{ variation.title }}</span>
-      <span class="d-block d-md-none">{{ variation.formattedPrice }}</span>
-    </span>
-    <span class="col-sm-2 col-md-2 text-right d-none d-md-block">{{ variation.formattedPrice }}</span>
-    <span class="col-4 col-sm-4 col-md-3 text-right">
-      {{#if countInCart}}
-        <span class="variation-line__quantity badge badge-pill badge-primary">{{ countInCart }}</span>
-      {{/if}}
+  <div class="variation-line__level level is-mobile is-hidden-tablet">
+    <div class="level-left variation-line__title">
+      <h5 class="has-text-weight-semibold">{{ variation.title }}</h5>
+    </div>
+  </div>
+  <div class="variation-line__level level is-mobile is-hidden-tablet">
+    <div class="level-left">
+      <span class="variation-line__price">{{ variation.formattedPrice }}</span>
+    </div>
+    <div class="level-right">
+      {{#if countInCart}}<span class="variation-line__quantity tag is-rounded is-info">{{ countInCart }}</span>{{/if}}
+      <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
+      <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} disabled={{missingInCart}} />
+    </div>
+  </div>
 
-      <button class="variation-line__action-button js-add-to-cart-button" {{action "addToCart" on="click"}}>
-        <i class="far fa-plus-circle"></i>
-      </button>
+  <div class="variation-line__level level is-mobile is-hidden-mobile">
+    <div class="level-left">
+      <h5 class="has-text-weight-semibold">{{ variation.title }}</h5>
+    </div>
 
-      {{#if countInCart}}
-        <button class="variation-line__action-button js-remove-from-cart-button" {{action "removeFromCart" on="click"}}>
-          <i class="far fa-minus-circle"></i>
-        </button>
-      {{/if}}
-    </span>
-  </span>
+    <div class="level-right">
+      {{#if countInCart}}<span class="variation-line__quantity tag is-rounded is-info">{{ countInCart }}</span>{{/if}}
+      <span class="variation-line__price">{{ variation.formattedPrice }}</span>
+
+      <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
+      <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} disabled={{missingInCart}} />
+    </div>
+  </div>
 {{/if}}

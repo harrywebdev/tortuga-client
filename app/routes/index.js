@@ -9,6 +9,7 @@ export default Route.extend({
         return RSVP.hash({
             categories: this.store.findAll('category'),
             products: this.store.findAll('product', { include: 'variations' }),
+            slots: this.store.findAll('slot'),
         });
     },
 
