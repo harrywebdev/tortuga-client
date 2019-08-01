@@ -46,6 +46,7 @@ module.exports = function(environment) {
         flashMessageDefaults: {
             destroyOnClick: true,
             timeout: 5000,
+            sticky: true,
         },
     };
 
