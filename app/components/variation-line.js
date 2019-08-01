@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 
 export default class VariationLineComponent extends Component {
     @service cart;
+    @service kitchenState;
 
     classNames = ['variation-line'];
     classNameBindings = ['countInCart:variation-line--selected'];

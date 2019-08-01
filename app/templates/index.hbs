@@ -1,4 +1,4 @@
-<Header/>
+<Header />
 
 <div class="index-container">
   <div class="is-hidden-mobile">
@@ -7,6 +7,10 @@
   <div class="is-hidden-tablet">
     <OrderSteps @size="small" @currentTab={{currentTab}} @orderState={{orderState}} @cartTotalQuantity={{cart.totalQuantity}} @selectTab={{action "selectTab"}} />
   </div>
+
+  {{#if kitchenState.isClosed}}
+    <Message @title="Ahoy!" @body="<strong>Na vědomost se dává: v tuhle chvíli nelze objednat!</strong> Buď máme plné ruce práce a stíháme jen tak tak, anebo máme zavřeno. Ať tak či onak, zkuste to později anebo se u nás zastavte osobně a objednejte si jako za starých časů." @context="warning" />
+  {{/if}}
 
   {{#if (eq currentTab "tabMenu")}}
     <section class="tab-pane">
@@ -18,27 +22,33 @@
               <div class="level-left">
                 <h3 class="is-size-3">{{ category.title }}</h3>
               </div>
-              <div class="level-right category__continue-cta">
-                <span class="js-subtotal-amount category__total">Celkem: {{orderState.formattedTotalPrice}}</span>
-                {{#if orderState.isReadyForCustomerDetails}}
-                  <button class="button is-primary is-small js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
-                    Pokračovat
-                  </button>
-                {{/if}}
-              </div>
+
+              {{#if kitchenState.isOpen}}
+                <div class="level-right category__continue-cta">
+                  <span class="js-subtotal-amount category__total">Celkem: {{orderState.formattedTotalPrice}}</span>
+
+                  {{#if orderState.isReadyForCustomerDetails}}
+                    <button class="button is-primary is-small js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                      Pokračovat
+                    </button>
+                  {{/if}}
+                </div>
+              {{/if}}
             </div>
 
             <ProductList @category={{category}} @items={{model.products}} />
           </div>
         {{/each}}
 
-        {{#if orderState.isReadyForCustomerDetails}}
-          <div class="menu-continue has-text-centered">
-            <p class="js-subtotal-amount is-size-5">Celkem: {{orderState.formattedTotalPrice}}</p>
-            <button class="button is-primary is-large js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
-              Pokračovat
-            </button>
-          </div>
+        {{#if kitchenState.isOpen}}
+          {{#if orderState.isReadyForCustomerDetails}}
+            <div class="menu-continue has-text-centered">
+              <p class="js-subtotal-amount is-size-5">Celkem: {{orderState.formattedTotalPrice}}</p>
+              <button class="button is-primary is-large js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                Pokračovat
+              </button>
+            </div>
+          {{/if}}
         {{/if}}
       </div>
     </section>

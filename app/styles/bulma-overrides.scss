@@ -13,3 +13,11 @@
         padding: $spacing-regular;
     }
 }
+
+.message {
+    margin: $spacing-half;
+
+    @include tablet {
+        margin: $spacing-regular;
+    }
+}

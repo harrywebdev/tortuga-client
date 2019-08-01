@@ -1,0 +1,9 @@
+<article class="message {{if context (concat "is-" context)}}">
+  <div class="message-header">
+    <p>{{title}}</p>
+  </div>
+  <div class="message-body">
+    <!-- template-lint triple-curlies=false -->
+    {{{formattedBody}}}
+  </div>
+</article>

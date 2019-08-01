@@ -5,6 +5,7 @@ import { action } from '@ember/object';
 export default class IndexController extends Controller {
     @service cart;
     @service customerManager;
+    @service kitchenState;
     @service orderState;
     @service store;
 

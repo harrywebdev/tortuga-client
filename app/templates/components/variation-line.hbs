@@ -9,9 +9,11 @@
       <span class="variation-line__price">{{ variation.formattedPrice }}</span>
     </div>
     <div class="level-right">
-      {{#if countInCart}}<span class="variation-line__quantity tag is-rounded is-info">{{ countInCart }}</span>{{/if}}
-      <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
-      <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} disabled={{missingInCart}} />
+      {{#if kitchenState.isOpen}}
+        {{#if countInCart}}<span class="variation-line__quantity tag is-rounded is-info">{{ countInCart }}</span>{{/if}}
+        <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
+        <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} disabled={{missingInCart}} />
+      {{/if}}
     </div>
   </div>
 
@@ -21,11 +23,13 @@
     </div>
 
     <div class="level-right">
-      {{#if countInCart}}<span class="variation-line__quantity tag is-rounded is-info">{{ countInCart }}</span>{{/if}}
-      <span class="variation-line__price">{{ variation.formattedPrice }}</span>
+      {{#if kitchenState.isOpen}}
+        {{#if countInCart}}<span class="variation-line__quantity tag is-rounded is-info">{{ countInCart }}</span>{{/if}}
+        <span class="variation-line__price">{{ variation.formattedPrice }}</span>
 
-      <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
-      <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} disabled={{missingInCart}} />
+        <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
+        <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} disabled={{missingInCart}} />
+      {{/if}}
     </div>
   </div>
 {{/if}}

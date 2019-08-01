@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 
 export default Route.extend({
     products: service(),
+    kitchenState: service(),
 
     model() {
         return RSVP.hash({
@@ -16,5 +17,9 @@ export default Route.extend({
     afterModel(model) {
         this._super(...arguments);
         this.products.setProducts(model.products);
+
+        if (!model.slots.length) {
+            this.kitchenState.closeShop();
+        }
     },
 });
