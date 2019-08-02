@@ -57,7 +57,8 @@
   {{#if (eq currentTab "tabOrder")}}
     <section class="tab-pane">
       <div class="container">
-        <OrderForm @onSubmit={{action "submitOrder"}} @availableSlots={{model.slots}} />
+        {{!-- `triggerSlotChange` just because `didReceiveAttrs` does not watch for array length changes --}}
+        <OrderForm @onSubmit={{action "submitOrder"}} @availableSlots={{slots.slots}} @triggerSlotChange={{slots.slots.length}} />
       </div>
     </section>
   {{/if}}

@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 
 export default class IndexRoute extends Route {
     @service products;
+    @service slots;
     @service kitchenState;
 
     model() {
@@ -17,6 +18,7 @@ export default class IndexRoute extends Route {
     afterModel(model) {
         super.afterModel(...arguments);
         this.products.setProducts(model.products);
+        this.slots.setSlots(model.slots);
 
         if (!model.slots.length) {
             this.kitchenState.closeShop();

@@ -18,7 +18,7 @@ export default class FormSelectComponent extends Component {
 
     @computed('name', 'changeset.error')
     get hasError() {
-        return this.get(`changeset.error.${this.get('name')}.value`);
+        return this.get(`changeset.error.${this.get('name')}.value`) === null;
     }
 
     @computed('name', 'changeset.error')

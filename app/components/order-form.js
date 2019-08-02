@@ -30,6 +30,20 @@ export default class OrderFormComponent extends Component {
         this.get('changesetName').validate();
     }
 
+    didReceiveAttrs() {
+        super.didReceiveAttrs(...arguments);
+
+        if (this.availableSlots.length) {
+            const selectedOrderTime = this.changesetOptions.get('orderTime');
+
+            // has been picked before -> alert customer
+            if (selectedOrderTime) {
+                this.changesetOptions.set('orderTime', null);
+                this.changesetOptions.validate();
+            }
+        }
+    }
+
     availableSlots = [];
     yesNoOptions = [{ value: '1', label: 'Ano' }, { value: '0', label: 'Ne' }];
     isSubmitting = false;
@@ -38,8 +52,8 @@ export default class OrderFormComponent extends Component {
     get timeSlots() {
         return this.availableSlots.map(slot => {
             return {
-                value: slot.get('slot'),
-                label: slot.get('slot'),
+                value: slot.slot,
+                label: slot.slot,
             };
         });
     }
@@ -87,7 +101,7 @@ export default class OrderFormComponent extends Component {
             this.set(
                 'changesetOptions',
                 new Changeset(
-                    { orderTime: '', orderTakeaway: null },
+                    { orderTime: '', orderTakeaway: '' },
                     lookupValidator(OrderOptionsValidation),
                     OrderOptionsValidation
                 )
@@ -125,7 +139,9 @@ export default class OrderFormComponent extends Component {
                 reason => {
                     // TODO: error reporting
                     console.error('Could not save customer', reason);
-                    this.flashMessages.danger(`Nepodařilo se ověření :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte ;)`);
+                    this.flashMessages.danger(
+                        `Nepodařilo se ověření :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte ;)`
+                    );
                 }
             );
     }

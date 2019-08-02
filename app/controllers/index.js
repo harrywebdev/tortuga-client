@@ -8,6 +8,7 @@ export default class IndexController extends Controller {
     @service kitchenState;
     @service orderState;
     @service router;
+    @service slots;
     @service store;
 
     currentTab = 'tabMenu';
@@ -52,10 +53,18 @@ export default class IndexController extends Controller {
                 this.cart.resetCart();
 
                 this._scrollToTop();
-                
+
                 this.router.transitionTo('confirmation');
             },
             reason => {
+                if (reason.errors.length && reason.errors[0].status === 409) {
+                    this.flashMessages.danger(
+                        `Je nám líto, ale vybraný čas se mezitím už zaplnil :( Vyberte prosím nový před odesláním objednávky.`
+                    );
+                    this.slots.reloadSlots();
+                    return;
+                }
+
                 console.error('Order save failed', reason);
                 this.flashMessages.danger(
                     `Nepodařilo se dokončit objednávku :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte ;)`

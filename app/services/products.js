@@ -1,10 +1,7 @@
 import Service from '@ember/service';
 
 export default class ProductsService extends Service {
-    constructor() {
-        super(...arguments);
-        this.products = [];
-    }
+    products = [];
 
     setProducts(products) {
         this.set('products', products);
