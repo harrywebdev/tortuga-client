@@ -61,24 +61,6 @@
       </div>
     </section>
   {{/if}}
-
-  {{#if (eq currentTab "tabConfirmation")}}
-    <section class="tab-pane">
-      <div class="container">
-        <h3 class="is-size-3 tab-heading">Ta-da! 🎉</h3>
-        <div class="card">
-          <div class="card-content">
-            <div class="content">
-              <p>Objednávku jsme přijali a bude pro Vás nachystaná v {{if orderState.order.orderTimeFormatted orderState.order.orderTimeFormatted "Vámi vybraný čas"}}. Děkujeme!</p>
-              <p>
-                <button type="button" class="button is-primary" {{action "reset"}}>Objednat znovu 👀</button>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  {{/if}}
 </div>
 
 <footer class="footer">

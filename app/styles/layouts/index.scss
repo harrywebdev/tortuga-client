@@ -12,9 +12,13 @@ body {
 }
 
 .index-container {
-    max-width: $tablet;
+    max-width: 100%;
     margin: 0 auto;
     padding: $spacing-double 0;
+
+    @include tablet {
+        max-width: $tablet;
+    }
 }
 
 .level.level--heading,

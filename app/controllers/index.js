@@ -7,14 +7,19 @@ export default class IndexController extends Controller {
     @service customerManager;
     @service kitchenState;
     @service orderState;
+    @service router;
     @service store;
 
     currentTab = 'tabMenu';
 
+    _scrollToTop() {
+        document.getElementById('header').scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }
+
     @action
     selectTab(tab) {
         this.set('currentTab', tab);
-        document.getElementById('header').scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+        this._scrollToTop();
     }
 
     @action
@@ -44,8 +49,11 @@ export default class IndexController extends Controller {
         order.save().then(
             order => {
                 this.orderState.updateOrder(order);
-                this.set('currentTab', 'tabConfirmation');
                 this.cart.resetCart();
+
+                this._scrollToTop();
+                
+                this.router.transitionTo('confirmation');
             },
             reason => {
                 console.error('Order save failed', reason);
@@ -54,11 +62,5 @@ export default class IndexController extends Controller {
                 );
             }
         );
-    }
-
-    @action
-    reset() {
-        this.orderState.resetOrder();
-        this.set('currentTab', 'tabMenu');
     }
 }

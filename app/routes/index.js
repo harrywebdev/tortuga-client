@@ -2,9 +2,9 @@ import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
-export default Route.extend({
-    products: service(),
-    kitchenState: service(),
+export default class IndexRoute extends Route {
+    @service products;
+    @service kitchenState;
 
     model() {
         return RSVP.hash({
@@ -12,14 +12,20 @@ export default Route.extend({
             products: this.store.findAll('product', { include: 'variations' }),
             slots: this.store.findAll('slot'),
         });
-    },
+    }
 
     afterModel(model) {
-        this._super(...arguments);
+        super.afterModel(...arguments);
         this.products.setProducts(model.products);
 
         if (!model.slots.length) {
             this.kitchenState.closeShop();
         }
-    },
-});
+    }
+
+    resetController(controller) {
+        super.resetController(...arguments);
+
+        controller.set('currentTab', 'tabMenu');
+    }
+}
