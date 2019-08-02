@@ -4,11 +4,7 @@
       <a href="#tabMenu" role="tab" {{action selectTab "tabMenu"}} class="has-text-dark">
         <span class="steps-marker">
           <span class="icon">
-            {{#if orderState.orderHasBeenMade}}
-              <i class="fal fa-check"></i>
-            {{else}}
-              <i class="fal fa-hamburger"></i>
-            {{/if}}
+            <i class="fal fa-hamburger"></i>
           </span>
         </span>
         <div class="steps-content">
@@ -21,7 +17,11 @@
           {{#if kitchen.isOpen}}
             <i class="fal fa-hamburger"></i>
           {{else}}
-            <i class="fal fa-times"></i>
+            {{#if orderState.orderHasBeenMade}}
+              <i class="fal fa-check"></i>
+            {{else}}
+              <i class="fal fa-hamburger"></i>
+            {{/if}}
           {{/if}}
         </span>
       </span>
