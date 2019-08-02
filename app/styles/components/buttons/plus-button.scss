@@ -16,6 +16,10 @@
         color: #000;
     }
 
+    &:focus {
+        color: $info;
+    }
+
     &[disabled] {
         color: $border;
         cursor: default;

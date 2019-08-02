@@ -66,6 +66,6 @@
   {{/if}}
 
   <div class="order-form__submit-box">
-    <button type="submit" class="button is-large is-primary" {{action "submit"}} disabled={{isSubmitDisabled}}>Objednat</button>
+    <button type="submit" class="button is-large is-primary {{if submitForm.isRunning "is-loading"}}" {{action "submitOrder"}} disabled={{isSubmitDisabled}}>Objednat</button>
   </div>
 </form>

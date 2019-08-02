@@ -2,17 +2,21 @@ import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import OrderOptionsValidation from 'tortuga-frontend/validations/order-options-validation';
-import NameValidation from 'tortuga-frontend/validations/name-validation';
+import { later } from '@ember/runloop';
+import { task } from 'ember-concurrency';
 import lookupValidator from 'ember-changeset-validations';
 import Changeset from 'ember-changeset';
+import OrderOptionsValidation from 'tortuga-frontend/validations/order-options-validation';
+import NameValidation from 'tortuga-frontend/validations/name-validation';
 
 export default class OrderFormComponent extends Component {
+    @service cart;
     @service customerManager;
     @service facebookLogin;
     @service flashMessages;
     @service kitchenState;
     @service orderState;
+    @service router;
     @service store;
 
     classNames = ['order-form'];
@@ -44,7 +48,6 @@ export default class OrderFormComponent extends Component {
 
     availableSlots = [];
     yesNoOptions = [{ value: '1', label: 'Ano' }, { value: '0', label: 'Ne' }];
-    isSubmitting = false;
 
     @computed('availableSlots.[]')
     get timeSlots() {
@@ -56,10 +59,10 @@ export default class OrderFormComponent extends Component {
         });
     }
 
-    @computed('identityVerified', 'isSubmitting', 'changesetOptions.isValid', 'orderState.hasCartItems')
+    @computed('identityVerified', 'submitForm.isRunning', 'changesetOptions.isValid', 'orderState.hasCartItems')
     get isSubmitDisabled() {
         // submitting or no cart items
-        if (this.isSubmitting || !this.orderState.hasCartItems) {
+        if (this.submitForm.isRunning || !this.orderState.hasCartItems) {
             return true;
         }
 
@@ -89,8 +92,17 @@ export default class OrderFormComponent extends Component {
     @alias('changesetOptions.orderTime') isOrderTimePicked;
     @alias('changesetName.name') isNameFilled;
 
-    onSubmit() {
-        // pass thru
+    _scrollToTop() {
+        document.getElementById('header').scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }
+
+    _scrollToError() {
+        later(() => {
+            const errorMessage = document.getElementById('orderErrorMessage');
+            if (errorMessage) {
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+            }
+        }, 20);
     }
 
     _setVerificationType(verificationType) {
@@ -138,17 +150,69 @@ export default class OrderFormComponent extends Component {
                     // TODO: error reporting
                     console.error('Could not save customer', reason);
                     this.flashMessages.danger(
-                        `Nepodařilo se ověření :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte ;)`
+                        `Nepodařilo se ověření :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte.`
                     );
                 }
             );
     }
 
-    @action
-    submit() {
-        this.set('isSubmitting', true);
+    @(task(function*() {
         this.changesetOptions.save();
-        this.onSubmit(this.changesetOptions.get('orderTime'), this.changesetOptions.get('orderTakeaway'));
-        this.set('isSubmitting', false);
+
+        const customer = this.orderState.customer;
+
+        // TODO: currency based on locale
+        const order = this.store.createRecord('order', {
+            customer,
+            delivery_type: 'pickup',
+            payment_type: 'cash',
+            order_time: this.changesetOptions.get('orderTime'),
+            is_takeaway: this.changesetOptions.get('orderTakeaway') * 1,
+        });
+
+        const orderItems = this.orderState.orderItems.map(orderLineItem => {
+            const orderItem = this.store.createRecord('order-item', {
+                order,
+                product_variation_id: orderLineItem.variationId,
+                quantity: orderLineItem.quantity,
+            });
+
+            return orderItem;
+        });
+
+        order.items.pushObjects(orderItems);
+
+        try {
+            const savedOrder = yield order.save();
+
+            this.orderState.updateOrder(savedOrder);
+            this.cart.resetCart();
+
+            this._scrollToTop();
+            this.flashMessages.clearMessages();
+
+            this.router.transitionTo('confirmation');
+        } catch (reason) {
+            this._scrollToError();
+
+            if (reason.errors.length && reason.errors[0].status === 409) {
+                this.flashMessages.danger(
+                    `Je nám líto, ale vybraný čas se mezitím už zaplnil :( Vyberte prosím nový před odesláním objednávky.`
+                );
+                this.slots.reloadSlots();
+                return;
+            }
+
+            console.error('Order save failed', reason);
+            this.flashMessages.danger(
+                `Nepodařilo se dokončit objednávku :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte.`
+            );
+        }
+    }).drop())
+    submitForm;
+
+    @action
+    submitOrder() {
+        this.submitForm.perform();
     }
 }
