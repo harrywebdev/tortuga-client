@@ -11,6 +11,7 @@ export default class OrderFormComponent extends Component {
     @service customerManager;
     @service facebookLogin;
     @service flashMessages;
+    @service kitchenState;
     @service orderState;
     @service store;
 
@@ -33,14 +34,11 @@ export default class OrderFormComponent extends Component {
     didReceiveAttrs() {
         super.didReceiveAttrs(...arguments);
 
-        if (this.availableSlots.length) {
-            const selectedOrderTime = this.changesetOptions.get('orderTime');
-
-            // has been picked before -> alert customer
-            if (selectedOrderTime) {
-                this.changesetOptions.set('orderTime', null);
-                this.changesetOptions.validate();
-            }
+        // when available slots change, check whether time
+        // has been picked before -> alert customer
+        if (this.changesetOptions.get('orderTime')) {
+            this.changesetOptions.set('orderTime', null);
+            this.changesetOptions.validate();
         }
     }
 

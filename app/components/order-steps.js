@@ -8,9 +8,9 @@ export default class OrderStepsComponent extends Component {
 
     classNames = ['order-steps'];
 
-    @computed('kitchenState.isOpen', 'orderState.orderHasBeenMade')
+    @computed('orderState.orderHasBeenMade')
     get isMenuEnabled() {
-        return this.kitchenState.isOpen && !this.orderState.orderHasBeenMade;
+        return !this.orderState.orderHasBeenMade;
     }
 
     @computed('kitchenState.isOpen', 'orderState.isReadyForCustomerDetails')

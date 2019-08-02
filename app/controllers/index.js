@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
+import { later } from '@ember/runloop';
 
 export default class IndexController extends Controller {
     @service cart;
@@ -53,10 +54,17 @@ export default class IndexController extends Controller {
                 this.cart.resetCart();
 
                 this._scrollToTop();
+                this.flashMessages.clearMessages();
 
                 this.router.transitionTo('confirmation');
             },
             reason => {
+                later(() => {
+                    document
+                        .getElementById('orderErrorMessage')
+                        .scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                }, 100);
+
                 if (reason.errors.length && reason.errors[0].status === 409) {
                     this.flashMessages.danger(
                         `Je nám líto, ale vybraný čas se mezitím už zaplnil :( Vyberte prosím nový před odesláním objednávky.`

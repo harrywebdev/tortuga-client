@@ -18,13 +18,21 @@ export default class SlotsService extends Service {
         this.store.findAll('slot', { reload: true }).then(
             slots => {
                 this.setSlots(slots);
+
+                if (!slots.length) {
+                    this._noSlotsErrorHandling();
+                }
             },
             () => {
-                this.flashMessages.danger(
-                    `Zdá se, že teď nepřijímáme objednávky. Buď máme zavřeno, anebo plné ruce práce. Zkuste to později anebo se u nás zastavte osobně a objednejte si jako za starých časů.`
-                );
-                this.kitchenState.closeShop();
+                this._noSlotsErrorHandling();
             }
         );
+    }
+
+    _noSlotsErrorHandling() {
+        this.flashMessages.danger(
+            `Zdá se, že teď nepřijímáme objednávky. Buď máme zavřeno, anebo plné ruce práce. Zkuste to později anebo se u nás zastavte osobně a objednejte si jako za starých časů.`
+        );
+        this.kitchenState.closeShop();
     }
 }

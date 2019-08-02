@@ -13,11 +13,14 @@
   </div>
 </div>
 
-
-<form class="needs-validation order-form__form">
+<form class="order-form__form">
   <h3 class="is-size-3 tab-heading">Objednávka</h3>
 
   <div class="card">
+    {{#if kitchenState.isClosed}}
+      <div class="card-overlay"></div>
+    {{/if}}
+
     <div class="card-content">
       {{#if identityVerified}}
         <article class="media order-form__identity">
@@ -58,9 +61,8 @@
       <Form::FormSelect @name="orderTakeaway" @label="Chcete to s sebou?" @changeset={{changesetOptions}} class="order-form__pickup-time-select" @options={{yesNoOptions}} />
     </div>
   </div>
-
-  {{#if flashMessages.queue.firstObject}}
-    <Message @title="Ajajaj..." @body={{flashMessages.queue.firstObject.message}} @context="danger" />
+  {{#if flashMessages.queue.lastObject}}
+    <Message @title="Ajajaj..." @body={{flashMessages.queue.lastObject.message}} @context="danger" id="orderErrorMessage" />
   {{/if}}
 
   <div class="order-form__submit-box">

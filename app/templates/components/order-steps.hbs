@@ -14,14 +14,10 @@
     {{else}}
       <span class="steps-marker">
         <span class="icon">
-          {{#if kitchen.isOpen}}
-            <i class="fal fa-hamburger"></i>
+          {{#if orderState.orderHasBeenMade}}
+            <i class="fal fa-check"></i>
           {{else}}
-            {{#if orderState.orderHasBeenMade}}
-              <i class="fal fa-check"></i>
-            {{else}}
-              <i class="fal fa-hamburger"></i>
-            {{/if}}
+            <i class="fal fa-hamburger"></i>
           {{/if}}
         </span>
       </span>
