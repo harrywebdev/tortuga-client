@@ -16,6 +16,7 @@ export default class OrderFormComponent extends Component {
     @service kitchenState;
     @service orderState;
     @service router;
+    @service slots;
     @service store;
 
     classNames = ['order-form'];
