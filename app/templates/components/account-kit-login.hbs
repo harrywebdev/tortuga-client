@@ -1,4 +1,4 @@
-<button class="button is-primary" {{action "smsLogin" on="click"}} disabled={{disabled}}>
+<button class="button is-primary {{if isLoading "is-loading"}}" {{action "smsLogin" on="click"}} disabled={{disabled}}>
   <span class="icon">
     <i class="fab fa-whatsapp"></i>
   </span>

@@ -75,9 +75,9 @@ export default class OrderFormComponent extends Component {
         return true;
     }
 
-    @computed('changesetName.isValid', 'orderState.hasCartItems')
+    @computed('changesetName.isValid', 'orderState.hasCartItems', 'verifyCustomer.isRunning')
     get isIdentityVerificationDisabled() {
-        return !this.orderState.hasCartItems || !this.changesetName.isValid;
+        return !this.orderState.hasCartItems || !this.changesetName.isValid || this.verifyCustomer.isRunning;
     }
 
     @computed('orderState.orderItems')
@@ -140,21 +140,25 @@ export default class OrderFormComponent extends Component {
 
     @action
     verifyAccountKitCustomer(registrationType, accountKitCode) {
-        this.customerManager
-            .verifyCustomerViaAccountKit(registrationType, accountKitCode, this.changesetName.get('name'))
-            .then(
-                () => {
-                    // nothing to do here
-                },
-                reason => {
-                    // TODO: error reporting
-                    console.error('Could not save customer', reason);
-                    this.flashMessages.danger(
-                        `Nepodařilo se ověření :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte.`
-                    );
-                }
-            );
+        this.verifyCustomer.perform(registrationType, accountKitCode);
     }
+
+    @(task(function*(registrationType, accountKitCode) {
+        try {
+            yield this.customerManager.verifyCustomerViaAccountKit(
+                registrationType,
+                accountKitCode,
+                this.changesetName.get('name')
+            );
+        } catch (reason) {
+            // TODO: error reporting
+            console.error('Could not save customer', reason);
+            this.flashMessages.danger(
+                `Nepodařilo se ověření :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte.`
+            );
+        }
+    }).drop())
+    verifyCustomer;
 
     @(task(function*() {
         this.changesetOptions.save();

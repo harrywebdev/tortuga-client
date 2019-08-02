@@ -51,7 +51,7 @@
           <div class="field-label"></div>
           <div class="field-body">
             <p class="control">
-              <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} @disabled={{isIdentityVerificationDisabled}} />
+              <AccountKitLogin @onFinish={{action "verifyAccountKitCustomer"}} @disabled={{isIdentityVerificationDisabled}} @isLoading={{verifyCustomer.isRunning}} />
             </p>
           </div>
         </div>
