@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { later } from '@ember/runloop';
 import { task } from 'ember-concurrency';
 import lookupValidator from 'ember-changeset-validations';
 import Changeset from 'ember-changeset';
@@ -94,15 +93,6 @@ export default class OrderFormComponent extends Component {
 
     _scrollToTop() {
         document.getElementById('header').scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-    }
-
-    _scrollToError() {
-        later(() => {
-            const errorMessage = document.getElementById('orderErrorMessage');
-            if (errorMessage) {
-                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-            }
-        }, 20);
     }
 
     _setVerificationType(verificationType) {
@@ -197,8 +187,6 @@ export default class OrderFormComponent extends Component {
 
             this.router.transitionTo('confirmation');
         } catch (reason) {
-            this._scrollToError();
-
             if (reason.errors.length && reason.errors[0].status === 409) {
                 this.flashMessages.danger(
                     `Je nám líto, ale vybraný čas se mezitím už zaplnil :( Vyberte prosím nový před odesláním objednávky.`

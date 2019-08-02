@@ -1,5 +1,18 @@
 <Header />
 
+{{#if flashMessages.queue.lastObject}}
+  {{#flash-message flash=flashMessages.queue.lastObject as |component flash close|}}
+    <div class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <!-- Any other Bulma elements you want -->
+        <Message @title="Ajajaj..." @body={{flash.message}} @context="danger" @close={{action close}} />
+      </div>
+      <button class="modal-close is-large" aria-label="close" {{action close}}></button>
+    </div>
+  {{/flash-message}}
+{{/if}}
+
 <div class="index-container">
   <div class="is-hidden-mobile">
     <OrderSteps @size="medium" @currentTab={{currentTab}} @orderState={{orderState}} @cartTotalQuantity={{cart.totalQuantity}} @selectTab={{action "selectTab"}} />

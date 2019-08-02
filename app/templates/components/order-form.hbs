@@ -61,9 +61,6 @@
       <Form::FormSelect @name="orderTakeaway" @label="Chcete to s sebou?" @changeset={{changesetOptions}} class="order-form__pickup-time-select" @options={{yesNoOptions}} />
     </div>
   </div>
-  {{#if flashMessages.queue.lastObject}}
-    <Message @title="Ajajaj..." @body={{flashMessages.queue.lastObject.message}} @context="danger" id="orderErrorMessage" />
-  {{/if}}
 
   <div class="order-form__submit-box">
     <button type="submit" class="button is-large is-primary {{if submitForm.isRunning "is-loading"}}" {{action "submitOrder"}} disabled={{isSubmitDisabled}}>Objednat</button>

@@ -3,6 +3,9 @@ import { htmlSafe } from '@ember/template';
 import { computed } from '@ember/object';
 
 export default class MessageComponent extends Component {
+    classNames = ['message'];
+    classNameBindings = ['contextClass'];
+
     context = null;
     title = '';
     body = '';
@@ -10,5 +13,10 @@ export default class MessageComponent extends Component {
     @computed('body')
     get formattedBody() {
         return htmlSafe(this.body);
+    }
+
+    @computed('context')
+    get contextClass() {
+        return `is-${this.context}`;
     }
 }
