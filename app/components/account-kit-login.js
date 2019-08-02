@@ -21,7 +21,7 @@ export default class AccountKitLoginComponent extends Component {
 
     @action
     smsLogin() {
-        this.accountKit.loginViaMobile(this.get('countryCode'), this.get('mobileNumber')).then(
+        this.accountKit.loginViaMobile(this.countryCode, this.mobileNumber).then(
             code => {
                 this.onFinish('mobile', code);
             },
@@ -38,7 +38,7 @@ export default class AccountKitLoginComponent extends Component {
 
     @action
     emailLogin() {
-        this.accountKit.loginViaEmail(this.get('email')).then(
+        this.accountKit.loginViaEmail(this.email).then(
             code => {
                 this.onFinish('email', code);
             },

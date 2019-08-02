@@ -26,8 +26,8 @@ export default class OrderFormComponent extends Component {
     didInsertElement() {
         super.didInsertElement(...arguments);
 
-        this.get('changesetOptions').validate();
-        this.get('changesetName').validate();
+        this.changesetOptions.validate();
+        this.changesetName.validate();
     }
 
     didReceiveAttrs() {
@@ -61,12 +61,12 @@ export default class OrderFormComponent extends Component {
     @computed('identityVerified', 'isSubmitting', 'changesetOptions.isValid', 'orderState.hasCartItems')
     get isSubmitDisabled() {
         // submitting or no cart items
-        if (this.get('isSubmitting') || !this.get('orderState.hasCartItems')) {
+        if (this.isSubmitting || !this.orderState.hasCartItems) {
             return true;
         }
 
         // customer verified and pickup time filled - green light
-        if (this.get('identityVerified') && this.get('changesetOptions.isValid')) {
+        if (this.identityVerified && this.changesetOptions.isValid) {
             return false;
         }
 
@@ -76,12 +76,12 @@ export default class OrderFormComponent extends Component {
 
     @computed('changesetName.isValid', 'orderState.hasCartItems')
     get isIdentityVerificationDisabled() {
-        return !this.get('orderState.hasCartItems') || !this.get('changesetName.isValid');
+        return !this.orderState.hasCartItems || !this.changesetName.isValid;
     }
 
     @computed('orderState.orderItems')
     get orderItems() {
-        return this.orderState.get('orderItems');
+        return this.orderState.orderItems;
     }
 
     @alias('orderState.hasIdentityVerified') identityVerified;
@@ -111,15 +111,15 @@ export default class OrderFormComponent extends Component {
                 'changesetName',
                 new Changeset(
                     {
-                        name: this.identityVerified ? this.orderState.customer.get('name') : null,
+                        name: this.identityVerified ? this.orderState.customer.name : null,
                     },
                     lookupValidator(NameValidation),
                     NameValidation
                 )
             );
 
-            this.get('changesetOptions').validate();
-            this.get('changesetName').validate();
+            this.changesetOptions.validate();
+            this.changesetName.validate();
         }
     }
 

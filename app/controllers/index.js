@@ -25,7 +25,7 @@ export default class IndexController extends Controller {
 
     @action
     submitOrder(orderTime, orderTakeaway) {
-        const customer = this.orderState.get('customer');
+        const customer = this.orderState.customer;
 
         // TODO: currency based on locale
         const order = this.store.createRecord('order', {
@@ -36,7 +36,7 @@ export default class IndexController extends Controller {
             is_takeaway: orderTakeaway * 1,
         });
 
-        const orderItems = this.orderState.get('orderItems').map(orderLineItem => {
+        const orderItems = this.orderState.orderItems.map(orderLineItem => {
             const orderItem = this.store.createRecord('order-item', {
                 order,
                 product_variation_id: orderLineItem.variationId,
@@ -46,7 +46,7 @@ export default class IndexController extends Controller {
             return orderItem;
         });
 
-        order.get('items').pushObjects(orderItems);
+        order.items.pushObjects(orderItems);
         order.save().then(
             order => {
                 this.orderState.updateOrder(order);

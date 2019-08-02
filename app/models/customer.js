@@ -19,7 +19,7 @@ export default Model.extend({
     updated_at: attr('date'),
 
     displayRegistrationType: computed('reg_type', function() {
-        switch (this.get('reg_type')) {
+        switch (this.reg_type) {
             case 'facebook':
                 return 'Facebook';
             case 'mobile':
@@ -30,10 +30,10 @@ export default Model.extend({
     }),
 
     isFacebookLoginCustomer: computed('reg_type', function() {
-        return this.get('reg_type') === 'facebook';
+        return this.reg_type === 'facebook';
     }),
 
     isMobileCustomer: computed('reg_type', function() {
-        return this.get('reg_type') === 'mobile';
+        return this.reg_type === 'mobile';
     }),
 });

@@ -32,9 +32,9 @@ export default class CustomerManagerService extends Service {
                     // save to localStorage for next time
                     // TODO: based on RememberMe flag
                     this.currentCustomer.set('data', {
-                        account_id: customer.get('account_kit_id'),
-                        reg_type: customer.get('reg_type'),
-                        name: customer.get('name'),
+                        account_id: customer.account_kit_id,
+                        reg_type: customer.reg_type,
+                        name: customer.name,
                     });
 
                     resolve(customer);
@@ -75,10 +75,10 @@ export default class CustomerManagerService extends Service {
      */
     resetCustomer() {
         return new EmberPromise(resolve => {
-            const customer = this.orderState.get('customer');
+            const customer = this.orderState.customer;
 
             if (customer) {
-                if (customer.get('isFacebookLoginCustomer')) {
+                if (customer.isFacebookLoginCustomer) {
                     // log in out of facebook login
                     this.facebookLogin.logout();
                 }

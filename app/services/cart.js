@@ -74,6 +74,6 @@ export default class CartService extends Service {
     }
 
     _getLastSequence() {
-        return this.get('orderedItems.length') ? this.get('orderedItems.lastObject.sequence') : 0;
+        return this.orderedItems.length ? this.orderedItems.get('lastObject.sequence') : 0;
     }
 }

@@ -12,18 +12,18 @@ export default class VariationLineComponent extends Component {
 
     @computed('cart.items.[]', 'variation.id')
     get countInCart() {
-        return this.cart.howMuchOf(this.get('variation.id'));
+        return this.cart.howMuchOf(this.variation.id);
     }
 
     @not('countInCart') missingInCart;
 
     @action
     addToCart() {
-        this.cart.addToCart(this.get('variation.id'));
+        this.cart.addToCart(this.variation.id);
     }
 
     @action
     removeFromCart() {
-        this.cart.removeFromCart(this.get('variation.id'));
+        this.cart.removeFromCart(this.variation.id);
     }
 }

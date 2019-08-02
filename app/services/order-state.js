@@ -18,7 +18,7 @@ export default class OrderStateService extends Service {
     // flags
     @computed('cart.items.[]')
     get hasCartItems() {
-        return this.cart.get('items.length');
+        return this.cart.items.length;
     }
 
     @alias('hasCartItems') isReadyForCustomerDetails;
@@ -53,8 +53,8 @@ export default class OrderStateService extends Service {
 
     @computed('cart.orderedItems.[]', 'products.products.[]')
     get orderItems() {
-        const products = this.products.get('products');
-        return this.cart.get('orderedItems').map(item => {
+        const products = this.products.products;
+        return this.cart.orderedItems.map(item => {
             let productInCart = products.filter(product => {
                 return product.variations.filter(variation => variation.id === item.productVariationId).length;
             });
@@ -72,10 +72,10 @@ export default class OrderStateService extends Service {
             const variation = productInCart.variations.filter(variation => variation.id === item.productVariationId)[0];
 
             let orderItem = new OrderLineItem(
-                variation.get('id'),
-                variation.get('title'),
-                productInCart.get('title'),
-                variation.get('price'),
+                variation.id,
+                variation.title,
+                productInCart.title,
+                variation.price,
                 item.quantity
             );
 

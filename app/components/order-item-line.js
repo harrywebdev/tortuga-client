@@ -12,11 +12,11 @@ export default class OrderItemLineComponent extends Component {
 
     @action
     removeFromCart() {
-        this.cart.removeFromCart(this.get('orderItem.variationId'));
+        this.cart.removeFromCart(this.orderItem.variationId);
     }
 
     @action
     addToCart() {
-        this.cart.addToCart(this.get('orderItem.variationId'));
+        this.cart.addToCart(this.orderItem.variationId);
     }
 }

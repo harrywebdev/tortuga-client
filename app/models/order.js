@@ -23,6 +23,6 @@ export default Model.extend({
     updated_at: attr('date'),
 
     orderTimeFormatted: computed('order_time', function() {
-        return moment(this.get('order_time')).format('HH:mm');
+        return moment(this.order_time).format('HH:mm');
     }),
 });
