@@ -45,6 +45,7 @@
     "ember-cli-deploy-display-revisions": "^1.0.1",
     "ember-cli-deploy-revision-data": "^1.0.0",
     "ember-cli-deploy-simply-ssh": "^1.0.2",
+    "ember-cli-dotenv": "^2.2.3",
     "ember-cli-eslint": "^5.1.0",
     "ember-cli-flash": "^1.7.2",
     "ember-cli-htmlbars": "^3.0.1",

@@ -23,24 +23,19 @@ module.exports = function(environment) {
         },
 
         accountKit: {
-            appId: '343032269734440',
-            debug: true,
-            redirectUrl: 'http://tortuga.frontend.test:4200/',
-            version: 'v1.0',
+            appId: process.env.ACCOUNTKIT_APP_ID,
+            debug: process.env.ACCOUNTKIT_DEBUG === 'true',
+            redirectUrl: process.env.ACCOUNTKIT_REDIRECT_URL,
+            version: process.env.ACCOUNTKIT_VERSION,
         },
 
         api: {
-            host: '<insert production host here>',
+            host: process.env.API_HOST,
         },
 
         'ember-local-storage': {
             namespace: 'tortuga',
             keyDelimiter: '/',
-        },
-
-        facebookLogin: {
-            appId: '343032269734440',
-            version: 'v1.0',
         },
 
         flashMessageDefaults: {
@@ -56,12 +51,10 @@ module.exports = function(environment) {
         // ENV.APP.LOG_TRANSITIONS = true;
         // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
         // ENV.APP.LOG_VIEW_LOOKUPS = true;
-        ENV.api.host = 'https://tortuga.backend.test';
     }
 
     if (environment === 'alpha') {
-        ENV.api.host = 'http://api.tatrgel.cz';
-        ENV.accountKit.redirectUrl = 'http://tortuga-bay.tatrgel.cz';
+        //
     }
 
     if (environment === 'test') {

@@ -15,6 +15,7 @@
 # misc
 /.env*
 !/.env.deploy.example
+!/.env.example
 /.pnp*
 /.sass-cache
 /connect.lock
