@@ -21,7 +21,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:test": "export START_SERVER_AND_TEST_INSECURE=true; start-server-and-test https://tortuga.frontend.test:4200 cy:run",
-    "deploy:alpha": "ember deploy alpha --activate"
+    "deploy:alpha": "ember deploy alpha --activate --environment=alpha"
   },
   "devDependencies": {
     "@ember/jquery": "^0.6.0",
