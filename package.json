@@ -20,7 +20,8 @@
     "test": "ember test",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:test": "export START_SERVER_AND_TEST_INSECURE=true; start-server-and-test https://tortuga.frontend.test:4200 cy:run"
+    "cy:test": "export START_SERVER_AND_TEST_INSECURE=true; start-server-and-test https://tortuga.frontend.test:4200 cy:run",
+    "deploy:alpha": "ember deploy alpha --activate"
   },
   "devDependencies": {
     "@ember/jquery": "^0.6.0",
@@ -39,6 +40,11 @@
     "ember-cli-autoprefixer": "^0.8.1",
     "ember-cli-babel": "^7.7.3",
     "ember-cli-dependency-checker": "^3.1.0",
+    "ember-cli-deploy": "^1.0.2",
+    "ember-cli-deploy-build": "^1.1.1",
+    "ember-cli-deploy-display-revisions": "^1.0.1",
+    "ember-cli-deploy-revision-data": "^1.0.0",
+    "ember-cli-deploy-simply-ssh": "^1.0.2",
     "ember-cli-eslint": "^5.1.0",
     "ember-cli-flash": "^1.7.2",
     "ember-cli-htmlbars": "^3.0.1",

@@ -5,12 +5,16 @@
 /dist/
 /tmp/
 
+# deployment
+/deploy_dist/
+
 # dependencies
 /bower_components/
 /node_modules/
 
 # misc
 /.env*
+!/.env.deploy.example
 /.pnp*
 /.sass-cache
 /connect.lock
@@ -28,4 +32,3 @@
 # cypress
 cypress/videos
 cypress/screenshots
-                                                                                 

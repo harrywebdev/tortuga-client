@@ -5,7 +5,7 @@
     <div class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-content">
-        <!-- Any other Bulma elements you want -->
+        {{!-- Any other Bulma elements you want --}}
         <Message @title="Ajajaj..." @body={{flash.message}} @context="danger" @close={{action close}} />
       </div>
       <button class="modal-close is-large" aria-label="close" {{action close}}></button>

@@ -59,6 +59,11 @@ module.exports = function(environment) {
         ENV.api.host = 'https://tortuga.backend.test';
     }
 
+    if (environment === 'alpha') {
+        ENV.api.host = 'http://api.tatrgel.cz';
+        ENV.accountKit.redirectUrl = 'http://tortuga-bay.tatrgel.cz';
+    }
+
     if (environment === 'test') {
         // Testem prefers this...
         ENV.locationType = 'none';
