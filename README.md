@@ -37,7 +37,11 @@ You will need the following things properly installed on your computer.
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+Deployment is done via [ember-cli-deploy](http://ember-cli-deploy.com/). This command deploys current branch onto Alpha:
+
+```
+yarn run deploy:alpha
+```
 
 ## Further Reading / Useful Links
 
