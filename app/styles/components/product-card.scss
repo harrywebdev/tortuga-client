@@ -1,4 +1,11 @@
 .product-card__title {
-    @extend .is-size-4;
-    margin-bottom: $spacing-half !important;
+    @extend .is-size-3;
+    margin-bottom: $spacing-more !important;
+    font-family: $family-serif;
+    font-weight: $weight-normal !important;
+}
+
+.product-card__description {
+    @extend .is-size-6;
+    color: $secondary-3;
 }

@@ -1,0 +1,42 @@
+.header {
+    text-align: center;
+    background: $secondary-1;
+}
+
+.header__container {
+    @extend .index-container;
+
+    @include from($tablet) {
+        padding-top: $spacing-double + 8;
+        padding-bottom: $spacing-double + 8;
+    }
+}
+
+.header__image-wrapper {
+    margin: 0 auto;
+    padding: 0 $spacing-regular;
+
+    @include from($tablet) {
+        padding: 0;
+    }
+}
+
+.header__image {
+    display: none;
+
+    &.header__image--mobile {
+        width: 195px;
+        height: 195px;
+
+        @include mobile {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+
+    &.header__image--desktop {
+        @include from($tablet) {
+            display: block;
+        }
+    }
+}

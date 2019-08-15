@@ -12,6 +12,6 @@ module('Integration | Component | header', function(hooks) {
 
         await render(hbs`<Header />`);
 
-        assert.equal(this.element.querySelectorAll('.index-header').length, 1);
+        assert.equal(this.element.querySelectorAll('.header').length, 1);
     });
 });

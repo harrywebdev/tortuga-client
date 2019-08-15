@@ -1,14 +1,17 @@
 body {
     background: $background;
+    background: linear-gradient(120deg, $background 0%, #fafafa 100%);
+    color: $secondary-2;
 }
 
-.index-header {
-    background: #000;
+strong {
+    font-weight: $weight-semibold;
+    color: #000;
 }
 
-.index-header__image {
-    max-width: 500px;
-    margin: 0 auto;
+.label {
+    font-weight: $weight-semibold;
+    color: #000;
 }
 
 .index-container {
@@ -25,19 +28,30 @@ body {
 .tab-heading {
     padding-left: $spacing-half;
     padding-right: $spacing-half;
-    margin-bottom: $spacing-half;
     margin-top: $spacing-half;
+    margin-bottom: 0;
+}
+
+.tab-heading,
+.category__title {
+    @extend .is-size-3;
+    color: $secondary-4;
+    font-weight: $weight-normal;
+    margin-bottom: 0;
+    font-family: $family-secondary;
 }
 
 .category__continue-cta {
     @include mobile {
         flex-direction: column;
+        margin-bottom: $spacing-half;
     }
 }
 
 .category__total {
-    font-size: $size-7;
-    font-weight: $weight-bold;
+    font-family: $family-sans-serif;
+    font-size: $size-6;
+    font-weight: $weight-semibold;
 
     @include from($tablet) {
         margin-right: $spacing-regular;

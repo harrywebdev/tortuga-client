@@ -1,3 +1,7 @@
 import Component from '@ember/component';
 
-export default class HeaderComponent extends Component {}
+export default class HeaderComponent extends Component {
+    tagName = 'header';
+
+    classNames = ['header'];
+}

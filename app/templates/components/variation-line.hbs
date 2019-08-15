@@ -1,7 +1,10 @@
 {{#if variation}}
-  <div class="variation-line__level level is-mobile is-hidden-tablet">
+  <div class="variation-line__level level is-hidden-tablet">
     <div class="level-left variation-line__title">
       <h5 class="has-text-weight-semibold">{{ variation.title }}</h5>
+      {{#if variation.description}}
+        <p class="variation-line__description">({{variation.description}})</p>
+      {{/if}}
     </div>
   </div>
   <div class="variation-line__level level is-mobile is-hidden-tablet">
@@ -10,7 +13,7 @@
     </div>
     <div class="level-right">
       {{#if kitchenState.isOpen}}
-        {{#if countInCart}}<span class="variation-line__quantity tag is-rounded is-info">{{ countInCart }}</span>{{/if}}
+        {{#if countInCart}}<span class="variation-line__quantity tag is-rounded">{{ countInCart }}</span>{{/if}}
         <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />
         <Buttons::MinusButton class="js-remove-from-cart-button" @onClick={{action "removeFromCart"}} disabled={{missingInCart}} />
       {{/if}}
@@ -20,11 +23,14 @@
   <div class="variation-line__level level is-mobile is-hidden-mobile">
     <div class="level-left">
       <h5 class="has-text-weight-semibold">{{ variation.title }}</h5>
+      {{#if variation.description}}
+        <p class="variation-line__description">({{variation.description}})</p>
+      {{/if}}
     </div>
 
     <div class="level-right">
       {{#if kitchenState.isOpen}}
-        {{#if countInCart}}<span class="variation-line__quantity tag is-rounded is-info">{{ countInCart }}</span>{{/if}}
+        {{#if countInCart}}<span class="variation-line__quantity tag is-rounded">{{ countInCart }}</span>{{/if}}
         <span class="variation-line__price">{{ variation.formattedPrice }}</span>
 
         <Buttons::PlusButton class="js-add-to-cart-button" @onClick={{action "addToCart"}} />

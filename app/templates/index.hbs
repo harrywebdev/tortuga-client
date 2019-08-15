@@ -33,7 +33,7 @@
           <div class="category">
             <div class="level is-mobile level--heading">
               <div class="level-left">
-                <h3 class="is-size-3">{{ category.title }}</h3>
+                <h3 class="category__title">{{ category.title }}</h3>
               </div>
 
               {{#if kitchenState.isOpen}}
@@ -41,7 +41,10 @@
                   <span class="js-subtotal-amount category__total">Celkem: {{orderState.formattedTotalPrice}}</span>
 
                   {{#if orderState.isReadyForCustomerDetails}}
-                    <button class="button is-primary is-small js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                    <button class="button is-primary is-small is-hidden-tablet js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                      Pokračovat
+                    </button>
+                    <button class="button is-primary is-hidden-mobile js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
                       Pokračovat
                     </button>
                   {{/if}}
@@ -56,7 +59,7 @@
         {{#if kitchenState.isOpen}}
           {{#if orderState.isReadyForCustomerDetails}}
             <div class="menu-continue has-text-centered">
-              <p class="js-subtotal-amount is-size-5">Celkem: {{orderState.formattedTotalPrice}}</p>
+              <p class="js-subtotal-amount is-size-3">Celkem: {{orderState.formattedTotalPrice}}</p>
               <button class="button is-primary is-large js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
                 Pokračovat
               </button>

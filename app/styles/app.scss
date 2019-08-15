@@ -12,6 +12,9 @@ $switch-background: $danger;
 
 @import 'layouts/index';
 
+// header + footer
+@import 'components/header';
+
 // logins
 @import 'components/account-kit-login';
 @import 'components/facebook-login';

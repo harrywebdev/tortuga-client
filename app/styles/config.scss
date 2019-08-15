@@ -3,15 +3,35 @@ $spacing-half: $spacing-regular / 2;
 $spacing-double: $spacing-regular * 2;
 $spacing-more: $spacing-regular / 1.5;
 
+// company colors
+$primary-6: #fde5d6;
+$primary-5: #f7ceb9;
+$primary-4: #efa489;
+$primary-3: #e77d62;
+$primary-2: #e05541;
+$primary-1: #d8232a;
+
+$secondary-6: #e9e9e9;
+$secondary-5: #d3d2d3;
+$secondary-4: #a7a5a6;
+$secondary-3: #7b787a;
+$secondary-2: #504b4e;
+$secondary-1: #241f21;
+
 // bulma overrides
 $gap: 8px; // from default 32px
 
-$modal-background-background-color: rgba(#000, 0.46);
-$background: hsl(0, 0%, 94%);
+$family-sans-serif: 'Source Sans Pro', BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+$family-serif: 'Alegreya Sans SC', serif;
+$family-secondary: 'Alegreya Sans', serfif;
+
+$modal-background-background-color: rgba($secondary-1, 0.46);
+$background: $secondary-6;
 
 // turkish flat ui palette
-$primary: #ff3838;
-$info: #17c0eb;
+$primary: $primary-1;
+$info: $primary-2; //#17c0eb;
 $success: #3ae374;
 $danger: #ff4d4d;
 $warning: #ffaf40;
@@ -22,4 +42,4 @@ $warning: #ffaf40;
 // $card-background-color: #222f3e;
 // $card-shadow: 0 2px 3px rgba(#fff, 0.1), 0 0 0 1px rgba(#fff, 0.1);
 
-$footer-background-color: #000;
+$footer-background-color: $secondary-1;

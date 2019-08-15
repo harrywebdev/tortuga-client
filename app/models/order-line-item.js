@@ -11,9 +11,9 @@ class OrderLineItem {
         Object.freeze(this);
     }
 
-    @computed('productTitle', 'variationTitle')
+    @computed('variationTitle')
     get title() {
-        return `${this.productTitle} - ${this.variationTitle}`;
+        return `${this.variationTitle}`;
     }
 
     @computed('variationPrice', 'quantity')
