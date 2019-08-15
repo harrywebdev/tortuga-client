@@ -2,7 +2,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { Promise as EmberPromise } from 'rsvp';
-import config from 'tortuga-frontend/config/environment';
 
 export default class FacebookLoginService extends Service {
     @service customerManager;
@@ -10,24 +9,26 @@ export default class FacebookLoginService extends Service {
     constructor() {
         super(...arguments);
 
-        window.fbAsyncInit = () => {
-            FB.init({
-                appId: config.facebookLogin.appId,
-                version: config.facebookLogin.version,
-                cookie: true,
-                xfbml: true,
-            });
+        // HACK: not used
+        return;
+        // window.fbAsyncInit = () => {
+        //     FB.init({
+        //         appId: config.facebookLogin.appId,
+        //         version: config.facebookLogin.version,
+        //         cookie: true,
+        //         xfbml: true,
+        //     });
 
-            FB.AppEvents.logPageView();
+        //     FB.AppEvents.logPageView();
 
-            // instantly load customer if it exists
-            this.checkStatus().then(accessToken => {
-                this.customerManager.verifyCustomerViaFacebookLogin(accessToken).catch(reason => {
-                    // TODO: error reporting
-                    console.error('verifyCustomerViaFacebookLogin error', reason);
-                });
-            });
-        };
+        //     // instantly load customer if it exists
+        //     this.checkStatus().then(accessToken => {
+        //         this.customerManager.verifyCustomerViaFacebookLogin(accessToken).catch(reason => {
+        //             // TODO: error reporting
+        //             console.error('verifyCustomerViaFacebookLogin error', reason);
+        //         });
+        //     });
+        // };
     }
 
     /**
