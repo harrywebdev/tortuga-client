@@ -8,11 +8,6 @@ module.exports = function(defaults) {
             browsers: ['last 2 versions'],
             cascade: false,
         },
-        'ember-bootstrap': {
-            bootstrapVersion: 4,
-            importBootstrapFont: false,
-            importBootstrapCSS: false,
-        },
         sassOptions: {
             includePaths: ['node_modules/bulma', 'node_modules/bulma-checkradio', 'node_modules/bulma-o-steps'],
         },

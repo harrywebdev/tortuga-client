@@ -5,8 +5,10 @@ import { Promise as EmberPromise } from 'rsvp';
 import config from 'tortuga-frontend/config/environment';
 
 export default class AccountKitService extends Service {
-    @service store;
+    @service appLogger;
+    @service jsLoader;
     @service orderState;
+    @service store;
 
     constructor() {
         super(...arguments);
@@ -19,6 +21,7 @@ export default class AccountKitService extends Service {
                 .toString(36)
                 .substring(2, 15);
 
+        // first set up the hook
         window.AccountKit_OnInteractive = () => {
             AccountKit.init({
                 appId: config.accountKit.appId,
@@ -29,6 +32,16 @@ export default class AccountKitService extends Service {
                 fbAppEventsEnabled: true,
             });
         };
+
+        // then load the SDK
+        this.jsLoader
+            .load({
+                src: 'https://sdk.accountkit.com/cs_CZ/sdk.js',
+                crossorigin: 'anonymous',
+            })
+            .catch(error => {
+                this.appLogger.error(error, true);
+            });
     }
 
     /**
