@@ -1,17 +1,37 @@
 import Service from '@ember/service';
-import { withScope, captureException } from '@sentry/browser';
+import { withScope, captureException, captureMessage } from '@sentry/browser';
 
 export default class AppLoggerService extends Service {
-    error(error, fatal = false) {
+    error(error, fatal = false, extras = null) {
         if (fatal) {
             withScope(scope => {
                 scope.setLevel('fatal');
-                // will be tagged with my-tag="my value"
+
+                if (extras) {
+                    scope.setExtra('extras', extras);
+                }
+
                 captureException(error);
             });
             return;
         }
 
-        captureException(error);
+        withScope(scope => {
+            if (extras) {
+                scope.setExtra('extras', extras);
+            }
+
+            captureException(error);
+        });
+    }
+
+    log(message, extras = null) {
+        withScope(scope => {
+            if (extras) {
+                scope.setExtra('extras', extras);
+            }
+
+            captureMessage(message);
+        });
     }
 }

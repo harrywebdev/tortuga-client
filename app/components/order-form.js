@@ -9,6 +9,7 @@ import OrderOptionsValidation from 'tortuga-frontend/validations/order-options-v
 import NameValidation from 'tortuga-frontend/validations/name-validation';
 
 export default class OrderFormComponent extends Component {
+    @service appLogger;
     @service cart;
     @service customerManager;
     @service facebookLogin;
@@ -142,8 +143,12 @@ export default class OrderFormComponent extends Component {
                 this.changesetName.get('name')
             );
         } catch (reason) {
-            // TODO: error reporting
-            console.error('Could not save customer', reason);
+            let serverError = null;
+            if (reason.errors && reason.errors.length) {
+                serverError = JSON.stringify(reason.errors[0]);
+            }
+
+            this.appLogger.error(reason, true, serverError);
             this.flashMessages.danger(
                 `Nepodařilo se ověření :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte.`
             );
@@ -193,10 +198,16 @@ export default class OrderFormComponent extends Component {
                     `Je nám líto, ale vybraný čas se mezitím už zaplnil :( Vyberte prosím nový před odesláním objednávky.`
                 );
                 this.slots.reloadSlots();
+                this.appLogger.log('Order not saved - no slots.', JSON.stringify(reason.errors[0]));
                 return;
             }
 
-            console.error('Order save failed', reason);
+            let serverError = null;
+            if (reason.errors && reason.errors.length) {
+                serverError = JSON.stringify(reason.errors[0]);
+            }
+
+            this.appLogger.error(reason, true, serverError);
             this.flashMessages.danger(
                 `Nepodařilo se dokončit objednávku :( Zkuste to prosím znovu. Pokud problém přetrvává, dejte nám prosím vědět, až se u nás příště zastavíte.`
             );

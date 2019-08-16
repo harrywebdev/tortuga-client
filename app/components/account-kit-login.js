@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 
 export default class AccountKitLoginComponent extends Component {
     @service accountKit;
+    @service appLogger;
 
     classNames = ['account-kit-login'];
 
@@ -26,12 +27,8 @@ export default class AccountKitLoginComponent extends Component {
                 this.onFinish('mobile', code);
             },
             reason => {
-                if (reason === 'BAD_PARAMS') {
-                    // TODO: error reporting
-                    return console.error('AccountKit SMS login error.');
-                }
-
-                // nothing to do here
+                this.appLogger.error(new Error(`AccountKit SMS login error: ${reason}`), true);
+                return;
             }
         );
     }
@@ -43,12 +40,8 @@ export default class AccountKitLoginComponent extends Component {
                 this.onFinish('email', code);
             },
             reason => {
-                if (reason === 'BAD_PARAMS') {
-                    // TODO: error reporting
-                    return console.error('AccountKit email login error.');
-                }
-
-                // nothing to do here
+                this.appLogger.error(new Error(`AccountKit email login error: ${reason}`), true);
+                return;
             }
         );
     }
