@@ -1,7 +1,8 @@
 $spacing-regular: 16px;
 $spacing-half: $spacing-regular / 2;
 $spacing-double: $spacing-regular * 2;
-$spacing-more: $spacing-regular / 1.5;
+$spacing-less: $spacing-regular / 1.5;
+$spacing-more: $spacing-regular * 1.5;
 
 // company colors
 $primary-6: #fde5d6;
@@ -17,6 +18,9 @@ $secondary-4: #a7a5a6;
 $secondary-3: #7b787a;
 $secondary-2: #504b4e;
 $secondary-1: #241f21;
+
+$primary-text-color: $primary-6;
+$secondary-text-color: $secondary-4;
 
 // bulma overrides
 $gap: 8px; // from default 32px
@@ -36,10 +40,12 @@ $success: #3ae374;
 $danger: #ff4d4d;
 $warning: #ffaf40;
 
-// $text: hsl(0, 0%, 98%);
+$text: $secondary-1;
 // $text-strong: hsl(0, 0%, 100%);
 
 // $card-background-color: #222f3e;
 // $card-shadow: 0 2px 3px rgba(#fff, 0.1), 0 0 0 1px rgba(#fff, 0.1);
 
 $footer-background-color: $secondary-1;
+
+$steps-default-color: $secondary-2;

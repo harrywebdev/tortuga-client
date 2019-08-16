@@ -1,7 +1,7 @@
 <ul class="steps is-narrow {{if size (concat "is-" size)}} is-centered has-content-centered is-horizontal">
   <li class="steps-segment {{if (eq currentTab "tabMenu") "is-active has-gaps"}}">
     {{#if isMenuEnabled}}
-      <a href="#tabMenu" role="tab" {{action selectTab "tabMenu"}} class="has-text-dark">
+      <a href="#tabMenu" role="tab" {{action selectTab "tabMenu"}} class="order-steps__link">
         <span class="steps-marker">
           <span class="icon">
             <i class="fal fa-hamburger"></i>
@@ -28,7 +28,7 @@
   </li>
   <li class={{concat "steps-segment " (if (eq currentTab "tabOrder") "is-active") (if (eq currentTab "tabConfirmation") "" " has-gaps")}}>
     {{#if isOrderEnabled}}
-      <a href="#tabOrder" role="tab" {{action selectTab "tabOrder"}} class="has-text-dark">
+      <a href="#tabOrder" role="tab" {{action selectTab "tabOrder"}} class="order-steps__link">
         <span class="steps-marker">
           <span class="icon">
             {{cartTotalQuantity}}
@@ -59,7 +59,7 @@
   </li>
   <li class="steps-segment {{if orderState.orderHasBeenMade "is-active"}}">
     {{#if orderState.orderHasBeenMade}}
-      <a href="#tabConfirmation" role="tab" {{action selectTab "tabConfirmation"}} class="has-text-dark">
+      <a href="#tabConfirmation" role="tab" {{action selectTab "tabConfirmation"}} class="order-steps__link">
         <span class="steps-marker {{unless orderState.orderHasBeenMade "is-hollow"}}">
           <span class="icon">
             <i class="fal fa-check"></i>

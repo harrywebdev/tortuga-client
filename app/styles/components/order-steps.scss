@@ -1,5 +1,20 @@
 .order-steps {
+    color: $primary-text-color;
     max-width: 100%;
     overflow: hidden;
-    margin-bottom: $spacing-regular;
+    margin-bottom: $spacing-less;
+
+    @include from($tablet) {
+        margin-bottom: $spacing-more;
+    }
+}
+
+.order-steps__link {
+    color: $primary-text-color;
+
+    &:hover,
+    &:focus {
+        color: $primary-text-color;
+        text-decoration: none;
+    }
 }

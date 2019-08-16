@@ -1,7 +1,7 @@
 body {
     background: $background;
-    background: linear-gradient(120deg, $background 0%, #fafafa 100%);
-    color: $secondary-2;
+    background: linear-gradient(180deg, #241f22 33%, #504b4e 100%);
+    color: $primary-text-color;
 }
 
 strong {
@@ -17,10 +17,12 @@ strong {
 .index-container {
     max-width: 100%;
     margin: 0 auto;
-    padding: $spacing-double 0;
+    padding: $spacing-regular 0;
+    flex: 1;
 
-    @include tablet {
+    @include from($tablet) {
         max-width: $tablet;
+        padding: $spacing-double 0;
     }
 }
 
@@ -35,16 +37,19 @@ strong {
 .tab-heading,
 .category__title {
     @extend .is-size-3;
-    color: $secondary-4;
     font-weight: $weight-normal;
     margin-bottom: 0;
     font-family: $family-secondary;
+    color: $secondary-text-color;
 }
 
 .category__continue-cta {
     @include mobile {
         flex-direction: column;
-        margin-bottom: $spacing-half;
+
+        &.category__continue-cta--enabled {
+            margin-bottom: $spacing-half;
+        }
     }
 }
 
@@ -86,7 +91,11 @@ strong {
 }
 
 .category {
-    padding-bottom: $size-5;
+    padding-bottom: $spacing-half;
+
+    @include from($tablet) {
+        padding-bottom: $spacing-regular;
+    }
 }
 
 .menu-continue {
@@ -98,5 +107,5 @@ strong {
 }
 
 .footer strong {
-    color: $grey-light;
+    color: $secondary-6;
 }

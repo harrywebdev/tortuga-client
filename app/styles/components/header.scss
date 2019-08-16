@@ -1,10 +1,16 @@
 .header {
     text-align: center;
-    background: $secondary-1;
+    height: 200px;
+
+    @include from($tablet) {
+        height: 185px;
+    }
 }
 
 .header__container {
     @extend .index-container;
+    padding-top: $spacing-double;
+    flex: 0;
 
     @include from($tablet) {
         padding-top: $spacing-double + 8;
@@ -25,8 +31,8 @@
     display: none;
 
     &.header__image--mobile {
-        width: 195px;
-        height: 195px;
+        width: 150px;
+        height: 150px;
 
         @include mobile {
             display: block;

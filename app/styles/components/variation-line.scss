@@ -28,11 +28,6 @@
     color: #fff !important;
     background-color: $primary-2 !important;
     font-weight: $weight-semibold;
-
-    @include mobile {
-        position: relative;
-        top: -2px;
-    }
 }
 
 .variation-line__quantity + .variation-line__price {
@@ -41,7 +36,7 @@
 
 .level {
     &.variation-line__level {
-        margin-bottom: $spacing-more;
+        margin-bottom: $spacing-half;
 
         &:last-child,
         &:nth-child(2) {

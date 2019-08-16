@@ -8,4 +8,9 @@ export default class ProductListComponent extends Component {
     get products() {
         return this.items.filter(item => item.category_id === this.category.id);
     }
+
+    @computed('products.[]')
+    get hasOnlySingleProduct() {
+        return this.products.length === 1;
+    }
 }

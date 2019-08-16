@@ -29,7 +29,7 @@
     <section class="tab-pane">
       <div class="container">
 
-        {{#each model.categories as |category|}}
+        {{#each model.categories as |category index|}}
           <div class="category">
             <div class="level is-mobile level--heading">
               <div class="level-left">
@@ -37,18 +37,20 @@
               </div>
 
               {{#if kitchenState.isOpen}}
-                <div class="level-right category__continue-cta">
-                  <span class="js-subtotal-amount category__total">Celkem: {{orderState.formattedTotalPrice}}</span>
+                {{#unless index}}
+                  <div class="level-right category__continue-cta {{if orderState.isReadyForCustomerDetails "category__continue-cta--enabled"}}">
+                    <span class="js-subtotal-amount category__total">Celkem: {{orderState.formattedTotalPrice}}</span>
 
-                  {{#if orderState.isReadyForCustomerDetails}}
-                    <button class="button is-primary is-small is-hidden-tablet js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
-                      Pokračovat
-                    </button>
-                    <button class="button is-primary is-hidden-mobile js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
-                      Pokračovat
-                    </button>
-                  {{/if}}
-                </div>
+                    {{#if orderState.isReadyForCustomerDetails}}
+                      <button class="button is-primary is-small is-hidden-tablet js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                        Pokračovat
+                      </button>
+                      <button class="button is-primary is-hidden-mobile js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                        Pokračovat
+                      </button>
+                    {{/if}}
+                  </div>
+                {{/unless}}
               {{/if}}
             </div>
 

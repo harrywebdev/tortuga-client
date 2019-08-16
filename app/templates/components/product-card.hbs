@@ -1,20 +1,25 @@
 <div class="card">
   <div class="card-content">
-    <article class="media">
-      {{!-- <figure class="media-left">
+    {{#unless hideHeading}}
+      <article class="media product-card__heading {{unless product.description "product-card__heading--short"}}">
+        {{!-- <figure class="media-left">
         <p class="image is-64x64">
           <img src="https://bulma.io/images/placeholders/128x128.png" alt="">
         </p>
-      </figure> --}}
-      <div class="media-content">
-        <div class="content">
-          <h4 class="product-card__title">{{ product.title }}</h4>
-          <p class="product-card__description">
-            {{ product.description }}
-          </p>
+        </figure> --}}
+        <div class="media-content">
+          <div class="content">
+            <h4 class="product-card__title">{{ product.title }}</h4>
+
+            {{#if product.description}}
+              <p class="product-card__description">
+                {{ product.description }}
+              </p>
+            {{/if}}
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    {{/unless}}
 
     {{#each product.variations as |variation|}}
       <VariationLine @variation={{variation}} />
