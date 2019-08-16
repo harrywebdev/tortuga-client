@@ -13,6 +13,10 @@ export default class AccountKitService extends Service {
     constructor() {
         super(...arguments);
 
+        if (config.environment === 'test') {
+            return;
+        }
+
         this.state =
             Math.random()
                 .toString(36)
