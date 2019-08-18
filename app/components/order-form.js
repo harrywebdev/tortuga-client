@@ -7,6 +7,10 @@ import lookupValidator from 'ember-changeset-validations';
 import Changeset from 'ember-changeset';
 import OrderOptionsValidation from 'tortuga-frontend/validations/order-options-validation';
 import NameValidation from 'tortuga-frontend/validations/name-validation';
+import OrderAttemptedEvent from 'tortuga-frontend/events/order-attempted';
+import OrderCreatedEvent from 'tortuga-frontend/events/order-created';
+import CustomerVerificationDoneEvent from 'tortuga-frontend/events/customer-verification-done';
+import CustomerVerificationDiscardedEvent from 'tortuga-frontend/events/customer-verification-discarded';
 
 export default class OrderFormComponent extends Component {
     @service appLogger;
@@ -127,6 +131,7 @@ export default class OrderFormComponent extends Component {
 
     @action
     resetCustomer() {
+        this.appLogger.reportToAnalytics(new CustomerVerificationDiscardedEvent(this.orderState.customer.reg_type));
         this.customerManager.resetCustomer();
     }
 
@@ -142,6 +147,8 @@ export default class OrderFormComponent extends Component {
                 accountKitCode,
                 this.changesetName.get('name')
             );
+
+            this.appLogger.reportToAnalytics(new CustomerVerificationDoneEvent('mobile'));
         } catch (reason) {
             let serverError = null;
             if (reason.errors && reason.errors.length) {
@@ -182,6 +189,8 @@ export default class OrderFormComponent extends Component {
 
         order.items.pushObjects(orderItems);
 
+        this.appLogger.reportToAnalytics(new OrderAttemptedEvent(this.orderState.totalPrice / 100));
+
         try {
             const savedOrder = yield order.save();
 
@@ -191,6 +200,7 @@ export default class OrderFormComponent extends Component {
             this._scrollToTop();
             this.flashMessages.clearMessages();
 
+            this.appLogger.reportToAnalytics(new OrderCreatedEvent(order.total_amount / 100));
             this.router.transitionTo('confirmation');
         } catch (reason) {
             if (reason.errors.length && reason.errors[0].status === 409) {

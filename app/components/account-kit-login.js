@@ -1,9 +1,11 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
+import CustomerVerificationAttemptedEvent from 'tortuga-frontend/events/customer-verification-attempted';
 
 export default class AccountKitLoginComponent extends Component {
     @service accountKit;
+    @service appLogger;
     @service appLogger;
 
     classNames = ['account-kit-login'];
@@ -22,6 +24,8 @@ export default class AccountKitLoginComponent extends Component {
 
     @action
     smsLogin() {
+        this.appLogger.reportToAnalytics(new CustomerVerificationAttemptedEvent('mobile'));
+
         this.accountKit.loginViaMobile(this.countryCode, this.mobileNumber).then(
             code => {
                 this.onFinish('mobile', code);

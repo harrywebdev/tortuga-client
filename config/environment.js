@@ -45,6 +45,19 @@ module.exports = function(environment) {
             sticky: true,
         },
 
+        metricsAdapters: [
+            {
+                name: 'GoogleAnalytics',
+                environments: ['development', 'alpha', 'beta', 'production'],
+                config: {
+                    id: process.env.GOOGLE_ANALYTICS_ID,
+                    debug: environment === 'development',
+                    trace: environment === 'development',
+                    sendHitTask: environment !== 'development',
+                },
+            },
+        ],
+
         sentry: {
             dsn: process.env.SENTRY_DSN,
             debug: environment === 'development',

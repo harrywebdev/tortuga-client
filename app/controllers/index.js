@@ -5,6 +5,7 @@ import { action } from '@ember/object';
 export default class IndexController extends Controller {
     @service cart;
     @service kitchenState;
+    @service metrics;
     @service orderState;
     @service slots;
 
@@ -16,7 +17,18 @@ export default class IndexController extends Controller {
 
     @action
     selectTab(tab) {
-        this.set('currentTab', tab);
-        this._scrollToTop();
+        if (this.currentTab !== tab) {
+            this.set('currentTab', tab);
+            this._scrollToTop();
+
+            switch (tab) {
+                case 'tabMenu':
+                    this.metrics.trackPage({ page: '/', title: 'index' });
+                    break;
+                case 'tabOrder':
+                    this.metrics.trackPage({ page: '/objednat', title: 'order' });
+                    break;
+            }
+        }
     }
 }
