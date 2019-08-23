@@ -21,6 +21,8 @@ const Router = EmberRouter.extend({
 Router.map(function() {
     this.route('index', { path: '/' });
     this.route('confirmation', { path: '/hotovo' });
+
+    this.route('catchall', { path: '/*path' });
 });
 
 export default Router;
