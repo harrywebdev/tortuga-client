@@ -31,28 +31,30 @@
 
         {{#each model.categories as |category index|}}
           <div class="category">
-            <div class="level is-mobile level--heading">
-              <div class="level-left">
-                <h3 class="category__title">{{ category.title }}</h3>
+            <Sticky class="category__sticky">
+              <div class="level is-mobile level--heading">
+                <div class="level-left">
+                  <h3 class="category__title">{{ category.title }}</h3>
+                </div>
+
+                {{#if kitchenState.isOpen}}
+                  {{#unless index}}
+                    <div class="level-right category__continue-cta {{if orderState.isReadyForCustomerDetails "category__continue-cta--enabled"}}">
+                      <span class="js-subtotal-amount category__total">Celkem: {{orderState.formattedTotalPrice}}</span>
+
+                      {{#if orderState.isReadyForCustomerDetails}}
+                        <button class="button is-primary is-small is-hidden-tablet js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                          Pokračovat
+                        </button>
+                        <button class="button is-primary is-hidden-mobile js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
+                          Pokračovat
+                        </button>
+                      {{/if}}
+                    </div>
+                  {{/unless}}
+                {{/if}}
               </div>
-
-              {{#if kitchenState.isOpen}}
-                {{#unless index}}
-                  <div class="level-right category__continue-cta {{if orderState.isReadyForCustomerDetails "category__continue-cta--enabled"}}">
-                    <span class="js-subtotal-amount category__total">Celkem: {{orderState.formattedTotalPrice}}</span>
-
-                    {{#if orderState.isReadyForCustomerDetails}}
-                      <button class="button is-primary is-small is-hidden-tablet js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
-                        Pokračovat
-                      </button>
-                      <button class="button is-primary is-hidden-mobile js-continue-to-order" href="#tabOrder" {{action "selectTab" "tabOrder"}}>
-                        Pokračovat
-                      </button>
-                    {{/if}}
-                  </div>
-                {{/unless}}
-              {{/if}}
-            </div>
+            </Sticky>
 
             <ProductList @category={{category}} @items={{model.products}} />
           </div>

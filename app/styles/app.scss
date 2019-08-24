@@ -14,6 +14,7 @@ $switch-background: $danger;
 
 // header + footer
 @import 'components/header';
+@import 'components/sticky';
 
 // logins
 @import 'components/account-kit-login';

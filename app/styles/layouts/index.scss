@@ -1,6 +1,11 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: $background;
     background: linear-gradient(180deg, #241f22 33%, #504b4e 100%);
+    background-attachment: fixed;
     color: $primary-text-color;
 }
 
@@ -41,6 +46,7 @@ strong {
     margin-bottom: 0;
     font-family: $family-secondary;
     color: $secondary-text-color;
+    padding-top: 3px;
 }
 
 .category__continue-cta {
@@ -95,6 +101,12 @@ strong {
 
     @include from($tablet) {
         padding-bottom: $spacing-regular;
+    }
+}
+
+.category__sticky {
+    &.sticky--stuck {
+        background: #241f22;
     }
 }
 
