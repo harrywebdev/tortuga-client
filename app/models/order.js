@@ -7,6 +7,8 @@ export default Model.extend({
     items: hasMany('order-item'),
     customer: belongsTo('customer'),
 
+    hash_id: attr('string'),
+
     delivery_type: attr('string'),
     payment_type: attr('string'),
     order_time: attr('string'),
