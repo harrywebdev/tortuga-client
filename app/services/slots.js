@@ -29,6 +29,12 @@ export default class SlotsService extends Service {
         );
     }
 
+    findSlot(slotId) {
+        const foundSlots = this.slots.filter(slot => slot.id === slotId);
+
+        return foundSlots.length ? foundSlots[0] : null;
+    }
+
     _noSlotsErrorHandling() {
         this.flashMessages.danger(
             `Zdá se, že teď nepřijímáme objednávky. Buď máme zavřeno, anebo plné ruce práce. Zkuste to později anebo se u nás zastavte osobně a objednejte si jako za starých časů.`

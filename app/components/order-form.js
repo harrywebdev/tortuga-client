@@ -58,8 +58,8 @@ export default class OrderFormComponent extends Component {
     get timeSlots() {
         return this.availableSlots.map(slot => {
             return {
-                value: slot.slot,
-                label: slot.slot,
+                value: slot.id,
+                label: slot.title,
             };
         });
     }
@@ -168,12 +168,15 @@ export default class OrderFormComponent extends Component {
 
         const customer = this.orderState.customer;
 
+        // recreate correct UTC slot datetime
+        const orderTime = this.slots.findSlot(this.changesetOptions.get('orderTime')).slot;
+
         // TODO: currency based on locale
         const order = this.store.createRecord('order', {
             customer,
             delivery_type: 'pickup',
             payment_type: 'cash',
-            order_time: this.changesetOptions.get('orderTime'),
+            order_time: orderTime,
             is_takeaway: this.changesetOptions.get('orderTakeaway') * 1,
         });
 
