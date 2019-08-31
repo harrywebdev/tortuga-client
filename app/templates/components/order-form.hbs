@@ -57,8 +57,18 @@
         </div>
       {{/if}}
 
-      <Form::FormSelect @name="orderTime" @label="Čas vyzvednutí:" @changeset={{changesetOptions}} class="order-form__pickup-time-select" @options={{timeSlots}} />
-      <Form::FormSelect @name="orderTakeaway" @label="Chcete to s sebou?" @changeset={{changesetOptions}} class="order-form__pickup-time-select" @options={{yesNoOptions}} />
+      <Form::FormSelect @name="orderTime" @label="Čas vyzvednutí:" @changeset={{changesetOptions}} @options={{timeSlots}} />
+      <Form::FormSelect @name="orderTakeaway" @label="Chcete to s sebou?" @changeset={{changesetOptions}} @options={{yesNoOptions}} />
+
+      <div class="field is-horizontal">
+        <div class="field-label is-normal"></div>
+        <div class="field-body">
+          <div class="order-form__checkbox">
+            <input class="is-checkradio is-success" id="checkbox-tos-agreement" type="checkbox" name="checkbox-tos-agreement" onchange={{action (changeset-set changesetOptions "tosAgreement") value="target.checked"}} value="1">
+            <label for="checkbox-tos-agreement">Souhlasím s <a href="/podminky-sluzby" target="_blank" rel="noopener">podmínkami služby</a></label>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

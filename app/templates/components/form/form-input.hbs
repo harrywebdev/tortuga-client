@@ -4,20 +4,8 @@
 
 <div class="field-body">
   <div class="field">
-    <div class="control has-icons-right">
+    <div class="control">
       <input type={{inputType}} class="input {{if hasError "is-danger"}} {{if isValid "is-success"}}" id="input-{{name}}-{{element.id}}" name={{name}} placeholder={{placeholder}} value={{changeset-get changeset name}} onchange={{action (changeset-set changeset name) value="target.value"}} disabled={{disabled}}>
-
-      {{#if hasError}}
-        <span class="icon is-small is-right is-danger">
-          <i class="fas fa-times"></i>
-        </span>
-      {{/if}}
-
-      {{#if isValid}}
-        <span class="icon is-small is-right is-success">
-          <i class="fas fa-check"></i>
-        </span>
-      {{/if}}
     </div>
 
     {{#if hasError}}

@@ -107,7 +107,7 @@ export default class OrderFormComponent extends Component {
             this.set(
                 'changesetOptions',
                 new Changeset(
-                    { orderTime: '', orderTakeaway: '' },
+                    { orderTime: '', orderTakeaway: '', tosAgreement: false },
                     lookupValidator(OrderOptionsValidation),
                     OrderOptionsValidation
                 )
