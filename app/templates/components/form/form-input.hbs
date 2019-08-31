@@ -5,7 +5,7 @@
 <div class="field-body">
   <div class="field">
     <div class="control">
-      <input type={{inputType}} class="input {{if hasError "is-danger"}} {{if isValid "is-success"}}" id="input-{{name}}-{{element.id}}" name={{name}} placeholder={{placeholder}} value={{changeset-get changeset name}} onchange={{action (changeset-set changeset name) value="target.value"}} disabled={{disabled}}>
+      <input type={{inputType}} class="input {{if hasError "is-danger"}} {{if isValid "is-success"}}" id="input-{{name}}-{{element.id}}" name={{name}} placeholder={{placeholder}} value={{changeset-get changeset name}} oninput={{action (changeset-set changeset name) value="target.value"}} disabled={{disabled}}>
     </div>
 
     {{#if hasError}}
