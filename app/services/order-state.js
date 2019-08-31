@@ -7,13 +7,14 @@ import OrderLineItem from 'tortuga-frontend/models/order-line-item';
 
 export default class OrderStateService extends Service {
     @storageFor('current-customer') currentCustomer;
+    @storageFor('current-order') currentOrder;
 
     @service cart;
     @service products;
     @service store;
 
     customer = null;
-    order = null;
+    @alias('currentOrder.order') order;
 
     // flags
     @computed('cart.items.[]')
@@ -62,9 +63,7 @@ export default class OrderStateService extends Service {
             if (!productInCart.length) {
                 // TODO: report error, filter this item out, handle empty cart if that happens
                 throw new Error(
-                    `CartItem with productVariationId: ${item.productVariationId} not found in products of length ${
-                        products.length
-                    }`
+                    `CartItem with productVariationId: ${item.productVariationId} not found in products of length ${products.length}`
                 );
             }
 
@@ -92,11 +91,11 @@ export default class OrderStateService extends Service {
     }
 
     updateOrder(order) {
-        this.set('order', order);
+        this.currentOrder.set('order', order);
     }
 
     resetOrder() {
-        this.set('order', null);
+        this.currentOrder.clear();
     }
 
     initCustomerFromLocalStorage() {

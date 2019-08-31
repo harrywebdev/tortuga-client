@@ -3,9 +3,16 @@ import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
 export default class IndexRoute extends Route {
+    @service kitchenState;
+    @service orderState;
     @service products;
     @service slots;
-    @service kitchenState;
+
+    beforeModel() {
+        super.beforeModel(...arguments);
+
+        this.orderState.resetOrder();
+    }
 
     model() {
         return RSVP.hash({
