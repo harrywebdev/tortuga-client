@@ -15,13 +15,15 @@ export default class SlotsService extends Service {
     reloadSlots() {
         this.store.unloadAll('slot');
 
-        this.store.findAll('slot', { reload: true }).then(
+        return this.store.findAll('slot', { reload: true }).then(
             slots => {
                 this.setSlots(slots);
 
                 if (!slots.length) {
                     this._noSlotsErrorHandling();
                 }
+
+                return slots;
             },
             () => {
                 this._noSlotsErrorHandling();

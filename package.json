@@ -84,6 +84,7 @@
     "ember-auto-import": "^1.5.2",
     "ember-cli-moment-shim": "^3.7.1",
     "moment": "^2.24.0",
+    "pusher-js": "^5.0.0",
     "stickyfilljs": "^2.1.0"
   }
 }
