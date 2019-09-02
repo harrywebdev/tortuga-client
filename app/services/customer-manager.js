@@ -93,4 +93,23 @@ export default class CustomerManagerService extends Service {
             resolve();
         });
     }
+
+    initCustomerFromLocalStorage() {
+        const customerData = this.currentCustomer.get('data');
+        if (!customerData) {
+            return;
+        }
+
+        this.store.query('customer', customerData).then(
+            customer => {
+                if (customer.length == 1) {
+                    this.orderState.updateCustomer(customer.get('firstObject'));
+                }
+            },
+            () => {
+                // clear incorrect data
+                this.currentCustomer.clear();
+            }
+        );
+    }
 }

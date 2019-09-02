@@ -6,7 +6,6 @@ import { storageFor } from 'ember-local-storage';
 import OrderLineItem from 'tortuga-frontend/models/order-line-item';
 
 export default class OrderStateService extends Service {
-    @storageFor('current-customer') currentCustomer;
     @storageFor('current-order') currentOrder;
 
     @service cart;
@@ -96,24 +95,5 @@ export default class OrderStateService extends Service {
 
     resetOrder() {
         this.currentOrder.clear();
-    }
-
-    initCustomerFromLocalStorage() {
-        const customerData = this.currentCustomer.get('data');
-        if (!customerData) {
-            return;
-        }
-
-        this.store.query('customer', customerData).then(
-            customer => {
-                if (customer.length == 1) {
-                    this.updateCustomer(customer.get('firstObject'));
-                }
-            },
-            () => {
-                // clear incorrect data
-                this.currentCustomer.clear();
-            }
-        );
     }
 }
