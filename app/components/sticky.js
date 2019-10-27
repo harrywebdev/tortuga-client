@@ -63,7 +63,7 @@ export default class StickyComponent extends Component {
         var rect = this.element.getBoundingClientRect();
 
         // not at the top yet/again
-        if (rect.top > 0) {
+        if (rect.top > 1) {
             // remove class if there is still one
             if (this._isStuck) {
                 this.set('_isStuck', false);
